@@ -1,0 +1,33 @@
+import { Injectable } from "@nestjs/common";
+import { BookingRepository } from "../../domain/booking/repositories/booking.repository";
+import { ReqCreateReservationDto } from "../../domain/booking/dto/req/req-create-reservation.dto";
+import { ResReservationDto } from "../../domain/booking/dto/res/res-reservation.dto";
+import { ReqUpdateReservationDto } from "../../domain/booking/dto/req/req-update-reservation.dto";
+import { ResUpdatedReservationDto } from "../../domain/booking/dto/res/res-updated-reservation.dto";
+
+@Injectable()
+export class BookingAdapter extends BookingRepository {
+	async createReservation(data: ReqCreateReservationDto): Promise<void> {
+		throw new Error(`${{ ...data }}`);
+	}
+
+	async getReservation(reservationId: string, userId?: string): Promise<ResReservationDto> {
+		throw new Error(`${reservationId}, ${userId}`);
+	}
+
+	async getReservations(): Promise<ResReservationDto[]> {
+		throw new Error();
+	}
+
+	async getReservationsByDate(date: Date, userId?: string): Promise<ResReservationDto[]> {
+		throw new Error(`${date}, ${userId}`);
+	}
+
+	async updateReservation(reservationId: string, data: ReqUpdateReservationDto): Promise<ResUpdatedReservationDto> {
+		throw new Error(`${reservationId}, ${{ ...data }}`);
+	}
+
+	async deleteReservation(reservationId: string): Promise<void> {
+		throw new Error(`${reservationId}`);
+	}
+}
