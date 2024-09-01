@@ -1,6 +1,7 @@
-import { Column, CreatedAt, DataType, DeletedAt, Table, Unique, UpdatedAt } from "sequelize-typescript";
-import { Model } from "sequelize";
+import { HasMany, Model, Column, CreatedAt, DataType, DeletedAt, Table, Unique, UpdatedAt } from "sequelize-typescript";
 import { ERole } from "../../../enums/role.enum";
+import { Booking } from "../../booking/entity/booking.entity";
+import { DateTime } from "luxon";
 
 @Table({
 	tableName: 'users',
@@ -82,7 +83,7 @@ export class User extends Model<User> {
 	  defaultValue: DataType.NOW,
 	  field: 'created_at'
 	})
-  createdAt: Date;
+  createdAt: DateTime;
 
   @UpdatedAt
   @Column({
@@ -90,7 +91,7 @@ export class User extends Model<User> {
 	  defaultValue: DataType.NOW,
 	  field: 'updated_at'
 	})
-  updatedAt: Date;
+  updatedAt: DateTime;
 
   @DeletedAt
   @Column({
@@ -98,5 +99,8 @@ export class User extends Model<User> {
 	  allowNull: true,
 	  field: 'deleted_at'
 	})
-  deletedAt: Date;
+  deletedAt: DateTime;
+
+	@HasMany(() => Booking)
+	bookings: Booking[];
 }
