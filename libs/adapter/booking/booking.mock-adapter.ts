@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { BookingRepository } from "../../domain/booking/repositories/booking.repository";
-import { ReqCreateReservationDto } from "../../domain/booking/dto/req/req-create-reservation.dto";
-import { ResReservationDto } from "../../domain/booking/dto/res/res-reservation.dto";
-import { ReqUpdateReservationDto } from "../../domain/booking/dto/req/req-update-reservation.dto";
-import { ResUpdatedReservationDto } from "../../domain/booking/dto/res/res-updated-reservation.dto";
+import { ReqCreateReservationDto } from "../../domain/booking/dto/req-dto/req-create-reservation.dto";
+import { ResReservationDto } from "../../domain/booking/dto/res-dto/res-reservation.dto";
+import { ReqUpdateReservationDto } from "../../domain/booking/dto/req-dto/req-update-reservation.dto";
+import { ResUpdatedReservationDto } from "../../domain/booking/dto/res-dto/res-updated-reservation.dto";
 
 @Injectable()
 export class BookingMockAdapter extends BookingRepository {
