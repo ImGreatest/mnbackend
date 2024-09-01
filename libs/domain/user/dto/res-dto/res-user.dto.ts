@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsDate, IsString } from 'class-validator';
+import { DateTime } from "luxon";
 
 export class ResUserDto {
 	@ApiProperty()
@@ -32,7 +33,7 @@ export class ResUserDto {
 
 	@ApiProperty()
 	@IsString()
-	secondName: string;
+	lastname: string;
 
 	@ApiProperty()
 	@IsString()
@@ -40,13 +41,13 @@ export class ResUserDto {
 
 	@ApiProperty()
 	@IsDate()
-	createdAt: Date;
+	createdAt: DateTime;
 
 	@ApiProperty()
 	@IsDate()
-	updatedAt: Date;
+	updatedAt: DateTime;
 
 	@ApiProperty()
 	@IsDate()
-	deletedAt: Date;
+	deletedAt: DateTime;
 }

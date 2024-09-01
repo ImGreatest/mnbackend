@@ -1,4 +1,4 @@
-import { ApiBody, ApiParam, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiBody, ApiParam, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Query } from "@nestjs/common";
 import { BookingService } from "../../../libs/domain/booking/booking.service";
 import { ReqCreateReservationDto } from "../../../libs/domain/booking/dto/req-dto/req-create-reservation.dto";
@@ -14,6 +14,7 @@ import {
 
 
 @ApiTags('booking')
+@ApiBearerAuth()
 @Controller('booking')
 export class BookingController {
 	constructor(private readonly bookingService: BookingService) {}
@@ -34,7 +35,7 @@ export class BookingController {
 		status: HttpStatus.BAD_REQUEST,
 		description: 'Fail to create reservation',
 	})
-	createReservation(data: ReqCreateReservationDto): Promise<void> {
+	createReservation(@Body() data: ReqCreateReservationDto): Promise<void> {
 		return this.bookingService.createReservation(data);
 	}
 
@@ -59,6 +60,10 @@ export class BookingController {
 		type: ResReservationDto,
 		isArray: false,
 		example: mockResReservationDto,
+	})
+	@ApiResponse({
+		status: HttpStatus.BAD_REQUEST,
+		description: 'Invalid input data',
 	})
 	@ApiResponse({
 		status: HttpStatus.NOT_FOUND,

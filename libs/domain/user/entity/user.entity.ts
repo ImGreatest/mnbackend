@@ -68,7 +68,7 @@ export class User extends Model<User> {
 		allowNull: false,
 		field: 'second_name',
 	})
-	secondName: string;
+	lastname: string;
 
 	@Column({
 		type: DataType.ENUM(ERole.admin, ERole.client),
