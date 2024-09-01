@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { UserRepository } from "../../domain/user/repositories/user.repository";
-import { ReqCreateUserDto } from "../../domain/user/dto/req/req-create-user.dto";
-import { ResUserDto } from "../../domain/user/dto/res/res-user.dto";
-import { ResUpdatedUserDto } from "../../domain/user/dto/res/res-updated-user.dto";
-import { ReqUpdateUserDto } from "../../domain/user/dto/req/req-update-user.dto";
+import { ReqCreateUserDto } from "../../domain/user/dto/req-dto/req-create-user.dto";
+import { ResUserDto } from "../../domain/user/dto/res-dto/res-user.dto";
+import { ReqUpdateUserDto } from "../../domain/user/dto/req-dto/req-update-user.dto";
+import { ResUpdatedUserDto } from "../../domain/user/dto/res-dto/res-updated-user.dto";
 
 @Injectable()
 export class UserMockAdapter extends UserRepository {

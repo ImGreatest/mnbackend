@@ -1,10 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
 import { ApiBearerAuth, ApiBody, ApiTags } from "@nestjs/swagger";
 import { UserService } from "../../../libs/domain/user/user.service";
-import { ReqCreateUserDto } from "../../../libs/domain/user/dto/req/req-create-user.dto";
-import { ResUserDto } from "../../../libs/domain/user/dto/res/res-user.dto";
-import { ReqUpdateUserDto } from "../../../libs/domain/user/dto/req/req-update-user.dto";
-import { ResUpdatedUserDto } from "../../../libs/domain/user/dto/res/res-updated-user.dto";
+import { ReqCreateUserDto } from "../../../libs/domain/user/dto/req-dto/req-create-user.dto";
+import { ResUserDto } from "../../../libs/domain/user/dto/res-dto/res-user.dto";
+import { ReqUpdateUserDto } from "../../../libs/domain/user/dto/req-dto/req-update-user.dto";
+import { ResUpdatedUserDto } from "../../../libs/domain/user/dto/res-dto/res-updated-user.dto";
 
 @ApiTags('user')
 @ApiBearerAuth()

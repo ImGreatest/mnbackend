@@ -1,6 +1,6 @@
-import { ResUpdatedReservationDto } from "../../dto/res/res-updated-reservation.dto";
 import { faker } from "@faker-js/faker";
 import { DateTime } from "luxon";
+import { ResUpdatedReservationDto } from "../../dto/res-dto/res-updated-reservation.dto";
 
 export const mockResUpdatedReservationDto: ResUpdatedReservationDto = {
 	userId: faker.string.uuid(),

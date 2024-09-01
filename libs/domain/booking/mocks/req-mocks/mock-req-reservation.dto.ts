@@ -1,7 +1,7 @@
-import { ReqCreateReservationDto } from "../../dto/req/req-create-reservation.dto";
 import { faker } from "@faker-js/faker";
 import { DateTime } from "luxon";
-import { ReqUpdateReservationDto } from "../../dto/req/req-update-reservation.dto";
+import { ReqCreateReservationDto } from "../../dto/req-dto/req-create-reservation.dto";
+import { ReqUpdateReservationDto } from "../../dto/req-dto/req-update-reservation.dto";
 
 export interface IMockReservationExamples  {
 	summary: string;

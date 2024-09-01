@@ -1,14 +1,17 @@
 import { ApiBody, ApiParam, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Query } from "@nestjs/common";
-import { ReqCreateReservationDto } from "../../../libs/domain/booking/dto/req/req-create-reservation.dto";
 import { BookingService } from "../../../libs/domain/booking/booking.service";
-import { ResReservationDto } from "../../../libs/domain/booking/dto/res/res-reservation.dto";
-import { ReqUpdateReservationDto } from "../../../libs/domain/booking/dto/req/req-update-reservation.dto";
-import { ResUpdatedReservationDto } from "../../../libs/domain/booking/dto/res/res-updated-reservation.dto";
-import { mockReqReservationDto } from "../../../libs/domain/booking/mocks/req/mock-req-reservation.dto";
-import { mockResReservationDto } from "../../../libs/domain/booking/mocks/res/mock-res-reservation.dto";
-import { mockResUpdatedReservationDto } from "../../../libs/domain/booking/mocks/res/mock-res-updated-reservation.dto";
+import { ReqCreateReservationDto } from "../../../libs/domain/booking/dto/req-dto/req-create-reservation.dto";
+import { mockReqReservationDto } from "../../../libs/domain/booking/mocks/req-mocks/mock-req-reservation.dto";
 import { faker } from "@faker-js/faker";
+import { ResReservationDto } from "../../../libs/domain/booking/dto/res-dto/res-reservation.dto";
+import { mockResReservationDto } from "../../../libs/domain/booking/mocks/res-mocks/mock-res-reservation.dto";
+import { ReqUpdateReservationDto } from "../../../libs/domain/booking/dto/req-dto/req-update-reservation.dto";
+import { ResUpdatedReservationDto } from "../../../libs/domain/booking/dto/res-dto/res-updated-reservation.dto";
+import {
+	mockResUpdatedReservationDto
+} from "../../../libs/domain/booking/mocks/res-mocks/mock-res-updated-reservation.dto";
+
 
 @ApiTags('booking')
 @Controller('booking')
