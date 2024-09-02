@@ -1,14 +1,8 @@
 import { faker } from "@faker-js/faker";
 import { DateTime } from "luxon";
-import { ReqCreateReservationDto } from "../../dto/req-dto/req-create-reservation.dto";
-import { ReqUpdateReservationDto } from "../../dto/req-dto/req-update-reservation.dto";
+import { TMockReqCreateReservationExample } from "../../types/mock-req-create-reservation-example.type";
 
-export interface IMockReservationExamples  {
-	summary: string;
-	value: ReqCreateReservationDto | ReqUpdateReservationDto;
-}
-
-export const mockReqReservationDto: Record<string, IMockReservationExamples> = {
+export const MockReqReservationDto: Record<string, TMockReqCreateReservationExample> = {
 	firstExample: {
 		summary: 'First example',
 		value: {
@@ -18,8 +12,8 @@ export const mockReqReservationDto: Record<string, IMockReservationExamples> = {
 			comment: faker.lorem.sentence(),
 		}
 	},
-	oneMoreExample: {
-		summary: 'One more example',
+	secondExample: {
+		summary: 'secondExample',
 		value: {
 			userId: faker.string.uuid(),
 			bookStartTime: DateTime.fromJSDate(faker.date.past()),

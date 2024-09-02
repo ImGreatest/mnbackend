@@ -5,6 +5,7 @@ import { faker } from "@faker-js/faker";
 
 export class ResReservationDto {
 	@ApiProperty({
+		type: String,
 		description: 'Reservation identifier',
 		example: faker.string.uuid(),
 	})
@@ -12,6 +13,7 @@ export class ResReservationDto {
 	id: string;
 
 	@ApiProperty({
+		type: String,
 		description: 'User identifier',
 		example: faker.string.uuid(),
 	})
@@ -19,6 +21,7 @@ export class ResReservationDto {
 	userId: string;
 
 	@ApiProperty({
+		type: DateTime,
 		format: 'date-time',
 		description: 'Reservation start of the time',
 		example: DateTime.fromJSDate(faker.date.past()),
@@ -27,6 +30,7 @@ export class ResReservationDto {
 	bookStartTime: DateTime;
 
 	@ApiProperty({
+		type: DateTime,
 		format: 'date-time',
 		description: 'Reservation an end of the time',
 		example: DateTime.fromJSDate(faker.date.future()),
@@ -35,6 +39,7 @@ export class ResReservationDto {
 	bookEndTime: DateTime;
 
 	@ApiProperty({
+		type: String,
 		required: false,
 		description: 'Optional parameter for comment to reservation',
 		example: faker.lorem.sentence(),
@@ -52,6 +57,7 @@ export class ResReservationDto {
 	createdAt: DateTime;
 
 	@ApiProperty({
+		type: DateTime,
 		format: 'date-time',
 		description: 'Parameter for date-time value last updating reservation',
 		example: faker.date.past(),
@@ -60,6 +66,7 @@ export class ResReservationDto {
 	updatedAt: DateTime;
 
 	@ApiProperty({
+		type: DateTime,
 		format: 'date-time',
 		description: 'Parameter for date-time value deleting reservation',
 		example: faker.date.past(),

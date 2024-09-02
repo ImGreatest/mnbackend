@@ -20,7 +20,7 @@ import { DateTime } from "luxon";
 })
 export class Booking extends Model<Booking> {
 	@Column({
-		type: DataType.UUID,
+		type: DataType.UUIDV4,
 		defaultValue: DataType.UUIDV4,
 		primaryKey: true,
 		field: 'identifier',

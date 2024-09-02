@@ -2,14 +2,14 @@ import { ApiBearerAuth, ApiBody, ApiParam, ApiQuery, ApiResponse, ApiTags } from
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Query } from "@nestjs/common";
 import { BookingService } from "../../../libs/domain/booking/booking.service";
 import { ReqCreateReservationDto } from "../../../libs/domain/booking/dto/req-dto/req-create-reservation.dto";
-import { mockReqReservationDto } from "../../../libs/domain/booking/mocks/req-mocks/mock-req-reservation.dto";
+import { MockReqReservationDto } from "../../../libs/domain/booking/mocks/req-mocks/mock-req-reservation.dto";
 import { faker } from "@faker-js/faker";
 import { ResReservationDto } from "../../../libs/domain/booking/dto/res-dto/res-reservation.dto";
 import { mockResReservationDto } from "../../../libs/domain/booking/mocks/res-mocks/mock-res-reservation.dto";
 import { ReqUpdateReservationDto } from "../../../libs/domain/booking/dto/req-dto/req-update-reservation.dto";
-import { ResUpdatedReservationDto } from "../../../libs/domain/booking/dto/res-dto/res-updated-reservation.dto";
+import { ResUpdateReservationDto } from "../../../libs/domain/booking/dto/res-dto/res-update-reservation.dto";
 import {
-	mockResUpdatedReservationDto
+	MockResUpdatedReservationDto
 } from "../../../libs/domain/booking/mocks/res-mocks/mock-res-updated-reservation.dto";
 
 
@@ -23,8 +23,8 @@ export class BookingController {
 	@ApiBody({
 		type: ReqCreateReservationDto,
 		required: true,
-		description: 'Data for create reservation',
-		examples: mockReqReservationDto,
+		description: 'Data for create new reservation',
+		examples: MockReqReservationDto,
 	})
 	@ApiResponse({
 		status: HttpStatus.CREATED,
@@ -79,7 +79,7 @@ export class BookingController {
 	@Get('reservations')
 	@ApiResponse({
 		status: HttpStatus.OK,
-		description: 'Return all reservations',
+		description: 'Returns all reservations',
 		type: ResReservationDto,
 		isArray: true,
 		example: mockResReservationDto,
@@ -145,14 +145,14 @@ export class BookingController {
 		required: true,
 		type: ReqUpdateReservationDto,
 		description: 'Data with new values reservation which will be update',
-		examples: mockReqReservationDto,
+		examples: MockReqReservationDto,
 	})
 	@ApiResponse({
 		status: HttpStatus.OK,
-		type: ResUpdatedReservationDto,
+		type: ResUpdateReservationDto,
 		description: 'Reservation updated successfully',
 		isArray: false,
-		example: mockResUpdatedReservationDto,
+		example: MockResUpdatedReservationDto,
 	})
 	@ApiResponse({
 		status: HttpStatus.BAD_REQUEST,
@@ -169,7 +169,7 @@ export class BookingController {
 	updateReservation(
 		@Param('id') reservationId: string,
 		@Body() data: ReqUpdateReservationDto,
-	): Promise<ResUpdatedReservationDto> {
+	): Promise<ResUpdateReservationDto> {
 		return this.bookingService.updateReservation(reservationId, data);
 	}
 
@@ -183,6 +183,7 @@ export class BookingController {
 	})
 	@ApiResponse({
 		status: HttpStatus.NO_CONTENT,
+		type: null,
 		description: 'Reservation remove successfully',
 	})
 	@ApiResponse({
