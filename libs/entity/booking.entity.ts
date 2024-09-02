@@ -9,8 +9,8 @@ import {
 	BelongsTo,
 	Model
 } from "sequelize-typescript";
-import { User } from "../../user/entity/user.entity";
 import { DateTime } from "luxon";
+import { User } from "./user.entity";
 
 @Table({
 	tableName: 'booking',
