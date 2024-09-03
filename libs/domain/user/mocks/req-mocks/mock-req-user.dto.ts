@@ -1,7 +1,6 @@
 import { ReqCreateUserDto } from "../../dto/req-dto/req-create-user.dto";
 import { ReqUpdateUserDto } from "../../dto/req-dto/req-update-user.dto";
 import { faker } from "@faker-js/faker";
-import { DateTime } from "luxon";
 
 export interface IMockUserExamples {
 	summary: string;
@@ -20,9 +19,6 @@ export const mockReqUserDto: Record<string, IMockUserExamples> = {
 			middleName: faker.person.middleName(),
 			lastname: faker.person.lastName(),
 			role: faker.person.jobTitle(),
-			createdAt: DateTime.fromJSDate(faker.date.past()),
-			updatedAt: DateTime.fromJSDate(faker.date.past()),
-			deletedAt: DateTime.fromJSDate(faker.date.past()),
 		}
 	},
 	oneMoreExample: {
@@ -36,9 +32,6 @@ export const mockReqUserDto: Record<string, IMockUserExamples> = {
 			middleName: faker.person.middleName(),
 			lastname: faker.person.lastName(),
 			role: faker.person.jobTitle(),
-			createdAt: DateTime.fromJSDate(faker.date.past()),
-			updatedAt: DateTime.fromJSDate(faker.date.past()),
-			deletedAt: DateTime.fromJSDate(faker.date.past()),
 		}
 	}
 }

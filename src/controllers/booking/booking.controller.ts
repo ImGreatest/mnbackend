@@ -5,12 +5,12 @@ import { ReqCreateReservationDto } from "../../../libs/domain/booking/dto/req-dt
 import { MockReqReservationDto } from "../../../libs/domain/booking/mocks/req-mocks/mock-req-reservation.dto";
 import { faker } from "@faker-js/faker";
 import { ResReservationDto } from "../../../libs/domain/booking/dto/res-dto/res-reservation.dto";
-import { mockResReservationDto } from "../../../libs/domain/booking/mocks/res-mocks/mock-res-reservation.dto";
+import { MockResReservationDto } from "../../../libs/domain/booking/mocks/res-mocks/mock-res-reservation.dto";
 import { ReqUpdateReservationDto } from "../../../libs/domain/booking/dto/req-dto/req-update-reservation.dto";
 import { ResUpdateReservationDto } from "../../../libs/domain/booking/dto/res-dto/res-update-reservation.dto";
 import {
-	MockResUpdatedReservationDto
-} from "../../../libs/domain/booking/mocks/res-mocks/mock-res-updated-reservation.dto";
+	MockResUpdateReservationDto
+} from "../../../libs/domain/booking/mocks/res-mocks/mock-res-update-reservation.dto";
 
 
 @ApiTags('booking')
@@ -59,7 +59,7 @@ export class BookingController {
 		description: 'Return specific reservation',
 		type: ResReservationDto,
 		isArray: false,
-		example: mockResReservationDto,
+		example: MockResReservationDto,
 	})
 	@ApiResponse({
 		status: HttpStatus.BAD_REQUEST,
@@ -82,7 +82,7 @@ export class BookingController {
 		description: 'Returns all reservations',
 		type: ResReservationDto,
 		isArray: true,
-		example: mockResReservationDto,
+		example: MockResReservationDto,
 	})
 	@ApiResponse({
 		status: HttpStatus.NOT_FOUND,
@@ -112,7 +112,7 @@ export class BookingController {
 		description: 'Return array of reservations sampled by date',
 		type: ResReservationDto,
 		isArray: true,
-		example: mockResReservationDto,
+		example: MockResReservationDto,
 	})
 	@ApiResponse({
 		status: HttpStatus.BAD_REQUEST,
@@ -152,7 +152,7 @@ export class BookingController {
 		type: ResUpdateReservationDto,
 		description: 'Reservation updated successfully',
 		isArray: false,
-		example: MockResUpdatedReservationDto,
+		example: MockResUpdateReservationDto,
 	})
 	@ApiResponse({
 		status: HttpStatus.BAD_REQUEST,

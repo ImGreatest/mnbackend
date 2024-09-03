@@ -1,5 +1,6 @@
 import { ApiBearerAuth, ApiBody, ApiParam, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Query } from "@nestjs/common";
+import { faker } from "@faker-js/faker";
 import { ProductService } from "../../../libs/domain/product/product.service";
 import { ReqCreateProductDto } from "../../../libs/domain/product/dto/req-dto/req-create-product.dto";
 import { ResProductDto } from "../../../libs/domain/product/dto/res-dto/res-product.dto";
@@ -7,8 +8,16 @@ import { ResProductsDto } from "../../../libs/domain/product/dto/res-dto/res-pro
 import { ResProductsByRangeCostDto } from "../../../libs/domain/product/dto/res-dto/res-products-by-range-cost.dto";
 import { ResUpdateProductDto } from "../../../libs/domain/product/dto/res-dto/res-update-product.dto";
 import { ReqUpdateProductDto } from "../../../libs/domain/product/dto/req-dto/req-update-product.dto";
-import { faker } from "@faker-js/faker";
 import { ResProductsByNameDto } from "../../../libs/domain/product/dto/res-dto/res-products-by-name.dto";
+import { MockReqCreateProductDto } from "../../../libs/domain/product/mocks/req-mocks/mock-req-create-product.dto";
+import { MockResProductDto } from "../../../libs/domain/product/mocks/res-mocks/mock-res-product.dto";
+import { MockResUpdateProductDto } from "../../../libs/domain/product/mocks/res-mocks/mock-res-update-product.dto";
+import { MockResProductsDto } from "../../../libs/domain/product/mocks/res-mocks/mock-res-products.dto";
+import { MockResProductsByNameDto } from "../../../libs/domain/product/mocks/res-mocks/mock-res-products-by-name.dto";
+import {
+	MockResProductsByRangeCostDto
+} from "../../../libs/domain/product/mocks/res-mocks/mock-res-products-by-range-cost.dto";
+import { MockReqUpdateProductDto } from "../../../libs/domain/product/mocks/req-mocks/mock-req-update-product.dto";
 
 @ApiTags('product')
 @ApiBearerAuth()
@@ -21,6 +30,7 @@ export class ProductController {
 		type: ReqCreateProductDto,
 		required: true,
 		description: 'Data for create new product',
+		examples: MockReqCreateProductDto,
 	})
 	@ApiResponse({
 		status: HttpStatus.CREATED,
@@ -48,6 +58,7 @@ export class ProductController {
 		description: 'Return specific product by identifier',
 		type: ResProductDto,
 		isArray: false,
+		example: MockResProductDto,
 	})
 	@ApiResponse({
 		status: HttpStatus.BAD_REQUEST,
@@ -81,6 +92,7 @@ export class ProductController {
 		description: 'Returns all products',
 		type: ResProductsDto,
 		isArray: true,
+		example: MockResProductsDto,
 	})
 	@ApiResponse({
 		status: HttpStatus.NOT_FOUND,
@@ -106,6 +118,7 @@ export class ProductController {
 		description: 'Returns products by name',
 		type: ResProductsByNameDto,
 		isArray: true,
+		example: MockResProductsByNameDto,
 	})
 	@ApiResponse({
 		status: HttpStatus.BAD_REQUEST,
@@ -139,7 +152,7 @@ export class ProductController {
 		description: 'Returns product which cost is between min and max values',
 		type: ResProductsByRangeCostDto,
 		isArray: true,
-		example: ,
+		example: MockResProductsByRangeCostDto,
 	})
 	getProductsByRangeCost(
 		@Param('min') minCost: number,
@@ -160,14 +173,14 @@ export class ProductController {
 		type: ReqUpdateProductDto,
 		required: true,
 		description: 'Data with new vales product which will be update',
-		examples: ,
+		examples: MockReqUpdateProductDto,
 	})
 	@ApiResponse({
 		status: HttpStatus.OK,
 		type: ResUpdateProductDto,
 		description: 'Product updated successfully',
 		isArray: false,
-		example: ,
+		example: MockResUpdateProductDto,
 	})
 	@ApiResponse({
 		status: HttpStatus.BAD_REQUEST,

@@ -10,15 +10,15 @@ export const MockReqReservationDto: Record<string, TMockReqCreateReservationExam
 			bookStartTime: DateTime.fromJSDate(faker.date.past()),
 			bookEndTime: DateTime.fromJSDate(faker.date.future()),
 			comment: faker.lorem.sentence(),
-		}
+		},
 	},
 	secondExample: {
-		summary: 'secondExample',
+		summary: 'Second Example',
 		value: {
 			userId: faker.string.uuid(),
 			bookStartTime: DateTime.fromJSDate(faker.date.past()),
 			bookEndTime: DateTime.fromJSDate(faker.date.future()),
 			comment: faker.lorem.sentence(),
-		}
-	}
+		},
+	},
 };

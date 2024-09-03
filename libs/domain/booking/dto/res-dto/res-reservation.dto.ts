@@ -51,7 +51,7 @@ export class ResReservationDto {
 		type: DateTime,
 		format: 'date-time',
 		description: 'Parameter for date-time value creating reservation',
-		example: faker.date.past(),
+		example: DateTime.fromJSDate(faker.date.past()),
 	})
 	@IsDate()
 	createdAt: DateTime;
@@ -60,7 +60,7 @@ export class ResReservationDto {
 		type: DateTime,
 		format: 'date-time',
 		description: 'Parameter for date-time value last updating reservation',
-		example: faker.date.past(),
+		example: DateTime.fromJSDate(faker.date.past()),
 	})
 	@IsDate()
 	updatedAt: DateTime;
@@ -69,7 +69,7 @@ export class ResReservationDto {
 		type: DateTime,
 		format: 'date-time',
 		description: 'Parameter for date-time value deleting reservation',
-		example: faker.date.past(),
+		example: DateTime.fromJSDate(faker.date.past()),
 	})
 	@IsDate()
 	deletedAt?: DateTime;

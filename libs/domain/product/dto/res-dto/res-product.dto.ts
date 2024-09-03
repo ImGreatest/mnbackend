@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
-import { IsNumber, IsString } from "class-validator";
+import { IsDate, IsNumber, IsString } from "class-validator";
+import { DateTime } from "luxon";
 
 export class ResProductDto {
 	@ApiProperty({
@@ -42,4 +43,31 @@ export class ResProductDto {
 	})
 	@IsString()
 	compound: string;
+
+	@ApiProperty({
+		type: DateTime,
+		format: 'date-time',
+		description: 'Parameter for date-time value creating product',
+		example: DateTime.fromJSDate(faker.date.past()),
+	})
+	@IsDate()
+	createdAt: DateTime;
+
+	@ApiProperty({
+		type: DateTime,
+		format: 'date-time',
+		description: 'Parameter for date-time value last updating product',
+		example: DateTime.fromJSDate(faker.date.past()),
+	})
+	@IsDate()
+	updatedAt: DateTime;
+
+	@ApiProperty({
+		type: DateTime,
+		format: 'date-time',
+		description: 'Parameter for date-time value deleting product',
+		example: DateTime.fromJSDate(faker.date.past()),
+	})
+	@IsDate()
+	deletedAt?: DateTime;
 }
