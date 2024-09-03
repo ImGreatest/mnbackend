@@ -3,7 +3,7 @@ import { ProductModule } from "../../../libs/domain/product/product.module";
 import { ProductController } from "./product.controller";
 
 @Module({
-	providers: [ProductModule],
+	imports: [ProductModule],
 	controllers: [ProductController],
 })
 export class ProductControllerModule {}
