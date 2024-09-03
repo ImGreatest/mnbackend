@@ -18,7 +18,8 @@ lerna-debug.log*
 .env
 
 # Migrations
-/prisma
+/prisma/migrations
+/prisma/schema.prisma
 
 # CI/CD
 /.github
