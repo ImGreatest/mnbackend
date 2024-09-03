@@ -8,7 +8,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('MN Cloth Api')
-    .setDescription('Origin api for mn cloth')
+    .setDescription('Api for mn')
     .setVersion('1.0')
     .addTag('MN')
     .build();

@@ -9,8 +9,8 @@ import {
 	BelongsTo,
 	Model
 } from "sequelize-typescript";
-import { User } from "../../user/entity/user.entity";
 import { DateTime } from "luxon";
+import { User } from "./user.entity";
 
 @Table({
 	tableName: 'booking',
@@ -20,7 +20,7 @@ import { DateTime } from "luxon";
 })
 export class Booking extends Model<Booking> {
 	@Column({
-		type: DataType.UUID,
+		type: DataType.UUIDV4,
 		defaultValue: DataType.UUIDV4,
 		primaryKey: true,
 		field: 'identifier',

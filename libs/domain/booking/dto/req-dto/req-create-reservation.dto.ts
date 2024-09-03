@@ -5,6 +5,7 @@ import { faker } from "@faker-js/faker";
 
 export class ReqCreateReservationDto {
 	@ApiProperty({
+		type: String,
 		required: true,
 		description: 'For value of user an identifier',
 		example: faker.string.uuid(),
@@ -13,6 +14,7 @@ export class ReqCreateReservationDto {
 	userId: string;
 
 	@ApiProperty({
+		type: DateTime,
 		required: true,
 		format: 'date-time',
 		description: 'Reservation start of the time',
@@ -22,6 +24,7 @@ export class ReqCreateReservationDto {
 	bookStartTime: DateTime;
 
 	@ApiProperty({
+		type: DateTime,
 		required: true,
 		format: 'date-time',
 		description: 'Reservation an end of the time',
@@ -31,6 +34,7 @@ export class ReqCreateReservationDto {
 	bookEndTime: DateTime;
 
 	@ApiProperty({
+		type: String,
 		required: false,
 		description: 'Optional parameter for comment to reservation',
 		example: faker.lorem.sentence(),

@@ -1,7 +1,7 @@
 import { HasMany, Model, Column, CreatedAt, DataType, DeletedAt, Table, Unique, UpdatedAt } from "sequelize-typescript";
-import { ERole } from "../../../enums/role.enum";
-import { Booking } from "../../booking/entity/booking.entity";
 import { DateTime } from "luxon";
+import { ERole } from "../shared/enums/role.enum";
+import { Booking } from "./booking.entity";
 
 @Table({
 	tableName: 'users',

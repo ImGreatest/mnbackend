@@ -3,7 +3,7 @@ import { BookingRepository } from "../../domain/booking/repositories/booking.rep
 import { ReqCreateReservationDto } from "../../domain/booking/dto/req-dto/req-create-reservation.dto";
 import { ResReservationDto } from "../../domain/booking/dto/res-dto/res-reservation.dto";
 import { ReqUpdateReservationDto } from "../../domain/booking/dto/req-dto/req-update-reservation.dto";
-import { ResUpdatedReservationDto } from "../../domain/booking/dto/res-dto/res-updated-reservation.dto";
+import { ResUpdateReservationDto } from "../../domain/booking/dto/res-dto/res-update-reservation.dto";
 
 @Injectable()
 export class BookingMockAdapter extends BookingRepository {
@@ -27,7 +27,7 @@ export class BookingMockAdapter extends BookingRepository {
 		throw new Error(`${date}, ${userId}`);
 	}
 
-	async updateReservation(reservationId: string, data: ReqUpdateReservationDto): Promise<ResUpdatedReservationDto> {
+	async updateReservation(reservationId: string, data: ReqUpdateReservationDto): Promise<ResUpdateReservationDto> {
 		throw new Error(`${reservationId}, ${{ ...data }}`);
 	}
 
