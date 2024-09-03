@@ -13,6 +13,14 @@ async function bootstrap() {
     .addTag('MN')
     .build();
   const doc = SwaggerModule.createDocument(app, config);
+
+  app.enableCors({
+    origin: '*',
+    methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  });
+
   SwaggerModule.setup('api', app, doc);
 
   await app.listen(3000);
