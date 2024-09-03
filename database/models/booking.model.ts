@@ -7,10 +7,12 @@ import {
 	Table,
 	UpdatedAt,
 	BelongsTo,
-	Model
+	Model, HasMany
 } from "sequelize-typescript";
 import { DateTime } from "luxon";
-import { User } from "./user.entity";
+import { User } from "./user.model";
+import { UserBooking } from "./user-booking.model";
+import { UserOrder } from "./user-order.model";
 
 @Table({
 	tableName: 'booking',
@@ -59,6 +61,7 @@ export class Booking extends Model<Booking> {
 	@Column({
 		type: DataType.DATE,
 		defaultValue: DataType.NOW,
+		allowNull: false,
 		field: 'created_at',
 	})
 	createdAt: DateTime;
@@ -67,6 +70,7 @@ export class Booking extends Model<Booking> {
 	@Column({
 		type: DataType.DATE,
 		defaultValue: DataType.NOW,
+		allowNull: false,
 		field: 'updated_at',
 	})
 	updatedAt: DateTime;
@@ -81,4 +85,7 @@ export class Booking extends Model<Booking> {
 
 	@BelongsTo(() => User)
 	user: User;
+
+	@HasMany(() => UserBooking)
+	userBookies: UserBooking[];
 }
