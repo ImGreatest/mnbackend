@@ -8,6 +8,6 @@ export interface ISequelizeConfig {
 	database: string;
 	dialect: Dialect;
 	dialectOptions: object;
-	operatorsAliases: boolean;
+	// operatorsAliases: boolean;
 	models: string[];
 }

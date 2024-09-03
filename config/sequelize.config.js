@@ -1,4 +1,5 @@
-import { databaseConfig } from "./database.config";
+require("ts-node/register");
+const { databaseConfig } = require("../config/database.config.ts");
 
 module.exports = {
   development: {

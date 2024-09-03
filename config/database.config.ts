@@ -1,4 +1,4 @@
-import { Dialect } from "sequelize";
+import { Dialect, OperatorsAliases } from "sequelize";
 import path from "node:path";
 import { ISequelizeConfig } from "../libs/shared/interfaces/sequelize-config.interface";
 
@@ -12,6 +12,5 @@ export const databaseConfig: ISequelizeConfig = {
 	dialectOptions: {
 		supportBigNumbers: true,
 	},
-	operatorsAliases: false,
-	models: [path.join(__dirname, '../database/models/*.entity.ts')],
+	models: [path.join(__dirname, 'database/models/*.model.ts')],
 };
