@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ControllersModule } from "./controllers/controllers.module";
-import { SequelizeModule } from "../libs/services/sequelize/sequelize.module";
+import { PrismaModule } from "../libs/services/prisma/prisma.module";
 
 @Module({
-  imports: [SequelizeModule, ControllersModule],
+  imports: [PrismaModule, ControllersModule],
 })
 export class AppModule {}

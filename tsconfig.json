@@ -20,4 +20,5 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": false
   },
+  "include": ["**/*"],
 }

@@ -17,6 +17,9 @@ lerna-debug.log*
 # Environment
 .env
 
+# Migrations
+/prisma
+
 # CI/CD
 /.github
 
