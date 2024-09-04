@@ -10,16 +10,11 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
-
 # OS
 .DS_Store
 
 # Environment
 .env
-
-# Migrations
-/prisma/migrations
-/prisma/schema.prisma
 
 # CI/CD
 /.github
