@@ -5,26 +5,29 @@ import { logger } from "../../../logger/logger";
 
 @Injectable()
 export class RedisStorageService implements OnModuleInit, OnModuleDestroy {
-	private readonly _client: Redis;
+	// private readonly _client: Redis;
 
-	constructor(private readonly redisService: RedisService) {
-		this._client = this.redisService.getClient();
+	constructor(
+		private readonly redisService: RedisService
+	) {
+		// this._client = this.redisService.getClient();
 	}
 
-	onModuleInit() {
+	async onModuleInit(): Promise<void> {
+		await this.redisService.getClient().connect();
 		logger.info("Redis module is init");
 	}
 
-	onModuleDestroy() {
-		this._client.quit();
+	async onModuleDestroy(): Promise<void> {
+		await this.redisService.getClient().quit();
 		logger.info("Redis module is destroyed");
 	}
 
 	async set(key: string, value: string): Promise<void> {
-		await this._client.set(key, value);
+		await this.redisService.getClient().set(key, value);
 	}
 
 	async getValue(key: string): Promise<string | null> {
-		return this._client.get(key);
+		return this.redisService.getClient().get(key);
 	}
 }
