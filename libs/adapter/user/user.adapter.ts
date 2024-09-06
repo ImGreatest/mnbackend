@@ -45,8 +45,7 @@ export class UserAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async createUser(data: ReqCreateUserDto): Promise<void> {
-		logger.info('Adapter call - createUser method');
-		logger.data({ ...data });
+		logger.info(`Adapter call - createUser method params - ${{ ...data }}`);
 
 		await this.prisma.user.create({
 			data: {
@@ -69,8 +68,7 @@ export class UserAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async getUser(userId: string): Promise<ResUserDto> {
-		logger.info('Adapter call - getUser method');
-		logger.data(userId);
+		logger.info(`Adapter call - getUser method params - ${userId}`);
 
 		return this.prisma.user.findUnique({
 			where: {
@@ -92,8 +90,7 @@ export class UserAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async getUserByLogin(login: string): Promise<ResUserByLoginDto> {
-		logger.info('Adapter call - getUserByLogin method');
-		logger.data(login);
+		logger.info(`Adapter call - getUserByLogin method params - ${login}`);
 
 		return this.prisma.user.findUnique({
 			where: {
@@ -115,8 +112,7 @@ export class UserAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async getUserByEmail(email: string): Promise<ResUserByEmailDto> {
-		logger.info('Adapter call - getUserByEmail method');
-		logger.data(email);
+		logger.info(`Adapter call - getUserByEmail method params - ${email}`);
 
 		return this.prisma.user.findUnique({
 			where: {
@@ -138,8 +134,7 @@ export class UserAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async getUserByPhone(phone: string): Promise<ResUserByPhoneDto> {
-		logger.info('Adapter call - getUserByPhone method');
-		logger.data(phone);
+		logger.info(`Adapter call - getUserByPhone method params - ${phone}`);
 
 		return this.prisma.user.findUnique({
 			where: {
@@ -179,8 +174,7 @@ export class UserAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async updateUser(userId: string, data: ReqUpdateUserDto): Promise<void> {
-		logger.info('Adapter call - updateUser method');
-		logger.data(userId, { ...data });
+		logger.info(`Adapter call - updateUser method, params - ${userId}, ${{ ...data }}`);
 
 		await this.prisma.user.update({
 			where: {
@@ -204,8 +198,7 @@ export class UserAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async deleteUser(userId: string): Promise<void> {
-		logger.info('Adapter call - deleteUser method');
-		logger.data(userId);
+		logger.info(`Adapter call - deleteUser method, params - ${userId}`);
 
 		await this.prisma.user.delete({
 			where: {
