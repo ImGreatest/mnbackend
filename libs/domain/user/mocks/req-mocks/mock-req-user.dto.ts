@@ -1,6 +1,7 @@
 import { ReqCreateUserDto } from "../../dto/req-dto/req-create-user.dto";
 import { ReqUpdateUserDto } from "../../dto/req-dto/req-update-user.dto";
 import { faker } from "@faker-js/faker";
+import { ERole } from ".prisma/client";
 
 export interface IMockUserExamples {
 	summary: string;
@@ -18,7 +19,7 @@ export const mockReqUserDto: Record<string, IMockUserExamples> = {
 			firstname: faker.person.firstName(),
 			middleName: faker.person.middleName(),
 			lastname: faker.person.lastName(),
-			role: faker.person.jobTitle(),
+			role: ERole.client,
 		}
 	},
 	oneMoreExample: {
@@ -31,7 +32,7 @@ export const mockReqUserDto: Record<string, IMockUserExamples> = {
 			firstname: faker.person.firstName(),
 			middleName: faker.person.middleName(),
 			lastname: faker.person.lastName(),
-			role: faker.person.jobTitle(),
+			role: ERole.client,
 		}
 	}
 }

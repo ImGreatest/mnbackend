@@ -117,7 +117,7 @@ export class UserController {
 	updateUser(
 		@Param('id') userId: string,
 		@Body() data: ReqUpdateUserDto,
-	): Promise<ResUpdatedUserDto> {
+	): Promise<void> {
 		return this.userService.updateUser(userId, data);
 	}
 
