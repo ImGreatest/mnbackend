@@ -24,6 +24,6 @@ async function bootstrap() {
 
   SwaggerModule.setup('api', app, doc);
 
-  await app.listen(config.PostgresPort);
+  await app.listen(config.ApiPort);
 }
 bootstrap().then(r => logger.info(r));

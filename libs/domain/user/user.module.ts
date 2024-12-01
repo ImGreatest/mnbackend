@@ -15,4 +15,14 @@ import { UserAdapter } from "../../adapter/user/user.adapter";
 	],
 	exports: [UserService],
 })
+/**
+ * Module class for working with users.
+ *
+ * @export
+ * @class UserModule
+ * @see { UserService }
+ * @see { UserRepository }
+ * @see { UserAdapter }
+ * @see { CryptoModule }
+ */
 export class UserModule {}
