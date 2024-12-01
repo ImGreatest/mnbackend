@@ -10,7 +10,7 @@ async function bootstrap() {
   const docConfig = new DocumentBuilder()
     .setTitle('MN Cloth Api')
     .setDescription('Api for mn')
-    .setVersion('1.0')
+    .setVersion('1.1.0')
     .addTag('MN')
     .build();
   const doc = SwaggerModule.createDocument(app, docConfig);

@@ -7,6 +7,10 @@ import { ResUpdateReservationDto } from "../../domain/booking/dto/res-dto/res-up
 
 @Injectable()
 export class BookingAdapter extends BookingRepository {
+	constructor() {
+		super();
+	}
+
 	async createReservation(data: ReqCreateReservationDto): Promise<void> {
 		throw new Error(`${{ ...data }}`);
 	}
