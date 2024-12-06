@@ -20,6 +20,7 @@
     "plugin:@typescript-eslint/recommended",
     "prettier"
   ],
+  "ignorePatterns": ["test/**/*.spec.ts"],
   "rules": {
     "no-console": 1,
     "@typescript-eslint/no-unused-vars": "off",
