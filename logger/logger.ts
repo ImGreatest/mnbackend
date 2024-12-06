@@ -6,10 +6,17 @@ export const logger = createLogger ({
 			format: format.combine(format.colorize()),
 		}),
 		new transports.File({
-			dirname: "dir",
-			filename: "winston_example.log",
+			dirname: "logs",
+			filename: "error.winston.log",
 			format: format.combine(format.json()),
+			level: 'error',
 		}),
+		new transports.File({
+			dirname: "logs",
+			filename: "info.winston.log",
+			format: format.combine(format.json()),
+			level: 'info',
+		})
 	],
 	format: format.combine(
 		format.colorize(),
