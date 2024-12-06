@@ -1,9 +1,10 @@
-import { ApiBearerAuth, ApiQuery, ApiTags } from "@nestjs/swagger";
-import { Controller, Get } from "@nestjs/common";
+import { ApiBearerAuth, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { Controller, Get, HttpStatus, Query } from "@nestjs/common";
 import { SizeService } from "../../../libs/domain/size/size.service";
 import { faker } from "@faker-js/faker";
 import { ESize } from "../../../libs/domain/size/enum/size.enum";
 import { ResSizeDto } from "../../../libs/domain/size/dto/res-dto/res-size.dto";
+import { MockResSizesDto } from "../../../libs/domain/size/mocks/mock-res-sizes.dto";
 
 @ApiTags('size')
 @ApiBearerAuth()
@@ -11,7 +12,7 @@ import { ResSizeDto } from "../../../libs/domain/size/dto/res-dto/res-size.dto";
 export class SizeController {
 	constructor(private readonly sizeService: SizeService) {}
 
-	@Get('size')
+	@Get('sizes')
 	@ApiQuery({
 		name: 'name',
 		type: String,
@@ -21,7 +22,20 @@ export class SizeController {
 			max: Object.keys(ESize).length,
 		})],
 	})
-	getSize(name?: string): Promise<ResSizeDto[]> {
+	@ApiResponse({
+		status: HttpStatus.OK,
+		description: 'Returns sizes',
+		type: ResSizeDto,
+		isArray: true,
+		example: MockResSizesDto,
+	})
+	@ApiResponse({
+		status: HttpStatus.NOT_FOUND,
+		description: 'Sizes not found',
+	})
+	getSize(
+		@Query('name') name?: string,
+	): Promise<ResSizeDto[]> {
 		return this.sizeService.getSize(name);
 	}
 }
