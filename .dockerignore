@@ -9,6 +9,7 @@ npm-debug.log*
 pnpm-debug.log*
 yarn-debug.log*
 lerna-debug.log*
+
 # OS
 .DS_Store
 
@@ -37,3 +38,6 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# ENV
+!.env
