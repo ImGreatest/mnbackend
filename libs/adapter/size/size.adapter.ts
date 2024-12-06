@@ -17,10 +17,9 @@ export class SizeAdapter extends SizeRepository {
 	/**
 	 * @constructor
 	 * @param prisma
+	 * @see { PrismaService }
 	 */
-	constructor(
-		private readonly prisma: PrismaService,
-	) {
+	constructor(private readonly prisma: PrismaService,) {
 		super();
 	}
 
