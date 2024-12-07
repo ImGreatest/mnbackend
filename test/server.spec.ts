@@ -6,7 +6,7 @@ import * as assert from "node:assert";
 
 let server: any;
 
-before(async () => {
+beforeEach(async () => {
   const app = await NestFactory.create(AppModule);
   server = await app.listen(config.PostgresPort);
 });
