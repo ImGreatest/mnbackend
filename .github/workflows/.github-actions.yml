@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Create prisma schema
-        run: prisma init --datasource-provider postgresql --preview-feature driverAdapters
+        run: npx prisma init --datasource-provider postgresql --preview-feature driverAdapters
       - name: Generate prisma client
         run: npx prisma generate
       - name: Building
