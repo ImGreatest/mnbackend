@@ -5,26 +5,64 @@ on:
   pull_request:
     branches: [ master, stage, dev ]
 jobs:
-  init:
+  build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 18.x ]
+
+    services:
+      postgres-client:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: ${{ secrets.DATABASE_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.DATABASE_NAME }}
+        ports:
+          - ${{ secrets.POSTGRES_PORT }}:5432
+        options: >-
+          --health-cmd "pg_isready -U ${{ secrets.DATABASE_USER }}"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+          
     steps:
       - uses: actions/checkout@v3
-      - name: "Starting init"
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
-        run: npm install
-      - name: Set up environment variables
-        run: echo "DATABASE_URL=postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/${{ secrets.DATABASE_NAME }}" >> $GITHUB_ENV
-      - name: Building
-        run: npm run build
-      - name: List src directory
-        run: ls -l src
-      - name: lint check
-        run: npm run lint
-      - name: Running tests
-        run: npm test -- --passWithNoTests
+
+      - name: Set up env variables
+        run: |
+          echo "DATABASE_URL=postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@localhost:${{ secrets.POSTGRES_PORT }}/${{ secrets.DATABASE_NAME }}" >> $GITHUB_ENV
+          
+      - name: Build and run migrations
+        run: |
+          docker-compose up -d migrations
+          docker-compose down
+
+      - name: Build and start
+        run: |
+          docker-compose up -d mn-backend
+
+      - name: Testing
+        run: |
+          docker-compose exec mn-backend npm test
+
+#  init:
+#    runs-on: ubuntu-latest
+#    strategy:
+#      matrix:
+#        node-version: [ 18.x ]
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: "Starting init"
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: ${{ matrix.node-version }}
+#      - name: Install dependencies
+#        run: npm install
+#      - name: Set up environment variables
+#        run: echo "DATABASE_URL=postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/${{ secrets.DATABASE_NAME }}" >> $GITHUB_ENV
+#      - name: Building
+#        run: npm run build
+#      - name: List src directory
+#        run: ls -l src
+#      - name: lint check
+#        run: npm run lint
+#      - name: Running tests
+#        run: npm test -- --passWithNoTests
