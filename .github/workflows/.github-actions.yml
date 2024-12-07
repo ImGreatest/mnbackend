@@ -18,10 +18,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: npm install
-      - name: Create prisma schema
-        run: npx prisma init --datasource-provider postgresql --preview-feature driverAdapters
       - name: Generate prisma client
-        run: npx prisma generate
+        run: npx prisma generate --schema=prisma/example-schema.prisma
+      - name: Run migrations
+        run: npx prisma migrate deploy
       - name: Building
         run: npm run build
       - name: List src directory
