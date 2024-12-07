@@ -16,9 +16,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: install dependencies
-        run: npm install && npx prisma generate
-      - name: building
+      - name: Install dependencies
+        run: npm install
+      - name: Generate prisma client
+        run: npx prisma generate
+      - name: Building
         run: npm run build
       - name: List src directory
         run: ls -l src
