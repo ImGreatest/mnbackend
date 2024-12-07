@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
-import { ERole } from ".prisma/client";
 import { TMockReqUserExample } from "../../types/mock-req-user-example.type";
+import { ERole } from "../../../../shared/enum/role.enum";
 
 export const mockReqUserDto: Record<string, TMockReqUserExample> = {
 	firstExample: {
@@ -16,7 +16,7 @@ export const mockReqUserDto: Record<string, TMockReqUserExample> = {
 			address: faker.location.streetAddress(),
 			alternateContact: faker.phone.number() || faker.internet.email(),
 			role: ERole.client,
-		}
+		},
 	},
 	oneMoreExample: {
 		summary: 'One more example',
@@ -31,6 +31,6 @@ export const mockReqUserDto: Record<string, TMockReqUserExample> = {
 			address: faker.location.streetAddress(),
 			alternateContact: faker.phone.number() || faker.internet.email(),
 			role: ERole.client,
-		}
-	}
+		},
+	},
 }

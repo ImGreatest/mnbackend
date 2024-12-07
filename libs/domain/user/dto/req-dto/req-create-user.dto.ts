@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
 import { IsAlpha, IsEmpty, IsEnum, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
-import { ERole } from ".prisma/client";
+import { ERole } from "../../../../shared/enum/role.enum";
 
 /**
  * Class describing the properties sent to create user instance
