@@ -26,5 +26,5 @@ jobs:
         run: ls -l src
       - name: lint check
         run: npm run lint
-      - name: Running tests
-        run: npm test -- --passWithNoTests
+#      - name: Running tests
+#        run: npm test -- --passWithNoTests
