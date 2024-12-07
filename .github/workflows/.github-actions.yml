@@ -20,6 +20,8 @@ jobs:
         run: npm install
       - name: Generate prisma client
         run: npx prisma generate
+      - name: Set env
+        run: echo "DATABASE_URL=postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/${{ secrets.DATABASE_NAME }}" >> $GITHUB_ENV
       - name: Run migrations
         run: npx prisma migrate deploy
       - name: Building
