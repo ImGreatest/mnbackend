@@ -1,13 +1,8 @@
-import { ReqCreateUserDto } from "../../dto/req-dto/req-create-user.dto";
-import { ReqUpdateUserDto } from "../../dto/req-dto/req-update-user.dto";
 import { faker } from "@faker-js/faker";
+import { TMockReqUserExample } from "../../types/mock-req-user-example.type";
+import { ERole } from "../../../../shared/enum/role.enum";
 
-export interface IMockUserExamples {
-	summary: string;
-	value: ReqCreateUserDto | ReqUpdateUserDto;
-}
-
-export const mockReqUserDto: Record<string, IMockUserExamples> = {
+export const mockReqUserDto: Record<string, TMockReqUserExample> = {
 	firstExample: {
 		summary: 'First example',
 		value: {
@@ -18,8 +13,10 @@ export const mockReqUserDto: Record<string, IMockUserExamples> = {
 			firstname: faker.person.firstName(),
 			middleName: faker.person.middleName(),
 			lastname: faker.person.lastName(),
-			role: faker.person.jobTitle(),
-		}
+			address: faker.location.streetAddress(),
+			alternateContact: faker.phone.number() || faker.internet.email(),
+			role: ERole.client,
+		},
 	},
 	oneMoreExample: {
 		summary: 'One more example',
@@ -31,7 +28,9 @@ export const mockReqUserDto: Record<string, IMockUserExamples> = {
 			firstname: faker.person.firstName(),
 			middleName: faker.person.middleName(),
 			lastname: faker.person.lastName(),
-			role: faker.person.jobTitle(),
-		}
-	}
+			address: faker.location.streetAddress(),
+			alternateContact: faker.phone.number() || faker.internet.email(),
+			role: ERole.client,
+		},
+	},
 }
