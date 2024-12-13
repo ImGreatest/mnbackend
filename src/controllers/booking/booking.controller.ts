@@ -12,7 +12,6 @@ import {
 	MockResUpdateReservationDto
 } from "../../../libs/domain/booking/mocks/res-mocks/mock-res-update-reservation.dto";
 
-
 @ApiTags('booking')
 @ApiBearerAuth()
 @Controller('booking')
