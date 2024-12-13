@@ -9,7 +9,7 @@ import { BookingRepository } from "./repositories/booking.repository";
 		{
 			provide: BookingRepository,
 			useClass: BookingAdapter,
-		}
+		},
 	],
 	exports: [BookingService],
 })
