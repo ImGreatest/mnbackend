@@ -5,6 +5,7 @@ import { ReqUpdateUserDto } from "../dto/req-dto/req-update-user.dto";
 import { ResUserByPhoneDto } from "../dto/res-dto/res-user-by-phone.dto";
 import { ResUserByEmailDto } from "../dto/res-dto/res-user-by-email.dto";
 import { ResUserByLoginDto } from "../dto/res-dto/res-user-by-login.dto";
+import { ResUsersDto } from "../dto/res-dto/res-users.dto";
 
 @Injectable()
 /**
@@ -19,8 +20,8 @@ export abstract class UserRepository {
 	 * Create a new user instance
 	 *
 	 * @abstract
-	 * @method createUser
 	 * @instance
+	 * @method createUser
 	 * @param data
 	 * @return { Promise&lt;void> }
 	 * @throws { Error } If was given invalid data or user creation fail.
@@ -87,10 +88,10 @@ export abstract class UserRepository {
 	 * @instance
 	 * @method getUsers
 	 * @throws { Error } if users the getting fail.
-	 * @returns { Promise&lt;Array&lt;ResUserDto> }
+	 * @returns { Promise&lt;ResUserDto> }
 	 * @see { ResUserDto }
 	 */
-	abstract getUsers(): Promise<ResUserDto[]>;
+	abstract getUsers(): Promise<ResUsersDto>;
 
 	/**
 	 * Updates the user instance.

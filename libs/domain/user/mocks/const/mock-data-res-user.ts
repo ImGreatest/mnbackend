@@ -1,7 +1,9 @@
-import { ResUserDto } from "../../dto/res-dto/res-user.dto";
+import { IUser } from "@entities";
 import { faker } from "@faker-js/faker";
+import { DateTime } from "luxon";
+import { ERole } from "@enums";
 
-export const mockResUserDto: ResUserDto = {
+export const MockDataResUser: IUser = {
 	id: faker.string.uuid(),
 	login: faker.person.fullName(),
 	email: faker.internet.email(),
@@ -12,8 +14,11 @@ export const mockResUserDto: ResUserDto = {
 	lastname: faker.person.lastName(),
 	address: faker.location.country() + faker.location.city() + faker.location.streetAddress(),
 	alternateContact: faker.phone.number() || faker.internet.email(),
-	role: faker.person.jobTitle(),
-	createdAt: faker.date.past(),
-	updatedAt: faker.date.past(),
-	deletedAt: faker.date.past(),
+	role: ERole[faker.number.int({
+		min: 1,
+		max: Object.keys(ERole).length,
+	})],
+	createdAt: DateTime.fromJSDate(faker.date.past()),
+	updatedAt: DateTime.fromJSDate(faker.date.past()),
+	deletedAt: DateTime.fromJSDate(faker.date.past()),
 }

@@ -6,6 +6,7 @@ import { ReqUpdateUserDto } from "../../domain/user/dto/req-dto/req-update-user.
 import { ResUserByLoginDto } from "../../domain/user/dto/res-dto/res-user-by-login.dto";
 import { ResUserByEmailDto } from "../../domain/user/dto/res-dto/res-user-by-email.dto";
 import { ResUserByPhoneDto } from "../../domain/user/dto/res-dto/res-user-by-phone.dto";
+import { ResUsersDto } from "../../domain/user/dto/res-dto/res-users.dto";
 
 @Injectable()
 /**
@@ -105,11 +106,11 @@ export class UserMockAdapter extends UserRepository {
 	 * @async
 	 * @instance
 	 * @method getUsers
-	 * @returns { Promise&lt;Array&lt;ResUserDto> }
-	 * @see { ResUserDto }
+	 * @returns { Promise&lt;ResUsersDto> }
+	 * @see { ResUsersDto }
 	 * @see { UserRepository }
 	 */
-	async getUsers(): Promise<ResUserDto[]> {
+	async getUsers(): Promise<ResUsersDto> {
 		throw new Error();
 	}
 
