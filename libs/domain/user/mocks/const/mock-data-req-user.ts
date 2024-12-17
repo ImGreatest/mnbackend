@@ -1,4 +1,3 @@
-import { ReqCreateUserDto } from "../../dto/req-dto/req-create-user.dto";
 import { faker } from "@faker-js/faker";
 import { ERole } from "@enums";
 import { IUser } from "@entities";
