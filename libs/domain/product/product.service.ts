@@ -14,31 +14,31 @@ export class ProductService extends ProductRepository{
 		super();
 	}
 
-	async createProduct(data: ReqCreateProductDto): Promise<void> {
+	createProduct(data: ReqCreateProductDto): Promise<void> {
 		return this.productRepository.createProduct(data);
 	}
 
-	async getProduct(productId: string): Promise<ResProductDto> {
+	getProduct(productId: string): Promise<ResProductDto> {
 		return this.productRepository.getProduct(productId);
 	}
 
-	async getProducts(name?: string, cost?: number): Promise<ResProductsDto[]> {
+	getProducts(name?: string, cost?: number): Promise<ResProductsDto[]> {
 		return this.productRepository.getProducts(name, cost);
 	}
 
-	async getProductsByName(name: string): Promise<ResProductsByNameDto[]> {
+	getProductsByName(name: string): Promise<ResProductsByNameDto[]> {
 		return this.productRepository.getProductsByName(name);
 	}
 
-	async getProductsByRangeCost(minCost: number, maxCost: number): Promise<ResProductsByRangeCostDto[]> {
+	getProductsByRangeCost(minCost: number, maxCost: number): Promise<ResProductsByRangeCostDto[]> {
 		return this.productRepository.getProductsByRangeCost(minCost, maxCost);
 	}
 
-	async updateProduct(productId: string, data: ReqUpdateProductDto): Promise<ResUpdateProductDto> {
+	updateProduct(productId: string, data: ReqUpdateProductDto): Promise<ResUpdateProductDto> {
 		return this.productRepository.updateProduct(productId, data);
 	}
 
-	async deleteProduct(productId: string): Promise<void> {
+	deleteProduct(productId: string): Promise<void> {
 		return this.productRepository.deleteProduct(productId);
 	}
 }
