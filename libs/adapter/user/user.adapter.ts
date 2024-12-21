@@ -9,6 +9,7 @@ import { logger } from "../../../logger/logger";
 import { ResUserByLoginDto } from "../../domain/user/dto/res-dto/res-user-by-login.dto";
 import { ResUserByEmailDto } from "../../domain/user/dto/res-dto/res-user-by-email.dto";
 import { ResUserByPhoneDto } from "../../domain/user/dto/res-dto/res-user-by-phone.dto";
+import { ResUsersDto } from "../../domain/user/dto/res-dto/res-users.dto";
 
 @Injectable()
 /**
@@ -150,11 +151,11 @@ export class UserAdapter extends UserRepository {
 	 * @instance
 	 * @method getUsers
 	 * @type { function(): Promise@lt;ResUserDto[]> }
-	 * @returns { Promise&lt;Array&lt;ResUserDto>> }
-	 * @see { ResUserDto }
+	 * @returns { Promise&lt;ResUsersDto>> }
+	 * @see { ResUsersDto }
 	 * @see { UserRepository }
 	 */
-	async getUsers(): Promise<ResUserDto[]> {
+	async getUsers(): Promise<ResUsersDto> {
 		logger.info('Adapter call - getUsers method');
 
 		return this.prisma.user.findMany();

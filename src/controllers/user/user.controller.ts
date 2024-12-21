@@ -5,15 +5,17 @@ import { ReqCreateUserDto } from "../../../libs/domain/user/dto/req-dto/req-crea
 import { ResUserDto } from "../../../libs/domain/user/dto/res-dto/res-user.dto";
 import { ReqUpdateUserDto } from "../../../libs/domain/user/dto/req-dto/req-update-user.dto";
 import { ResUpdatedUserDto } from "../../../libs/domain/user/dto/res-dto/res-updated-user.dto";
-import { mockReqUserDto } from "../../../libs/domain/user/mocks/req-mocks/mock-req-user.dto";
+import { MockReqUser } from "../../../libs/domain/user/mocks/req-mocks/mock-req-user";
 import { faker } from "@faker-js/faker";
-import { mockResUserDto } from "../../../libs/domain/user/mocks/res-mocks/mock-res-user.dto";
+import { MockResUser } from "../../../libs/domain/user/mocks/res-mocks/mock-res-user";
 import { ResUserByLoginDto } from "../../../libs/domain/user/dto/res-dto/res-user-by-login.dto";
 import { ResUserByEmailDto } from "../../../libs/domain/user/dto/res-dto/res-user-by-email.dto";
 import { ResUserByPhoneDto } from "../../../libs/domain/user/dto/res-dto/res-user-by-phone.dto";
-import { MockResUserByLoginDto } from "../../../libs/domain/user/mocks/res-mocks/mock-res-user-by-login.dto";
-import { MockResUserByEmailDto } from "../../../libs/domain/user/mocks/res-mocks/mock-res-user-by-email.dto";
-import { MockResUserByPhoneDto } from "../../../libs/domain/user/mocks/res-mocks/mock-res-user-by-phone.dto";
+import { MockResUserByLogin } from "../../../libs/domain/user/mocks/res-mocks/mock-res-user-by-login";
+import { MockResUserByEmail } from "../../../libs/domain/user/mocks/res-mocks/mock-res-user-by-email";
+import { MockResUserByPhone } from "../../../libs/domain/user/mocks/res-mocks/mock-res-user-by-phone";
+import { MockReqUpdateUser } from "../../../libs/domain/user/mocks/req-mocks/mock-req-update-user";
+import { ResUsersDto } from "../../../libs/domain/user/dto/res-dto/res-users.dto";
 
 @ApiTags('user')
 @ApiBearerAuth()
@@ -36,7 +38,7 @@ export class UserController {
 		type: ReqCreateUserDto,
 		required: true,
 		description: 'Data for create new user',
-		examples: mockReqUserDto,
+		examples: MockReqUser,
 	})
 	@ApiResponse({
 		status: HttpStatus.CREATED,
@@ -74,7 +76,7 @@ export class UserController {
 		description: 'Return user data by identifier',
 		type: ResUserDto,
 		isArray: false,
-		example: mockResUserDto,
+		example: MockResUser,
 	})
 	@ApiResponse({
 		status: HttpStatus.BAD_REQUEST,
@@ -110,7 +112,7 @@ export class UserController {
 		description: 'Returns user by input login.',
 		type: ResUserByLoginDto,
 		isArray: false,
-		example: MockResUserByLoginDto,
+		example: MockResUserByLogin,
 	})
 	@ApiResponse({
 		status: HttpStatus.BAD_REQUEST,
@@ -146,7 +148,7 @@ export class UserController {
 		description: 'Returns user by input email.',
 		type: ResUserByPhoneDto,
 		isArray: false,
-		example: MockResUserByEmailDto,
+		example: MockResUserByEmail,
 	})
 	@ApiResponse({
 		status: HttpStatus.BAD_REQUEST,
@@ -182,7 +184,7 @@ export class UserController {
 		description: 'Returns user by his phone.',
 		type: ResUserByPhoneDto,
 		isArray: false,
-		example: MockResUserByPhoneDto,
+		example: MockResUserByPhone,
 	})
 	@ApiResponse({
 		status: HttpStatus.BAD_REQUEST,
@@ -212,7 +214,7 @@ export class UserController {
 		description: 'Return all users',
 		type: ResUserDto,
 		isArray: true,
-		example: mockResUserDto,
+		example: MockResUser,
 	})
 	@ApiResponse({
 		status: HttpStatus.BAD_REQUEST,
@@ -227,11 +229,11 @@ export class UserController {
 	 *
 	 * @instance
 	 * @method getUsers
-	 * @return { Promise&lt;Array&lt;ResUser> }
-	 * @see { ResUserDto }
+	 * @return { Promise&lt;ResUsersDto> }
+	 * @see { ResUsersDto }
 	 * @see { UserService }
 	 */
-	getUsers(): Promise<ResUserDto[]> {
+	getUsers(): Promise<ResUsersDto> {
 		return this.userService.getUsers();
 	}
 
@@ -248,6 +250,7 @@ export class UserController {
 		type: ReqUpdateUserDto,
 		description: 'New data for update user',
 		isArray: false,
+		examples: { MockReqUpdateUser }
 	})
 	@ApiResponse({
 		status: HttpStatus.OK,
@@ -278,10 +281,7 @@ export class UserController {
 	 * @see { ReqUpdateUserDto }
 	 * @see { UserService }
 	 */
-	updateUser(
-		@Param('id') userId: string,
-		@Body() data: ReqUpdateUserDto,
-	): Promise<void> {
+	updateUser(@Param('id') userId: string, @Body() data: ReqUpdateUserDto,): Promise<void> {
 		return this.userService.updateUser(userId, data);
 	}
 

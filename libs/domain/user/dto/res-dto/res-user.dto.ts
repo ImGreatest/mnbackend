@@ -26,20 +26,21 @@ export class ResUserDto {
 	@ApiProperty({
 		type: String,
 		required: true,
+		description: 'Property id user',
 		example: faker.string.uuid(),
 	})
 	@IsString()
 	/**
-	 * Property id
+	 * Property identifier user
 	 *
-	 * @readonly
 	 * @requires
 	 * @type { string }
 	 */
-	readonly id!: string;
+	id: string;
 
 	@ApiProperty({
 		type: String,
+		description: 'Property login user',
 		required: true,
 		example: faker.person.fullName(),
 	})
@@ -47,14 +48,14 @@ export class ResUserDto {
 	/**
 	 * Property login
 	 *
-	 * @readonly
-	 * @requires
 	 * @type { string }
+	 * @requires
 	 */
-	readonly login!: string;
+	login: string;
 
 	@ApiProperty({
 		type: String,
+		description: 'Property email user',
 		required: true,
 		example: faker.internet.email(),
 	})
@@ -62,14 +63,14 @@ export class ResUserDto {
 	/**
 	 * Property email
 	 *
-	 * @readonly
-	 * @requires
 	 * @type { string }
+	 * @requires
 	 */
-	readonly email!: string;
+	email: string;
 
 	@ApiProperty({
 		type: String,
+		description: 'Property phone user',
 		required: true,
 		example: String(faker.phone.number()),
 	})
@@ -77,115 +78,102 @@ export class ResUserDto {
 	/**
 	 * Property phone
 	 *
-	 * @readonly
-	 * @requires
 	 * @type { string }
+	 * @requires
 	 */
-	readonly phone!: string;
+	phone: string;
 
 	@ApiProperty({
 		type: String,
+		description: 'Property password user',
 		required: true,
 	})
 	@IsString()
 	/**
 	 * Property password
 	 *
-	 * @readonly
-	 * @requires
 	 * @type { string }
 	 */
-	readonly password!: string;
+	password: string;
 
 	@ApiProperty({
 		type: String,
-		required: true,
+		description: 'Property firstname user',
 		example: faker.person.firstName().toString(),
 	})
 	@IsString()
 	/**
 	 * Property firstname
 	 *
-	 * @readonly
-	 * @requires
 	 * @type { string }
 	 */
-	readonly firstname!: string;
+	firstname: string;
 
 	@ApiProperty({
 		type: String,
+		description: 'Property middlename user',
 		example: faker.person.middleName(),
 	})
 	@IsString()
 	/**
 	 * Property middleName
 	 *
-	 * @readonly
-	 * @requires
 	 * @type { string }
 	 */
-	readonly middleName!: string;
+	middleName: string;
 
 	@ApiProperty({
 		type: String,
-		required: true,
+		description: 'Property lastname user',
 		example: faker.person.lastName(),
 	})
 	@IsString()
 	/**
 	 * Property lastname
 	 *
-	 * @readonly
-	 * @requires
 	 * @type { string }
 	 */
-	readonly lastname!: string;
+	lastname: string;
 
 	@ApiProperty({
 		type: String,
-		required: true,
+		description: 'Property address user',
 	})
 	@IsString()
 	/**
 	 * Property address
 	 *
-	 * @readonly
-	 * @requires
 	 * @type { string }
 	 */
-	readonly address!: string;
+	address: string;
 
 	@ApiProperty({
 		type: String,
-		required: true,
+		description: 'Property alternate contact information user',
 	})
 	@IsString()
 	/**
 	 * Property alternateContact
 	 *
-	 * @readonly
-	 * @requires
 	 * @type { string }
 	 */
-	readonly alternateContact!: string;
+	alternateContact: string;
 
 	@ApiProperty({
 		type: String,
-		required: true,
+		description: 'Property role user',
 	})
 	@IsString()
 	/**
 	 * Property role
 	 *
-	 * @readonly
-	 * @requires
 	 * @type { string }
 	 */
-	readonly role!: string;
+	role: string;
 
 	@ApiProperty({
 		type: Date,
-		required: true,
+		description: 'Property of date-time creating user',
 		format: 'date-time',
 		example: faker.date.past(),
 	})
@@ -193,15 +181,13 @@ export class ResUserDto {
 	/**
 	 * Property createdAt
 	 *
-	 * @readonly
-	 * @requires
 	 * @type { Date }
 	 */
-	readonly createdAt!: Date;
+	createdAt: Date;
 
 	@ApiProperty({
 		type: Date,
-		required: true,
+		description: 'Property of date-time last updating user',
 		format: 'date-time',
 		example: faker.date.past(),
 	})
@@ -209,15 +195,13 @@ export class ResUserDto {
 	/**
 	 * Property updatedAt
 	 *
-	 * @readonly
-	 * @requires
 	 * @type { Date }
 	 */
 	readonly updatedAt!: Date;
 
 	@ApiProperty({
 		type: Date,
-		required: true,
+		description: 'Property of date-time deleting user',
 		format: 'date-time',
 		example: faker.date.past(),
 	})
@@ -225,9 +209,7 @@ export class ResUserDto {
 	/**
 	 * Property deletedAt
 	 *
-	 * @readonly
-	 * @requires
 	 * @type { Date }
 	 */
-	readonly deletedAt!: Date;
+	deletedAt: Date;
 }

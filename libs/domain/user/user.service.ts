@@ -6,6 +6,7 @@ import { ReqUpdateUserDto } from "./dto/req-dto/req-update-user.dto";
 import { ResUserByLoginDto } from "./dto/res-dto/res-user-by-login.dto";
 import { ResUserByEmailDto } from "./dto/res-dto/res-user-by-email.dto";
 import { ResUserByPhoneDto } from "./dto/res-dto/res-user-by-phone.dto";
+import { ResUsersDto } from "./dto/res-dto/res-users.dto";
 
 @Injectable()
 /**
@@ -96,11 +97,12 @@ export class UserService {
 	 *
 	 * @instance
 	 * @method getUsers
-	 * @returns { Promise&lt;Array&lt;ResUserDto> }
-	 * @see { ResUserDto }
+	 * @returns { Promise&lt;ResUsersDto> }
+	 * @see { ResUsersDto }
 	 * @see { UserRepository }
 	 */
-	getUsers(): Promise<ResUserDto[]> {
+
+	getUsers(): Promise<ResUsersDto> {
 		return this.userRepository.getUsers();
 	}
 
