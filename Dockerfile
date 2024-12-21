@@ -6,7 +6,7 @@ COPY package*.json ./
 
 COPY package-lock.json ./
 
-RUN npm install
+RUN pnpm install
 
 COPY . .
 
@@ -14,7 +14,7 @@ RUN npm run lint
 
 RUN npx prisma generate
 
-RUN npm run build
+RUN pnpm run build
 
 EXPOSE 8080
 
