@@ -101,7 +101,7 @@ export class ProductController {
 	getProducts(
 		@Query('name') name?: string,
 		@Query('cost') cost?: number,
-	): Promise<ResProductsDto[]> {
+	): Promise<ResProductsDto> {
 		return this.productService.getProducts(name, cost);
 	}
 

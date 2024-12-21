@@ -9,10 +9,8 @@ import { ReqUpdateProductDto } from "./dto/req-dto/req-update-product.dto";
 import { ResProductsByNameDto } from "./dto/res-dto/res-products-by-name.dto";
 
 @Injectable()
-export class ProductService extends ProductRepository{
-	constructor(private readonly productRepository: ProductRepository) {
-		super();
-	}
+export class ProductService {
+	constructor(private readonly productRepository: ProductRepository) {}
 
 	async createProduct(data: ReqCreateProductDto): Promise<void> {
 		return this.productRepository.createProduct(data);
@@ -22,7 +20,7 @@ export class ProductService extends ProductRepository{
 		return this.productRepository.getProduct(productId);
 	}
 
-	async getProducts(name?: string, cost?: number): Promise<ResProductsDto[]> {
+	async getProducts(name?: string, cost?: number): Promise<ResProductsDto> {
 		return this.productRepository.getProducts(name, cost);
 	}
 

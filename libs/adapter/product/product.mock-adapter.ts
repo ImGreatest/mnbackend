@@ -22,7 +22,7 @@ export class ProductMockAdapter extends ProductRepository {
 		throw new Error(`${productId}`);
 	}
 
-	async getProducts(name?: string, cost?: number): Promise<ResProductsDto[]> {
+	async getProducts(name?: string, cost?: number): Promise<ResProductsDto> {
 		throw new Error(`${name}, ${cost}`);
 	}
 
