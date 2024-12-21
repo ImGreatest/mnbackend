@@ -4,6 +4,7 @@ down:
 	docker-compose down
 server-update:
 	docker-compose pull && docker-compose up -d --build
-
 run:
-	npm run start:dev
+	pnpm run build && pnpm run start:dev
+migrate:
+	npx prisma migrate dev

@@ -25,7 +25,6 @@ export class UserService {
 	/**
 	 * Service method for create the user instance.
 	 *
-	 * @async
 	 * @instance
 	 * @method createUser
 	 * @param { ReqCreateUserDto } data
@@ -33,14 +32,13 @@ export class UserService {
 	 * @see { ReqCreateUserDto }
 	 * @see { UserRepository }
 	 */
-	async createUser(data: ReqCreateUserDto): Promise<void> {
+	createUser(data: ReqCreateUserDto): Promise<void> {
 		return this.userRepository.createUser(data);
 	}
 
 	/**
 	 * Service method for getting a specific user by his identifier.
 	 *
-	 * @async
 	 * @instance
 	 * @method getUser
 	 * @param { string } userId
@@ -48,14 +46,13 @@ export class UserService {
 	 * @see { ResUserDto }
 	 * @see { UserRepository }
 	 */
-	async getUser(userId: string): Promise<ResUserDto> {
+	getUser(userId: string): Promise<ResUserDto> {
 		return this.userRepository.getUser(userId);
 	}
 
 	/**
 	 * Service method for getting the user by his login.
 	 *
-	 * @async
 	 * @instance
 	 * @method getUserByLogin
 	 * @param { string } login
@@ -63,14 +60,13 @@ export class UserService {
 	 * @see { ResUserByLoginDto }
 	 * @see { UserRepository }
 	 */
-	async getUserByLogin(login: string): Promise<ResUserByLoginDto> {
+	getUserByLogin(login: string): Promise<ResUserByLoginDto> {
 		return this.userRepository.getUserByLogin(login);
 	}
 
 	/**
 	 * Service method for getting the user by his email.
 	 *
-	 * @async
 	 * @instance
 	 * @method getUserByEmail
 	 * @param { string } email
@@ -78,14 +74,13 @@ export class UserService {
 	 * @see { ResUserByEmailDto }
 	 * @see { UserRepository }
 	 */
-	async getUserByEmail(email: string): Promise<ResUserByEmailDto> {
+	getUserByEmail(email: string): Promise<ResUserByEmailDto> {
 		return this.userRepository.getUserByEmail(email);
 	}
 
 	/**
 	 * Service method for getting the user by his phone.
 	 *
-	 * @async
 	 * @instance
 	 * @method getUserByPhone
 	 * @param { string } phone
@@ -93,28 +88,27 @@ export class UserService {
 	 * @see { ResUserByPhoneDto }
 	 * @see { UserRepository }
 	 */
-	async getUserByPhone(phone: string): Promise<ResUserByPhoneDto> {
+	getUserByPhone(phone: string): Promise<ResUserByPhoneDto> {
 		return this.userRepository.getUserByPhone(phone);
 	}
 
 	/**
 	 * Service method for getting all users.
 	 *
-	 * @async
 	 * @instance
 	 * @method getUsers
 	 * @returns { Promise&lt;ResUsersDto> }
 	 * @see { ResUsersDto }
 	 * @see { UserRepository }
 	 */
-	async getUsers(): Promise<ResUsersDto> {
+
+	getUsers(): Promise<ResUsersDto> {
 		return this.userRepository.getUsers();
 	}
 
 	/**
 	 * Service method for updating the user.
 	 *
-	 * @async
 	 * @instance
 	 * @method updateUser
 	 * @param { string } userId
@@ -123,21 +117,20 @@ export class UserService {
 	 * @see { ReqUpdateUserDto }
 	 * @see { UserRepository }
 	 */
-	async updateUser(userId: string, data: ReqUpdateUserDto): Promise<void> {
+	updateUser(userId: string, data: ReqUpdateUserDto): Promise<void> {
 		return this.userRepository.updateUser(userId, data);
 	}
 
 	/**
 	 * Service method for deleting the user.
 	 *
-	 * @async
 	 * @instance
 	 * @method deleteUser
 	 * @param { string } userId
 	 * @returns { Promise&lt;void> }
 	 * @see { UserRepository }
 	 */
-	async deleteUser(userId: string): Promise<void> {
+	deleteUser(userId: string): Promise<void> {
 		return this.userRepository.deleteUser(userId);
 	}
 }
