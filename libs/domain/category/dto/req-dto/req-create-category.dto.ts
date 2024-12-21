@@ -1,4 +1,4 @@
-import { ICategory } from "../../../../shared/entity";
+import { ICategory } from "@entities";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString } from "class-validator";
 
