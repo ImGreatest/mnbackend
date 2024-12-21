@@ -4,13 +4,16 @@ WORKDIR /app
 
 COPY package*.json ./
 
-COPY package-lock.json ./
+#COPY package-lock.json ./
+COPY pnpm-lock.yaml ./
+
+RUN npm install -g pnpm
 
 RUN pnpm install
 
 COPY . .
 
-RUN npm run lint
+RUN pnpm run lint
 
 RUN npx prisma generate
 
