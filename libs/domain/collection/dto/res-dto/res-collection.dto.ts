@@ -1,5 +1,4 @@
-import { ICollection } from "../../../../shared/entity";
-import { DateTime } from "luxon";
+import { ICollection } from "@entities";
 import { IsDate, IsString } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";

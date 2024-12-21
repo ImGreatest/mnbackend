@@ -4,11 +4,13 @@ import { ReqCreateReservationDto } from "../../domain/booking/dto/req-dto/req-cr
 import { ResReservationDto } from "../../domain/booking/dto/res-dto/res-reservation.dto";
 import { ReqUpdateReservationDto } from "../../domain/booking/dto/req-dto/req-update-reservation.dto";
 import { ResUpdateReservationDto } from "../../domain/booking/dto/res-dto/res-update-reservation.dto";
+import { logger } from "../../../logger/logger";
 
 @Injectable()
 export class BookingAdapter extends BookingRepository {
 	constructor() {
 		super();
+		logger.info('BookingAdapter was init');
 	}
 
 	async createReservation(data: ReqCreateReservationDto): Promise<void> {

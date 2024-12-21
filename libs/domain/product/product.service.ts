@@ -20,7 +20,7 @@ export class ProductService {
 		return this.productRepository.getProduct(productId);
 	}
 
-	async getProducts(name?: string, cost?: number): Promise<ResProductsDto[]> {
+	async getProducts(name?: string, cost?: number): Promise<ResProductsDto> {
 		return this.productRepository.getProducts(name, cost);
 	}
 

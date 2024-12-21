@@ -13,7 +13,7 @@ export class CollectionController {
 	constructor(private readonly collectionService: CollectionService) {}
 
 	@Post('create-collection')
-	createCollection(@Body() data: ReqCreateCollectionDto): Promise<void> {
+	createCollection(@Body() data: ReqCreateCollectionDto): Promise<ResCollectionDto> {
 		return this.collectionService.createCollection(data);
 	}
 

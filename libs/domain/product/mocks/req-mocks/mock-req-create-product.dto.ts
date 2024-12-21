@@ -9,6 +9,7 @@ export const MockReqCreateProductDto: Record<string, TMockReqProductExample> = {
 			description: faker.lorem.sentence(),
 			cost: faker.number.int(),
 			compound: faker.lorem.slug(),
+			collectionId: faker.string.uuid(),
 		},
 	},
 	secondExample: {
@@ -18,6 +19,7 @@ export const MockReqCreateProductDto: Record<string, TMockReqProductExample> = {
 			description: faker.lorem.sentence(),
 			cost: faker.number.int(),
 			compound: faker.lorem.slug(),
+			collectionId: faker.string.uuid(),
 		}
 	}
 };

@@ -1,8 +1,9 @@
 import { IsNumber, IsString } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
+import { IProduct } from "@entities";
 
-export class ReqCreateProductDto {
+export class ReqCreateProductDto implements Omit<IProduct, "id" | "createdAt" | "updatedAt" | "deletedAt"> {
 	@ApiProperty({
 		type: String,
 		required: true,
@@ -15,7 +16,7 @@ export class ReqCreateProductDto {
 	@ApiProperty({
 		type: String,
 		required: false,
-		description: 'Attribute description product',
+		description: 'Property of description product',
 		example: faker.lorem.sentence(),
 	})
 	@IsString()
@@ -38,4 +39,13 @@ export class ReqCreateProductDto {
 	})
 	@IsString()
 	compound: string;
+
+	@ApiProperty({
+		type: String,
+		required: true,
+		description: 'Property for identifier collection to refer product',
+		example: faker.string.uuid(),
+	})
+	@IsString()
+	collectionId: string;
 }

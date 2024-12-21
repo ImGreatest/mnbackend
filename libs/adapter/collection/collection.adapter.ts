@@ -11,22 +11,23 @@ import { logger } from "../../../logger/logger";
 export class CollectionAdapter extends CollectionRepository {
 	constructor(private readonly prisma: PrismaService) {
 		super();
+		logger.info('CollectionAdapter was init');
 	}
 
-	async createCollection(data: ReqCreateCollectionDto): Promise<void> {
-		logger.info(`Adapter call - createCollection method, param - ${{ ...data }}`);
+	async createCollection(data: ReqCreateCollectionDto): Promise<ResCollectionDto> {
+		logger.verbose(`Adapter call - createCollection method, param - ${JSON.stringify(data)}`);
 
-		await this.prisma.collection.create({ data: { ...data } });
+		return this.prisma.collection.create({ data: { ...data } });
 	}
 
 	async getCollection(collectionId: string): Promise<ResCollectionDto> {
-		logger.info(`Adapter call - getCollection method, param - ${collectionId}`);
+		logger.verbose(`Adapter call - getCollection method, param - ${JSON.stringify(collectionId)}`);
 
 		return this.prisma.collection.findUnique({ where: { id: collectionId } });
 	}
 
 	async getCollections(): Promise<ResCollectionsDto> {
-		logger.info('Adapter call - getCollections method');
+		logger.verbose('Adapter call - getCollections method');
 
 		const collections = await this.prisma.collection.findMany();
 
@@ -38,13 +39,13 @@ export class CollectionAdapter extends CollectionRepository {
 	}
 
 	async updateCollection(collectionId: string, data: ReqUpdateCollectionDto): Promise<void> {
-		logger.info(`Adapter call - updateCollection method, params - ${collectionId}, ${{ ...data }}`);
+		logger.verbose(`Adapter call - updateCollection method, params - ${JSON.stringify(collectionId)}, ${JSON.stringify(data)}`);
 
 		await this.prisma.collection.update({ where: { id: collectionId }, data: { ...data } });
 	}
 
 	async deleteCollection(collectionId: string): Promise<void> {
-		logger.info(`Adapter call - deleteCollection method, param - ${collectionId}`);
+		logger.verbose(`Adapter call - deleteCollection method, param - ${JSON.stringify(collectionId)}`);
 
 		await this.prisma.collection.delete({ where: { id: collectionId } });
 	}
