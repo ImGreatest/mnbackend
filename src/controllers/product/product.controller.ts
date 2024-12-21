@@ -9,7 +9,7 @@ import { ResProductsByRangeCostDto } from "../../../libs/domain/product/dto/res-
 import { ResUpdateProductDto } from "../../../libs/domain/product/dto/res-dto/res-update-product.dto";
 import { ReqUpdateProductDto } from "../../../libs/domain/product/dto/req-dto/req-update-product.dto";
 import { ResProductsByNameDto } from "../../../libs/domain/product/dto/res-dto/res-products-by-name.dto";
-import { MockReqCreateProductDto } from "../../../libs/domain/product/mocks/req-mocks/mock-req-create-product.dto";
+import { MockReqProductDto } from "../../../libs/domain/product/mocks/req-mocks/mock-req-product.dto";
 import { MockResProductDto } from "../../../libs/domain/product/mocks/res-mocks/mock-res-product.dto";
 import { MockResUpdateProductDto } from "../../../libs/domain/product/mocks/res-mocks/mock-res-update-product.dto";
 import { MockResProductsDto } from "../../../libs/domain/product/mocks/res-mocks/mock-res-products.dto";
@@ -30,7 +30,7 @@ export class ProductController {
 		type: ReqCreateProductDto,
 		required: true,
 		description: 'Data for create new product',
-		examples: MockReqCreateProductDto,
+		examples: MockReqProductDto,
 	})
 	@ApiResponse({
 		status: HttpStatus.CREATED,

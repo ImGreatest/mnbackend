@@ -1,6 +1,6 @@
-import { MockReqCreateProductDto } from "./mock-req-create-product.dto";
-import { TMockReqProductExample } from "../../types/mock-req-product-example.type";
+import { MockReqProductDto } from "./mock-req-product.dto";
+import { TMockReqProduct } from "../../types/mock-req-product.type";
 
-export const MockReqUpdateProductDto: Record<string, TMockReqProductExample> = {
-	...MockReqCreateProductDto,
-};
+export const MockReqUpdateProductDto: Record<string, TMockReqProduct> = {
+	...MockReqProductDto,
+}

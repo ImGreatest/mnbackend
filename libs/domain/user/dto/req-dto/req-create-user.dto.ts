@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
 import { IsAlpha, IsEmpty, IsEnum, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
-import { ERole } from "../../../../shared/enum/role.enum";
+import { ERole } from "@enums";
 
 /**
  * Class describing the properties sent to create user instance
@@ -31,13 +31,14 @@ export class ReqCreateUserDto {
 	/**
 	 * Property login
 	 *
-	 * @readonly
 	 * @type { string }
+	 * @optional
 	 */
-	readonly login?: string;
+	login?: string;
 
 	@ApiProperty({
 		type: String,
+		description: 'Property for email user',
 		required: true,
 		example: faker.internet.email(),
 	})
@@ -46,11 +47,10 @@ export class ReqCreateUserDto {
 	/**
 	 * Property email
 	 *
-	 * @readonly
-	 * @requires
 	 * @type { string }
+	 * @requires
 	 */
-	readonly email: string;
+	email: string;
 
 	@ApiProperty({
 		type: String,
@@ -63,13 +63,14 @@ export class ReqCreateUserDto {
 	/**
 	 * Property phone
 	 *
-	 * @readonly
 	 * @type { string }
+	 * @optional
 	 */
-	readonly phone?: string;
+	phone?: string;
 
 	@ApiProperty({
 		type: String,
+		description: 'Property for password user',
 		required: true,
 		example: faker.internet.password({ length: 10 }),
 	})
@@ -78,14 +79,14 @@ export class ReqCreateUserDto {
 	/**
 	 * Property password
 	 *
-	 * @readonly
-	 * @requires
 	 * @type { string }
+	 * @requires
 	 */
-	readonly password: string;
+	password: string;
 
 	@ApiProperty({
 		type: String,
+		description: 'Property for firstname user',
 		required: false,
 		example: faker.person.firstName(),
 	})
@@ -94,15 +95,16 @@ export class ReqCreateUserDto {
 	@IsEmpty()
 	@IsOptional()
 	/**
-	 * Property firstname
+	 * Property firstname user
 	 *
-	 * @readonly
 	 * @type { string }
+	 * @optional
 	 */
-	readonly firstname?: string;
+	firstname?: string;
 
 	@ApiProperty({
 		type: String,
+		description: 'Property for middlename user',
 		required: false,
 		example: faker.person.middleName(),
 	})
@@ -111,15 +113,16 @@ export class ReqCreateUserDto {
 	@IsEmpty()
 	@IsOptional()
 	/**
-	 * Property middleName
+	 * Property middleName user
 	 *
-	 * @readonly
 	 * @type { string }
+	 * @optional
 	 */
-	readonly middleName?: string;
+	middleName?: string;
 
 	@ApiProperty({
 		type: String,
+		description: 'Property for lastname user',
 		required: false,
 		example: faker.person.lastName(),
 	})
@@ -129,15 +132,16 @@ export class ReqCreateUserDto {
 	@MaxLength(255)
 	@IsOptional()
 	/**
-	 * Property lastname
+	 * Property lastname user
 	 *
-	 * @readonly
 	 * @type { string }
+	 * @optional
 	 */
-	readonly lastname?: string;
+	lastname?: string;
 
 	@ApiProperty({
 		type: String,
+		description: 'Property address user',
 		required: false,
 		example: faker.location.country() + faker.location.city() + faker.location.streetAddress(),
 	})
@@ -147,15 +151,16 @@ export class ReqCreateUserDto {
 	@IsEmpty()
 	@IsOptional()
 	/**
-	 * Property address
+	 * Property active address of user
 	 *
-	 * @readonly
 	 * @type { string }
+	 * @optional
 	 */
-	readonly address?: string;
+	address?: string;
 
 	@ApiProperty({
 		type: String,
+		description: 'Property for alternate contact information user',
 		required: false,
 		example: faker.phone.number(),
 	})
@@ -165,24 +170,34 @@ export class ReqCreateUserDto {
 	@IsEmpty()
 	@IsOptional()
 	/**
-	 * Property alternateContact
+	 * Property alternate contact of user
 	 *
-	 * @readonly
 	 * @type { string }
+	 * @optional
 	 */
-	readonly alternateContact?: string;
+	alternateContact?: string;
 
 	@ApiProperty({
 		type: String,
+		description: 'Property of role user in the system',
+		default: ERole.client,
+		enum: ERole,
+		enumName: "ERole",
 		required: true,
+		example: ERole[faker.number.int({
+			min: 1,
+			max: Object.keys(ERole).length,
+		})],
+		format: 'enum',
+		nullable: false,
 	})
 	@IsEnum(ERole)
 	@IsNotEmpty()
 	/**
-	 * Property role
+	 * Represents the role of the user in the system.
 	 *
-	 * @readonly
 	 * @type { ERole }
+	 * @requires
 	 */
-	readonly role: ERole;
+	role: ERole;
 }

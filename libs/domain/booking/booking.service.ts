@@ -9,27 +9,27 @@ import { ResUpdateReservationDto } from "./dto/res-dto/res-update-reservation.dt
 export class BookingService {
 	constructor(private readonly bookRepository: BookingRepository) {}
 
-	async createReservation(data: ReqCreateReservationDto): Promise<void> {
+	createReservation(data: ReqCreateReservationDto): Promise<void> {
 		return this.bookRepository.createReservation(data);
 	}
 
-	async getReservation(reservationId: string, userId?: string): Promise<ResReservationDto> {
+	getReservation(reservationId: string, userId?: string): Promise<ResReservationDto> {
 		return this.bookRepository.getReservation(reservationId, userId);
 	}
 
-	async getReservations(): Promise<ResReservationDto[]> {
+	getReservations(): Promise<ResReservationDto[]> {
 		return this.bookRepository.getReservations();
 	}
 
-	async getReservationsByDate(date: Date, userId?: string): Promise<ResReservationDto[]> {
+	getReservationsByDate(date: Date, userId?: string): Promise<ResReservationDto[]> {
 		return this.bookRepository.getReservationsByDate(date, userId);
 	}
 
-	async updateReservation(reservationId: string, data: ReqUpdateReservationDto): Promise<ResUpdateReservationDto> {
+	updateReservation(reservationId: string, data: ReqUpdateReservationDto): Promise<ResUpdateReservationDto> {
 		return this.bookRepository.updateReservation(reservationId, data);
 	}
 
-	async deleteReservation(reservationId: string): Promise<void> {
+	deleteReservation(reservationId: string): Promise<void> {
 		return this.bookRepository.deleteReservation(reservationId);
 	}
 }

@@ -3,12 +3,10 @@ import { SizeRepository } from "./repository/size.repository";
 import { ResSizeDto } from "./dto/res-dto/res-size.dto";
 
 @Injectable()
-export class SizeService extends SizeRepository {
-	constructor(private readonly sizeRepository: SizeRepository) {
-		super();
-	}
+export class SizeService {
+	constructor(private readonly sizeRepository: SizeRepository) {}
 
-	async getSize(name?: string): Promise<ResSizeDto[]> {
+	getSize(name?: string): Promise<ResSizeDto[]> {
 		return this.sizeRepository.getSize(name);
 	}
 }

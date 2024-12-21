@@ -1,14 +1,13 @@
-import { DateTime } from "luxon";
 import { EOrderStatus } from "@enums";
 
 export interface IOrder {
 	id: string;
 	userId: string;
-	dateDelivery: DateTime;
+	dateDelivery: Date;
 	cost: number;
 	status: EOrderStatus;
 	comment?: string;
-	createdAt: DateTime;
-	updatedAt?: DateTime;
-	deletedAt?: DateTime;
+	createdAt: Date;
+	updatedAt?: Date;
+	deletedAt?: Date;
 }

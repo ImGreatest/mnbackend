@@ -1,4 +1,4 @@
 import { ReqCreateReservationDto } from "../dto/req-dto/req-create-reservation.dto";
-import { IMockExamplesAttrs } from "../../../shared/interfaces/swagger-mock-examples.interface";
+import { IMockExamplesAttrs } from "@interfaces";
 
 export type TMockReqCreateReservationExample = IMockExamplesAttrs<ReqCreateReservationDto>;

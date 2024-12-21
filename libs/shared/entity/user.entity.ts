@@ -1,4 +1,4 @@
-import { ERole } from "../enum/role.enum";
+import { ERole } from "@enums";
 import { DateTime } from "luxon";
 
 export interface IUser {

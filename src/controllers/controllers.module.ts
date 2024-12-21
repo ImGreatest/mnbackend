@@ -4,6 +4,7 @@ import { BookingControllerModule } from "./booking/booking-controller.module";
 import { ProductControllerModule } from "./product/product-controller.module";
 import { SizeControllerModule } from "./size/size-controller.module";
 import { CollectionControllerModule } from "./collection/collection-controller.module";
+import { OrderControllerModule } from "./order/order-controller.module";
 
 @Module({
 	imports: [
@@ -11,6 +12,7 @@ import { CollectionControllerModule } from "./collection/collection-controller.m
 		BookingControllerModule,
 		ProductControllerModule,
 		SizeControllerModule,
+		OrderControllerModule,
 		CollectionControllerModule,
 	],
 })
