@@ -4,3 +4,6 @@ down:
 	docker-compose down
 server-update:
 	docker-compose pull && docker-compose up -d --build
+
+run:
+	npm run start:dev

@@ -1,6 +1,7 @@
-import { EOrderStatus } from "@enums";
+import { IOrder } from "../../../../shared/entity";
+import { EOrderStatus } from "../../../../shared/enum";
 
-export interface IOrder {
+export class ResOrderDto implements IOrder {
 	id: string;
 	userId: string;
 	dateDelivery: Date;
