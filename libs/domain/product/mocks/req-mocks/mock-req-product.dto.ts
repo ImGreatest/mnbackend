@@ -1,7 +1,7 @@
-import { TMockReqProductExample } from "../../types/mock-req-product-example.type";
+import { TMockReqProduct } from "../../types/mock-req-product.type";
 import { faker } from "@faker-js/faker";
 
-export const MockReqCreateProductDto: Record<string, TMockReqProductExample> = {
+export const MockReqProductDto: Record<string, TMockReqProduct> = {
 	firstExample: {
 		summary: 'First example',
 		value: {
@@ -9,6 +9,7 @@ export const MockReqCreateProductDto: Record<string, TMockReqProductExample> = {
 			description: faker.lorem.sentence(),
 			cost: faker.number.int(),
 			compound: faker.lorem.slug(),
+			collectionId: faker.string.uuid(),
 		},
 	},
 	secondExample: {
@@ -18,6 +19,7 @@ export const MockReqCreateProductDto: Record<string, TMockReqProductExample> = {
 			description: faker.lorem.sentence(),
 			cost: faker.number.int(),
 			compound: faker.lorem.slug(),
+			collectionId: faker.string.uuid(),
 		}
 	}
 };

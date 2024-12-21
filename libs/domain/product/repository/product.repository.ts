@@ -13,7 +13,7 @@ export abstract class ProductRepository {
 
 	abstract getProduct(productId: string): Promise<ResProductDto>;
 
-	abstract getProducts(name?: string, cost?: number): Promise<ResProductsDto[]>;
+	abstract getProducts(name?: string, cost?: number): Promise<ResProductsDto>;
 
 	abstract getProductsByName(name: string): Promise<ResProductsByNameDto[]>;
 

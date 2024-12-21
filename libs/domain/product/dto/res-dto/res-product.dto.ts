@@ -1,11 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
 import { IsDate, IsNumber, IsString } from "class-validator";
-import { DateTime } from "luxon";
+import { IProduct } from "@entities";
 
-export class ResProductDto {
+export class ResProductDto implements IProduct {
 	@ApiProperty({
 		type: String,
+		required: true,
 		description: 'Identifier product',
 		example: faker.string.uuid(),
 	})
@@ -14,6 +15,7 @@ export class ResProductDto {
 
 	@ApiProperty({
 		type: String,
+		required: true,
 		description: 'Namely of product',
 		example: faker.commerce.product(),
 	})
@@ -22,14 +24,16 @@ export class ResProductDto {
 
 	@ApiProperty({
 		type: String,
+		required: false,
 		description: 'Attribute description product',
 		example: faker.lorem.sentence(),
 	})
 	@IsString()
-	description?: string;
+	desc?: string;
 
 	@ApiProperty({
 		type: Number,
+		required: true,
 		description: 'Cost product',
 		example: faker.number.int(),
 	})
@@ -38,6 +42,7 @@ export class ResProductDto {
 
 	@ApiProperty({
 		type: String,
+		required: true,
 		description: 'Description product compound',
 		example: faker.lorem.slug(),
 	})
@@ -45,29 +50,36 @@ export class ResProductDto {
 	compound: string;
 
 	@ApiProperty({
-		type: DateTime,
-		format: 'date-time',
+		type: String,
+		required: true,
+		description: 'Property for identifier collection',
+		example: faker.string.uuid(),
+	})
+	@IsString()
+	collectionId: string;
+
+	@ApiProperty({
+		type: Date,
 		description: 'Parameter for date-time value creating product',
-		example: DateTime.fromJSDate(faker.date.past()),
+		example: faker.date.past(),
 	})
 	@IsDate()
-	createdAt: DateTime;
+	createdAt: Date;
 
 	@ApiProperty({
-		type: DateTime,
-		format: 'date-time',
+		type: Date,
 		description: 'Parameter for date-time value last updating product',
-		example: DateTime.fromJSDate(faker.date.past()),
+		example: faker.date.past(),
 	})
 	@IsDate()
-	updatedAt: DateTime;
+	updatedAt: Date;
 
 	@ApiProperty({
-		type: DateTime,
+		type: Date,
 		format: 'date-time',
 		description: 'Parameter for date-time value deleting product',
-		example: DateTime.fromJSDate(faker.date.past()),
+		example: faker.date.past(),
 	})
 	@IsDate()
-	deletedAt?: DateTime;
+	deletedAt: Date;
 }

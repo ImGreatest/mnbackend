@@ -1,12 +1,11 @@
-import { DateTime } from "luxon";
-
 export interface IProduct {
 	id: string;
 	name: string;
+	desc?: string;
 	cost: number;
 	compound: string;
 	collectionId: string;
-	createdAt: DateTime;
-	updatedAt?: DateTime;
-	deletedAt?: DateTime;
+	createdAt: Date;
+	updatedAt?: Date;
+	deletedAt?: Date;
 }
