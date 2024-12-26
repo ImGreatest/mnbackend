@@ -158,7 +158,11 @@ export class UserAdapter extends UserRepository {
 	async getUsers(): Promise<ResUsersDto> {
 		logger.info('Adapter call - getUsers method');
 
-		return this.prisma.user.findMany();
+
+
+		return {
+			users: await this.prisma.user.findMany(),
+		}
 	}
 
 	/**
