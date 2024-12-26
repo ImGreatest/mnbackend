@@ -6,7 +6,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ESNext",
+    "target": "es6",
     "strict": true,
     "esModuleInterop": true,
     "sourceMap": true,
@@ -28,10 +28,6 @@
       "@types": ["libs/shared/types/index.ts"],
     },
   },
-  "typeRoots": [
-    "./node_modules/@types",
-    "./src/@types",
-  ],
-  "include": ["src/**/*", "test/**/*"],
+  "include": ["src/**/*.ts", "test/**/*.ts"],
   "exclude": ["node_modules", "dist"],
 }

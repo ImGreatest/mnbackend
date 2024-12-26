@@ -13,7 +13,7 @@ export class CollectionMockAdapter extends CollectionRepository {
 		logger.info('CollectionMockAdapter was init');
 	}
 
-	async createCollection(data: ReqCreateCollectionDto): Promise<void> {
+	async createCollection(data: ReqCreateCollectionDto): Promise<ResCollectionDto> {
 		logger.verbose(`CollectionMockAdapter was called createCollection method with param - ${JSON.stringify(data)}`);
 		throw new Error(`${JSON.stringify(data)}`);
 	}
