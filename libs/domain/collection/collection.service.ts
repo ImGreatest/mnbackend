@@ -24,7 +24,7 @@ export class CollectionService {
 		return this.collectionRep.getCollections();
 	}
 
-	updateCollection(collectionId: string, data: ReqUpdateCollectionDto): Promise<void> {
+	updateCollection(collectionId: string, data: ReqUpdateCollectionDto): Promise<ResCollectionDto> {
 		return this.collectionRep.updateCollection(collectionId, data);
 	}
 

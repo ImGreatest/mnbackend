@@ -31,7 +31,7 @@ export class CollectionController {
 	updateCollection(
 		@Param('id') collectionId: string,
 		@Body() data: ReqUpdateCollectionDto,
-	): Promise<void> {
+	): Promise<ResCollectionDto> {
 		return this.collectionService.updateCollection(collectionId, data);
 	}
 
