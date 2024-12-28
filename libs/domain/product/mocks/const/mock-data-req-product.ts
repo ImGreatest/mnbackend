@@ -1,4 +1,4 @@
-import { IProduct } from "../../../../shared/entity";
+import { IProduct } from "@entities";
 import { faker } from "@faker-js/faker";
 
 export const MockDataReqProduct: Omit<IProduct, "id" | "createdAt" | "updatedAt" | "deletedAt"> = {
