@@ -24,7 +24,7 @@ export class FavoriteService {
 		return this.favoriteRep.getRelations(userId);
 	}
 
-	updateRelation(id: string, data: ReqUpdatedRelationDto): Promise<void> {
+	updateRelation(id: string, data: ReqUpdatedRelationDto): Promise<ResRelationDto> {
 		return this.favoriteRep.updateRelation(id, data);
 	}
 

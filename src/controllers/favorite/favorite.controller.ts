@@ -28,7 +28,7 @@ export class FavoriteController {
 	}
 
 	@Post('update-relation/:id')
-	updateRelation(@Param('id') id: string, @Body() data: ReqUpdatedRelationDto): Promise<void> {
+	updateRelation(@Param('id') id: string, @Body() data: ReqUpdatedRelationDto): Promise<ResRelationDto> {
 		return this.favoriteService.updateRelation(id, data);
 	}
 
