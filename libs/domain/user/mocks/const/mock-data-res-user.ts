@@ -1,7 +1,7 @@
 import { IUser } from "@entities";
 import { faker } from "@faker-js/faker";
 import { DateTime } from "luxon";
-import { ERole } from "@enums";
+import { ERole } from "../../../../shared/enum";
 
 export const MockDataResUser: IUser = {
 	id: faker.string.uuid(),
