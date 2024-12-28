@@ -16,6 +16,7 @@
     "skipLibCheck": true,
     "strictNullChecks": false,
     "noImplicitAny": false,
+    "noImplicitOverride": true,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": false,
@@ -23,11 +24,16 @@
     "paths": {
       "@decorators": ["libs/shared/decorators/index.ts"],
       "@entities": ["libs/shared/entity/index.ts"],
-      "@enums": ["libs/shared/enum/index.ts"],
+//      "@enums": ["libs/shared/enum/index.ts"],
       "@interfaces": ["libs/shared/interfaces/index.ts"],
       "@types": ["libs/shared/types/index.ts"],
     },
   },
-  "include": ["src/**/*.ts", "test/**/*.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.{test,spec}.ts",
+    "libs/**/*.{test,spec}.ts",
+    "test/**/*.ts",
+  ],
   "exclude": ["node_modules", "dist"],
 }
