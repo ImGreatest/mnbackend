@@ -1,7 +1,7 @@
 export interface IProduct {
 	id: string;
 	name: string;
-	desc?: string;
+	description?: string;
 	cost: number;
 	compound: string;
 	collectionId: string;
