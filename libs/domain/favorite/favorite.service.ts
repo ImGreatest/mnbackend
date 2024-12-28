@@ -12,7 +12,7 @@ export class FavoriteService {
 		logger.info('FavoriteService was init');
 	}
 
-	createRelation(data: ReqCreateRelationDto): Promise<void> {
+	createRelation(data: ReqCreateRelationDto): Promise<ResRelationDto> {
 		return this.favoriteRep.createRelation(data);
 	}
 

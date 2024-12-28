@@ -13,7 +13,7 @@ export class FavoriteController {
 	constructor(private readonly favoriteService: FavoriteService ) {}
 
 	@Post('create-relation')
-	createRelation(@Body() data: ReqCreateRelationDto): Promise<void> {
+	createRelation(@Body() data: ReqCreateRelationDto): Promise<ResRelationDto> {
 		return this.favoriteService.createRelation(data);
 	}
 

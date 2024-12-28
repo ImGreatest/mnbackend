@@ -6,18 +6,32 @@ import { PrismaService } from "../../services/prisma/prisma.service";
 import { logger } from "../../../logger/logger";
 import { ResRelationDto } from "../../domain/favorite/dto/res-dto/res-relation.dto";
 import { ResRelationsDto } from "../../domain/favorite/dto/res-dto/res-relations.dto";
+import { UserService } from "../../domain/user/user.service";
+import { ProductService } from "../../domain/product/product.service";
 
 @Injectable()
 export class FavoriteAdapter extends FavoriteRepository {
-	constructor(private readonly prisma: PrismaService) {
+	constructor(
+		private readonly prisma: PrismaService,
+		private readonly userService: UserService,
+		private readonly productService: ProductService,
+	) {
 		super();
 		logger.info('FavoriteAdapter was init');
 	}
 
-	async createRelation(data: ReqCreateRelationDto): Promise<void> {
+	async createRelation(data: ReqCreateRelationDto): Promise<ResRelationDto> {
 		logger.verbose(`Adapter call - createRelation with param - ${JSON.stringify(data)}`);
 
-		await this.prisma.favorite.create({
+		if (!await this.userService.getUser(data.userId)) {
+			throw new Error(`User with this identifier is not found!`);
+		}
+
+		if (!await this.productService.getProduct(data.productId)) {
+			throw new Error('Product with this identifier is not found!');
+		}
+
+		return this.prisma.favorite.create({
 			data: { ...data },
 		});
 	}
@@ -48,10 +62,10 @@ export class FavoriteAdapter extends FavoriteRepository {
 		}
 	}
 
-	async updateRelation(id: string, data: ReqUpdatedRelationDto): Promise<void> {
+	async updateRelation(id: string, data: ReqUpdatedRelationDto): Promise<ResRelationDto> {
 		logger.verbose(`Adapter call updateRelation with params - ${JSON.stringify(id)}, ${JSON.stringify(data)}`);
 
-		await this.prisma.favorite.update({
+		return await this.prisma.favorite.update({
 			where: { id: id },
 			data: { ...data },
 		});

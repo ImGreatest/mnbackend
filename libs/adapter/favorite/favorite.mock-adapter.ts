@@ -13,7 +13,7 @@ export class FavoriteMockAdapter extends FavoriteRepository {
 		logger.info('FavoriteMockAdapter was init');
 	}
 
-	createRelation(data: ReqCreateRelationDto): Promise<void> {
+	createRelation(data: ReqCreateRelationDto): Promise<ResRelationDto> {
 		logger.verbose(`FavoriteMockAdapter was called createRelation with param - ${JSON.stringify(data)}`);
 		throw new Error(`${JSON.stringify(data)}`);
 	}
