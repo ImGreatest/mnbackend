@@ -4,7 +4,7 @@ import { faker } from "@faker-js/faker";
 export const MockResProductDto: ResProductDto = {
 	id: faker.string.uuid(),
 	name: faker.commerce.product(),
-	desc: faker.lorem.sentence(),
+	description: faker.lorem.sentence(),
 	cost: faker.number.int(),
 	compound: faker.lorem.slug(),
 	collectionId: faker.string.uuid(),
