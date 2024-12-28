@@ -58,8 +58,9 @@ export class UserController {
 	 * @return { Promise&lt;void> }
 	 * @see { ReqCreateUserDto }
 	 * @see { UserService }
+	 * @see { ResUserDto }
 	 */
-	createUser(@Body() data: ReqCreateUserDto): Promise<void> {
+	createUser(@Body() data: ReqCreateUserDto): Promise<ResUserDto> {
 		return this.userService.createUser(data);
 	}
 
