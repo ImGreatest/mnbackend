@@ -29,7 +29,7 @@ export class ResProductDto implements IProduct {
 		example: faker.lorem.sentence(),
 	})
 	@IsString()
-	desc?: string;
+	description?: string;
 
 	@ApiProperty({
 		type: Number,
