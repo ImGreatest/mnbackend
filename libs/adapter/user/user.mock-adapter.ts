@@ -36,7 +36,7 @@ export class UserMockAdapter extends UserRepository {
 	 * @see { ReqCreateUserDto }
 	 * @see { UserRepository }
 	 */
-	async createUser(data: ReqCreateUserDto): Promise<void> {
+	async createUser(data: ReqCreateUserDto): Promise<ResUserDto> {
 		throw new Error(`${{...data}}`);
 	}
 
