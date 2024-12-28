@@ -32,7 +32,7 @@ export class FavoriteMockAdapter extends FavoriteRepository {
 		throw new Error(`${JSON.stringify(userId)}`);
 	}
 
-	updateRelation(id: string, data: ReqUpdatedRelationDto): Promise<void> {
+	updateRelation(id: string, data: ReqUpdatedRelationDto): Promise<ResRelationDto> {
 		logger.verbose(`FavoriteMockAdapter was called updateRelation with params - ${JSON.stringify(id)}, ${JSON.stringify(data)}`);
 		throw new Error(`${JSON.stringify(id)}, ${JSON.stringify(data)}`);
 	}
