@@ -31,8 +31,9 @@ export class UserService {
 	 * @returns { Promise&lt;void> }
 	 * @see { ReqCreateUserDto }
 	 * @see { UserRepository }
+	 * @see { ResUserDto }
 	 */
-	createUser(data: ReqCreateUserDto): Promise<void> {
+	createUser(data: ReqCreateUserDto): Promise<ResUserDto> {
 		return this.userRepository.createUser(data);
 	}
 

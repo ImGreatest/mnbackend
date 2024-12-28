@@ -12,7 +12,7 @@ export abstract class CollectionRepository {
 
 	abstract getCollections(): Promise<ResCollectionsDto>;
 
-	abstract updateCollection(collectionId: string, data: ReqUpdateCollectionDto): Promise<void>;
+	abstract updateCollection(collectionId: string, data: ReqUpdateCollectionDto): Promise<ResCollectionDto>;
 
 	abstract deleteCollection(collectionId: string): Promise<void>;
 }

@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { ERole } from "@enums";
+import { ERole } from "../../../../shared/enum";
 import { IUser } from "@entities";
 
 export const MockDataReqUser: Omit<IUser, "id" | "createdAt" | "updatedAt" | "deletedAt"> = {

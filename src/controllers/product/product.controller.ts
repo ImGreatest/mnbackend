@@ -41,7 +41,7 @@ export class ProductController {
 		status: HttpStatus.BAD_REQUEST,
 		description: 'Fail create product'
 	})
-	createProduct(@Body() data: ReqCreateProductDto): Promise<void> {
+	createProduct(@Body() data: ReqCreateProductDto): Promise<ResProductDto> {
 		return this.productService.createProduct(data);
 	}
 

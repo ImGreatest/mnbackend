@@ -3,11 +3,7 @@ import { ResProductsDto } from "../../dto/res-dto/res-products.dto";
 
 export const MockResProductsDto: ResProductsDto = {
 	products: [
-		{
-			...MockResProductDto,
-		},
-		{
-			...MockResProductDto,
-		},
+		MockResProductDto,
+		MockResProductDto,
 	],
 };

@@ -1,4 +1,4 @@
-import { EOrderStatus } from "@enums";
+import { EOrderStatus } from "../enum";
 
 export interface IOrder {
 	id: string;
