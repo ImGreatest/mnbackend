@@ -7,6 +7,7 @@ import { ResCollectionDto } from "../../domain/collection/dto/res-dto/res-collec
 import { checkCreated } from "../../../test/check-created";
 import { afterEach } from "node:test";
 import { ResCollectionsDto } from "../../domain/collection/dto/res-dto/res-collections.dto";
+import { MockDataReqCollection } from "../../domain/collection/mocks/const/mock-data-req-collection.const";
 
 describe('Collection endpoint prepare to tests', () => {
 	let prisma: PrismaService;
@@ -26,7 +27,7 @@ describe('Collection endpoint prepare to tests', () => {
 	describe('CollectionAdapter', () => {
 		afterEach(() => {
 			console.log('✅ Test was complete'); // eslint-disable-line
-		})
+		});
 
 		it('should create and get collection', async () => {
 			const collection = await adapter.createCollection({
@@ -37,9 +38,7 @@ describe('Collection endpoint prepare to tests', () => {
 		});
 
 		it('should get collection by identifier', async () => {
-			const created: ResCollectionDto = await adapter.createCollection({
-				name: 'Test collection',
-			});
+			const created: ResCollectionDto = await adapter.createCollection(MockDataReqCollection);
 
 			await checkCreated(created);
 
@@ -54,7 +53,7 @@ describe('Collection endpoint prepare to tests', () => {
 		let res: ResCollectionsDto = await adapter.getCollections();
 
 		if (res.collections.length === 0) {
-			await adapter.createCollection({ name: 'Test collection' });
+			await adapter.createCollection(MockDataReqCollection);
 			res = await adapter.getCollections();
 		}
 
@@ -81,7 +80,7 @@ describe('Collection endpoint prepare to tests', () => {
 		let collections: ResCollectionsDto = await adapter.getCollections();
 
 		if (collections.collections.length === 0) {
-			await adapter.createCollection({ name: 'Test collection' });
+			await adapter.createCollection(MockDataReqCollection);
 			collections = await adapter.getCollections();
 		}
 
