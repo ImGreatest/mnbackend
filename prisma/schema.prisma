@@ -109,16 +109,16 @@ model Booking {
 }
 
 model Order {
-  id           String       @id @default(uuid())
-  userId       String       @map("user_id") @db.VarChar()
-  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  dateDelivery DateTime     @map("date_delivery") @db.Timestamp(3)
-  cost         Decimal      @db.Money
-  status       EOrderStatus @default(active)
-  comment      String?      @db.VarChar(255)
-  createdAt    DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
-  updatedAt    DateTime?    @updatedAt @map("updated_at") @db.Timestamptz(3)
-  deletedAt    DateTime?    @map("deleted_at") @db.Timestamptz(3)
+  id           String         @id @default(uuid())
+  userId       String         @map("user_id") @db.VarChar()
+  user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dateDelivery DateTime       @map("date_delivery") @db.Timestamp(3)
+  cost         Decimal        @db.Money
+  status       EOrderStatus   @default(active)
+  comment      String?        @db.VarChar(255)
+  createdAt    DateTime       @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt    DateTime?      @updatedAt @map("updated_at") @db.Timestamptz(3)
+  deletedAt    DateTime?      @map("deleted_at") @db.Timestamptz(3)
   ProductOrder ProductOrder[]
   UserOrder    UserOrder[]
 }
