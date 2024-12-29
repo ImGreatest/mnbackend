@@ -9,7 +9,7 @@ import { ReqUpdateOrderDto } from "./dto/req-dto/req-update-order.dto";
 export class OrderService {
 	constructor(private readonly orderRep: OrderRepository) {}
 
-	async createOrder(data: ReqOrderDto): Promise<void> {
+	async createOrder(data: ReqOrderDto): Promise<ResOrderDto> {
 		return this.orderRep.createOrder(data);
 	}
 
@@ -21,7 +21,7 @@ export class OrderService {
 		return this.orderRep.getOrders(userId, status);
 	}
 
-	async updateOrder(orderId: string, data: ReqUpdateOrderDto): Promise<void> {
+	async updateOrder(orderId: string, data: ReqUpdateOrderDto): Promise<ResOrderDto> {
 		return this.orderRep.updateOrder(orderId, data);
 	}
 

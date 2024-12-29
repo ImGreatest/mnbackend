@@ -13,7 +13,7 @@ export class OrderController {
 	constructor(private readonly orderService: OrderService) {}
 
 	@Post('create-order')
-	createOrder(@Body() data: ReqOrderDto): Promise<void> {
+	createOrder(@Body() data: ReqOrderDto): Promise<ResOrderDto> {
 		return this.orderService.createOrder(data);
 	}
 
@@ -37,7 +37,7 @@ export class OrderController {
 	updateOrder(
 		@Param('id') orderId: string,
 		@Body() data: ReqUpdateOrderDto,
-	): Promise<void> {
+	): Promise<ResOrderDto> {
 		return this.orderService.updateOrder(orderId, data);
 	}
 
