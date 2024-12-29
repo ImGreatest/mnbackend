@@ -5,7 +5,6 @@ import { PrismaModule } from "../../services/prisma/prisma.module";
 import { FavoriteModule } from "../../domain/favorite/favorite.module";
 import { afterEach } from "node:test";
 import { checkCreated } from "../../../test/check-created";
-import { MockReqFavoriteRelation } from "../../domain/favorite/const/mock-req-favorite-relation.const";
 import { ResRelationDto } from "../../domain/favorite/dto/res-dto/res-relation.dto";
 import { UserModule } from "../../domain/user/user.module";
 import { ProductModule } from "../../domain/product/product.module";
@@ -21,6 +20,10 @@ import { ResCollectionsDto } from "../../domain/collection/dto/res-dto/res-colle
 import { ResCollectionDto } from "../../domain/collection/dto/res-dto/res-collection.dto";
 import { ResRelationsDto } from "../../domain/favorite/dto/res-dto/res-relations.dto";
 import { ResUserDto } from "../../domain/user/dto/res-dto/res-user.dto";
+import { ResProductDto } from "../../domain/product/dto/res-dto/res-product.dto";
+import { MockDataReqCollection } from "../../domain/collection/mocks/const/mock-data-req-collection.const";
+import { MockDataReqFavoriteRelation } from "../../domain/favorite/mocks/const/mock-data-req-favorite-relation.const";
+import { faker } from "@faker-js/faker";
 
 describe('FavoriteAdapter', () => {
 	let prisma: PrismaService;
@@ -43,6 +46,10 @@ describe('FavoriteAdapter', () => {
 		await prisma.cleanDatabase();
 	});
 
+	beforeEach(async () => {
+		await prisma.cleanDatabase();
+	})
+
 	describe('Favorite Adapter', () => {
 		afterEach(() => {
 			console.log('✅ Test was complete'); // eslint-disable-line
@@ -53,19 +60,36 @@ describe('FavoriteAdapter', () => {
 		});
 
 		it('should get current relation by identifier', async () => {
-			const created: ResRelationDto = await adapter.createRelation(MockReqFavoriteRelation);
+			let created: ResRelationDto;
+			let product: ResProductDto;
+
+			try {
+				created = await adapter.createRelation(MockDataReqFavoriteRelation);
+			} catch (e) {
+				const user: ResUserDto = await userService.createUser(MockDataReqUser);
+
+				try {
+					product = await productService.createProduct(MockDataReqProduct);
+				} catch (e) {
+					const collection: ResCollectionDto = await collectionService.createCollection(MockDataReqCollection);
+
+					product = await productService.createProduct({
+						...MockDataReqProduct,
+						collectionId: collection.id,
+					});
+				}
+
+				created = await adapter.createRelation({
+					userId: user.id,
+					productId: product.id,
+				});
+			}
 			const res: ResRelationDto = await adapter.getRelation(created.id);
 
 			expect(created).toBeDefined();
-			Object.keys(res).forEach((property, idx) => {
-				if (typeof property === 'string') {
-					expect(typeof res[idx]).toBe('string');
-				} else {
-					expect(typeof res[idx].toBe('Date'));
-				}
-				expect(res).toHaveProperty(property);
-			});
-			expect(created.id).toHaveProperty('id');
+			expect(res).toHaveProperty('id');
+			expect(typeof res.id).toBe('string');
+			expect(created).toHaveProperty('id');
 			expect(typeof created.id).toBe('string');
 			expect(res.id).toBe(created.id);
 		});
@@ -80,7 +104,7 @@ describe('FavoriteAdapter', () => {
 			expect(res).toBeDefined();
 			expect(res).toHaveProperty('relations');
 			expect(res.relations[0]).toHaveProperty('id');
-			expect(typeof res.relations[0]).toBe('string');
+			expect(typeof res.relations[0].id).toBe('string');
 			expect(res.relations[0]).toHaveProperty('userId');
 			expect(typeof res.relations[0].productId).toBe('string');
 		});
@@ -93,7 +117,12 @@ describe('FavoriteAdapter', () => {
 			}
 
 			// Update test using replace value identifier of user relation
-			const createdUser: ResUserDto = await userService.createUser(MockDataReqUser);
+			const createdUser: ResUserDto = await userService.createUser({
+				...MockDataReqUser,
+				login: 'newUpdatedLogin',
+				email: faker.internet.email(),
+				phone: faker.phone.number().toString(),
+			});
 			const updated: ResRelationDto = await adapter.updateRelation(relations.relations[0].id!, {
 				userId: createdUser.id,
 				productId: relations.relations[0].productId!,
@@ -101,7 +130,7 @@ describe('FavoriteAdapter', () => {
 
 			expect(updated).toBeDefined();
 			expect(updated).toHaveProperty('id');
-			expect(typeof updated.id).toHaveProperty('string');
+			expect(typeof updated.id).toBe('string');
 			expect(updated.userId).toBe(createdUser.id);
 			expect(updated.productId).toBe(relations.relations[0].productId!);
 			expect(typeof updated.userId).toBe('string');
