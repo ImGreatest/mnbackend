@@ -13,7 +13,7 @@ export class CategoryController {
 	constructor(private readonly categoryService: CategoryService) {}
 
 	@Post('create-category')
-	createCategory(@Body() data: ReqCreateCategoryDto): Promise<void> {
+	createCategory(@Body() data: ReqCreateCategoryDto): Promise<ResCategoryDto> {
 		return this.categoryService.createCategory(data);
 	}
 
@@ -28,7 +28,7 @@ export class CategoryController {
 	}
 
 	@Post('update-category/:id')
-	updateCategory(@Param('id') id: string, @Body() data: ReqUpdateCategoryDto): Promise<void> {
+	updateCategory(@Param('id') id: string, @Body() data: ReqUpdateCategoryDto): Promise<ResCategoryDto> {
 		return this.categoryService.updateCategory(id, data);
 	}
 
