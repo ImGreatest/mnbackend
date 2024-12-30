@@ -7,13 +7,13 @@ import { CollectionControllerModule } from "./collection/collection-controller.m
 import { OrderControllerModule } from "./order/order-controller.module";
 
 @Module({
-	imports: [
-		UserControllerModule,
-		BookingControllerModule,
-		ProductControllerModule,
-		SizeControllerModule,
-		OrderControllerModule,
-		CollectionControllerModule,
-	],
+  imports: [
+    UserControllerModule,
+    BookingControllerModule,
+    ProductControllerModule,
+    SizeControllerModule,
+    OrderControllerModule,
+    CollectionControllerModule,
+  ],
 })
 export class ControllersModule {}

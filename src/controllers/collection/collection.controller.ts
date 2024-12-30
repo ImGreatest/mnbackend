@@ -6,37 +6,39 @@ import { ResCollectionDto } from "../../../libs/domain/collection/dto/res-dto/re
 import { ResCollectionsDto } from "../../../libs/domain/collection/dto/res-dto/res-collections.dto";
 import { ReqUpdateCollectionDto } from "../../../libs/domain/collection/dto/req-dto/req-update-collection.dto";
 
-@ApiTags('collection')
+@ApiTags("collection")
 @ApiBearerAuth()
-@Controller('collection')
+@Controller("collection")
 export class CollectionController {
-	constructor(private readonly collectionService: CollectionService) {}
+  constructor(private readonly collectionService: CollectionService) {}
 
-	@Post('create-collection')
-	createCollection(@Body() data: ReqCreateCollectionDto): Promise<ResCollectionDto> {
-		return this.collectionService.createCollection(data);
-	}
+  @Post("create-collection")
+  createCollection(
+    @Body() data: ReqCreateCollectionDto,
+  ): Promise<ResCollectionDto> {
+    return this.collectionService.createCollection(data);
+  }
 
-	@Get('get-collection/:id')
-	getCollection(@Param('id') collectionId: string): Promise<ResCollectionDto> {
-		return this.collectionService.getCollection(collectionId);
-	}
+  @Get("get-collection/:id")
+  getCollection(@Param("id") collectionId: string): Promise<ResCollectionDto> {
+    return this.collectionService.getCollection(collectionId);
+  }
 
-	@Get('get-collections/')
-	getCollections(): Promise<ResCollectionsDto> {
-		return this.collectionService.getCollections();
-	}
+  @Get("get-collections/")
+  getCollections(): Promise<ResCollectionsDto> {
+    return this.collectionService.getCollections();
+  }
 
-	@Post('update-collection/:id')
-	updateCollection(
-		@Param('id') collectionId: string,
-		@Body() data: ReqUpdateCollectionDto,
-	): Promise<ResCollectionDto> {
-		return this.collectionService.updateCollection(collectionId, data);
-	}
+  @Post("update-collection/:id")
+  updateCollection(
+    @Param("id") collectionId: string,
+    @Body() data: ReqUpdateCollectionDto,
+  ): Promise<ResCollectionDto> {
+    return this.collectionService.updateCollection(collectionId, data);
+  }
 
-	@Delete('delete-collection/:id')
-	deleteCollection(@Param('id') collectionId: string): Promise<void> {
-		return this.collectionService.deleteCollection(collectionId);
-	}
+  @Delete("delete-collection/:id")
+  deleteCollection(@Param("id") collectionId: string): Promise<void> {
+    return this.collectionService.deleteCollection(collectionId);
+  }
 }
