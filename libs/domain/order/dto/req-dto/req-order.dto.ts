@@ -1,4 +1,4 @@
-import { EOrderStatus } from "../../../../shared/enum";
+import { EOrderStatus } from "@enums";
 
 export class ReqOrderDto {
 	userId: string;
