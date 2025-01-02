@@ -14,9 +14,9 @@ export class CategoryAdapter extends CategoryRepository {
 		logger.info('CategoryAdapter was init');
 	}
 
-	async createCategory(data: ReqCreateCategoryDto): Promise<void> {
+	async createCategory(data: ReqCreateCategoryDto): Promise<ResCategoryDto> {
 		logger.verbose(`CategoryAdapter called createCategory method with param - ${JSON.stringify(data)}`);
-		await this.prisma.category.create({ data: { ...data } });
+		return await this.prisma.category.create({ data: { ...data } });
 	}
 
 	async getCategory(id: string, name?: string): Promise<ResCategoryDto> {
@@ -35,9 +35,10 @@ export class CategoryAdapter extends CategoryRepository {
 		}
 	}
 
-	async updateCategory(id: string, data: ReqUpdateCategoryDto): Promise<void> {
+	async updateCategory(id: string, data: ReqUpdateCategoryDto): Promise<ResCategoryDto> {
 		logger.verbose(`CategoryAdapter called updateCategory with params - ${JSON.stringify(id)}, ${JSON.stringify(data)}`);
-		await this.prisma.category.update({
+
+		return await this.prisma.category.update({
 			where: {
 				id: id,
 			},

@@ -15,4 +15,17 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
   async onModuleDestroy(): Promise<void> {
     await this.$disconnect();
   }
+
+  async cleanDatabase(): Promise<void> {
+    const models = Object.keys(this).filter((key) => typeof this[key] === 'object' && 'deleteMany' in this[key]);
+    
+    try {
+      /* eslint-disable */
+      await this.$transaction(models.map((modelKey) => (this[modelKey] as any).deleteMany()));
+      logger.info('Database cleaned successfully');
+    } catch (e) {
+      logger.error('Error cleaning database', e);
+      throw e;
+    }
+  }
 }

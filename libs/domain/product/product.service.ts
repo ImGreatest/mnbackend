@@ -12,7 +12,7 @@ import { ResProductsByNameDto } from "./dto/res-dto/res-products-by-name.dto";
 export class ProductService {
 	constructor(private readonly productRepository: ProductRepository) {}
 
-	createProduct(data: ReqCreateProductDto): Promise<void> {
+	createProduct(data: ReqCreateProductDto): Promise<ResProductDto> {
 		return this.productRepository.createProduct(data);
 	}
 
