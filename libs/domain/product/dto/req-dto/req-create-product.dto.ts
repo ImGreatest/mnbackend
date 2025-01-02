@@ -21,7 +21,7 @@ export class ReqCreateProductDto implements Omit<IProduct, keyof IExcludeBasicPr
 		example: faker.lorem.sentence(),
 	})
 	@IsString()
-	description?: string;
+	desc?: string;
 
 	@ApiProperty({
 		type: Number,

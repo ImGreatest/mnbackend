@@ -3,7 +3,8 @@ import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
 import { IsDate, IsEnum, IsNumber, IsOptional, IsString } from "class-validator";
 import { Decimal } from "@prisma/client/runtime/library";
-import { EOrderStatus } from "../../../../shared/enum";
+import { EOrderStatus } from "@prisma/client";
+// import { EOrderStatus } from "../../../../shared/enum";
 
 export class ResOrderDto implements IOrder {
 	@ApiProperty({
