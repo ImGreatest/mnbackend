@@ -33,7 +33,7 @@ export class BucketAdapter extends BucketRepository {
 
 	async updateBucket(id: string, data: ReqUpdateBucketDto): Promise<ResBucketDto> {
 		logger.verbose(`BucketAdapter called updateBucket method with param - ${JSON.stringify(id)}, ${JSON.stringify(data)}`);
-		return await this.prisma.bucket.update({
+		return this.prisma.bucket.update({
 			where: { id: id },
 			data: data,
 		});
