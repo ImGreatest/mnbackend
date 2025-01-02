@@ -1,9 +1,9 @@
-import { EOrderStatus } from "@enums";
 import { IOrder } from "@entities";
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
 import { IsDate, IsEnum, IsNumber, IsOptional, IsString } from "class-validator";
 import { Decimal } from "@prisma/client/runtime/library";
+import { EOrderStatus } from "../../../../shared/enum";
 
 
 export class ReqOrderDto implements Omit<IOrder, "id" | "createdAt" | "updatedAt" | "deletedAt"> {
@@ -55,7 +55,7 @@ export class ReqOrderDto implements Omit<IOrder, "id" | "createdAt" | "updatedAt
 			min: 0,
 			max: Object.keys(EOrderStatus).length,
 		})],
-		default: EOrderStatus.active,
+		default: EOrderStatus.ACTIVE,
 	})
 	@IsEnum(EOrderStatus)
 	status: EOrderStatus

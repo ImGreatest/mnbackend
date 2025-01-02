@@ -5,6 +5,7 @@ import { faker } from "@faker-js/faker";
 import { ESize } from "../../../libs/domain/size/enum/size.enum";
 import { ResSizeDto } from "../../../libs/domain/size/dto/res-dto/res-size.dto";
 import { MockResSizesDto } from "../../../libs/domain/size/mocks/mock-res-sizes.dto";
+import { ResSizesDto } from "../../../libs/domain/size/dto/res-dto/res-sizes.dto";
 
 @ApiTags("size")
 @ApiBearerAuth()
@@ -36,7 +37,7 @@ export class SizeController {
     status: HttpStatus.NOT_FOUND,
     description: "Sizes not found",
   })
-  getSize(@Query("name") name?: string): Promise<ResSizeDto[]> {
+  getSize(@Query("name") name?: string): Promise<ResSizeDto | ResSizesDto> {
     return this.sizeService.getSize(name);
   }
 }

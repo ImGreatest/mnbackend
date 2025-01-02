@@ -1,5 +1,5 @@
 import { Decimal } from "@prisma/client/runtime/library";
-import { EOrderStatus } from "@prisma/client";
+import { EOrderStatus } from "../enum";
 
 export interface IOrder {
 	id: string;

@@ -39,6 +39,7 @@ export class BucketAdapter extends BucketRepository {
 		});
 	}
 
+	// TODO does method clearing bucket
 	async clearBucket(id: string): Promise<void> {
 		logger.verbose(`BucketAdapter called clearBucket method with param - ${JSON.stringify(id)}`);
 		throw new Error();
