@@ -20,7 +20,7 @@ export class ProductAdapter extends ProductRepository {
 	async createProduct(data: ReqCreateProductDto): Promise<ResProductDto> {
 		logger.verbose(`ProductAdapter called createProduct with param - ${JSON.stringify(data)}`);
 
-		return await this.prisma.product.create({ data: { ...data }});
+		return this.prisma.product.create({ data: { ...data } });
 	}
 
 	async getProduct(productId: string): Promise<ResProductDto> {
@@ -40,9 +40,7 @@ export class ProductAdapter extends ProductRepository {
 		});
 
 		return {
-			products: products.map(product => ({
-				...product,
-			})),
+			products: products.map(product => (product)),
 		}
 	}
 
