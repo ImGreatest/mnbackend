@@ -2,8 +2,9 @@ import { IsNumber, IsString } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
 import { IProduct } from "@entities";
+import { IExcludeBasicProperties } from "../../../../shared/interfaces/exclude-basic-properties.interface";
 
-export class ReqCreateProductDto implements Omit<IProduct, "id" | "createdAt" | "updatedAt" | "deletedAt"> {
+export class ReqCreateProductDto implements Omit<IProduct, keyof IExcludeBasicProperties> {
 	@ApiProperty({
 		type: String,
 		required: true,

@@ -1,9 +1,10 @@
+import { EOrderStatus } from "@enums";
 import { IOrder } from "@entities";
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
 import { IsDate, IsEnum, IsNumber, IsOptional, IsString } from "class-validator";
 import { Decimal } from "@prisma/client/runtime/library";
-import { EOrderStatus } from "@prisma/client";
+
 
 export class ReqOrderDto implements Omit<IOrder, "id" | "createdAt" | "updatedAt" | "deletedAt"> {
 	@ApiProperty({
