@@ -5,6 +5,7 @@ import { ProductControllerModule } from "./product/product-controller.module";
 import { SizeControllerModule } from "./size/size-controller.module";
 import { CollectionControllerModule } from "./collection/collection-controller.module";
 import { OrderControllerModule } from "./order/order-controller.module";
+import { MinioModule } from "../../libs/services/minio/minio.module";
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { OrderControllerModule } from "./order/order-controller.module";
     SizeControllerModule,
     OrderControllerModule,
     CollectionControllerModule,
+    MinioModule,
   ],
 })
 export class ControllersModule {}
