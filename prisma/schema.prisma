@@ -81,16 +81,14 @@ model Referral {
 }
 
 model RefreshToken {
-  token     String    @db.VarChar()
-  deviceId  String    @map("device_id") @db.VarChar()
-  userId    String    @map("user_id") @db.VarChar()
-  expiresAt DateTime  @map("expires_at")
-  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
-  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz(3)
-  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3)
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @db.VarChar()
+  deviceId  String   @db.VarChar()
+  userId    String   @db.VarChar()
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  expiresAt DateTime
 
-  @@id([userId, deviceId])
+  @@id([token, deviceId])
 }
 
 model Booking {
