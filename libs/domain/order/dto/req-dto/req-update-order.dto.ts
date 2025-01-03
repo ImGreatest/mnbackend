@@ -1,3 +1,3 @@
-import { ReqOrderDto } from "./req-order.dto";
+import { ReqCreateOrderDto } from "./req-create-order.dto";
 
-export class ReqUpdateOrderDto extends ReqOrderDto {}
+export class ReqUpdateOrderDto extends ReqCreateOrderDto {}

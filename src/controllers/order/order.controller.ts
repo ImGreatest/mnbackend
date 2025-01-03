@@ -10,7 +10,7 @@ import {
   Query,
 } from "@nestjs/common";
 import { OrderService } from "../../../libs/domain/order/order.service";
-import { ReqOrderDto } from "../../../libs/domain/order/dto/req-dto/req-order.dto";
+import { ReqCreateOrderDto } from "../../../libs/domain/order/dto/req-dto/req-create-order.dto";
 import { ResOrderDto } from "../../../libs/domain/order/dto/res-dto/res-order.dto";
 import { ResOrdersDto } from "../../../libs/domain/order/dto/res-dto/res-orders.dto";
 import { ReqUpdateOrderDto } from "../../../libs/domain/order/dto/req-dto/req-update-order.dto";
@@ -22,7 +22,7 @@ export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @Post("create-order")
-  createOrder(@Body() data: ReqOrderDto): Promise<ResOrderDto> {
+  createOrder(@Body() data: ReqCreateOrderDto): Promise<ResOrderDto> {
     return this.orderService.createOrder(data);
   }
 

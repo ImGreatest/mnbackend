@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { OrderRepository } from "../../domain/order/repository/order.repository";
 import { PrismaService } from "../../services/prisma/prisma.service";
-import { ReqOrderDto } from "../../domain/order/dto/req-dto/req-order.dto";
+import { ReqCreateOrderDto } from "../../domain/order/dto/req-dto/req-create-order.dto";
 import { ResOrderDto } from "../../domain/order/dto/res-dto/res-order.dto";
 import { ResOrdersDto } from "../../domain/order/dto/res-dto/res-orders.dto";
 import { ReqUpdateOrderDto } from "../../domain/order/dto/req-dto/req-update-order.dto";
@@ -15,41 +15,36 @@ export class OrderAdapter extends OrderRepository {
 		super();
 	}
 
-	async createOrder(data: ReqOrderDto): Promise<ResOrderDto> {
+	async createOrder(data: ReqCreateOrderDto): Promise<ResOrderDto> {
 		logger.info(`Adapter call - createOrder method, param - ${JSON.stringify(data)}`);
 
-		return await this.prisma.order.create({ data: data });
+		return this.prisma.order.create({ data: data });
 	}
 
 	async getOrder(orderId: string): Promise<ResOrderDto> {
 		logger.info(`Adapter call - getOrder method, param - ${JSON.stringify(orderId)}`);
 
-		return await this.prisma.order.findUnique({
-			where: { id: orderId },
-		})
+		return this.prisma.order.findUnique({ where: { id: orderId } });
 	}
 
-	async getOrders(userId?: string, status?: string): Promise<ResOrdersDto> {
-		logger.info(`Adapter call - getOrders method, param - ${JSON.stringify(userId)}, ${JSON.stringify(status)}`);
-
-		const orders: ResOrderDto[] = await this.prisma.order.findMany({
-			where: {
-				userId: userId,
-				status: EOrderStatus[status],
-			},
-		});
+	async getOrders(status?: string): Promise<ResOrdersDto> {
+		logger.info(`Adapter call - getOrders method, param - ${JSON.stringify(status)}`);
 
 		return {
-			orders: orders.map(order => ({
-				...order,
-			})),
+			orders: await this.prisma.order.findMany({
+				where: {
+					status: EOrderStatus[status],
+				},
+			}).then((orders) => (
+				orders.map((order) => (order))
+			)),
 		}
 	}
 
 	async updateOrder(orderId: string, data: ReqUpdateOrderDto): Promise<ResUpdateOrderDto> {
 		logger.info(`Adapter call - updateOrder method, param - ${JSON.stringify(orderId)}, ${JSON.stringify(data)}`);
 
-		return await this.prisma.order.update({
+		return this.prisma.order.update({
 			where: { id: orderId },
 			data: data,
 		});

@@ -1,22 +1,12 @@
 import { IOrder } from "@entities";
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
-import { IsDate, IsEnum, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsDate, IsDecimal, IsEnum, IsNumber, IsOptional, IsString } from "class-validator";
 import { Decimal } from "@prisma/client/runtime/library";
 // import { EOrderStatus } from "../../../../shared/enum";
 import { EOrderStatus } from "@prisma/client";
 
-
-export class ReqOrderDto implements Omit<IOrder, "id" | "createdAt" | "updatedAt" | "deletedAt"> {
-	@ApiProperty({
-		type: String,
-		required: true,
-		description: 'Property user identifier',
-		example: faker.string.uuid(),
-	})
-	@IsString()
-	userId: string;
-
+export class ReqCreateOrderDto implements Omit<IOrder, "id" | "createdAt" | "updatedAt" | "deletedAt"> {
 	@ApiProperty({
 		type: Date,
 		required: true,
@@ -27,20 +17,16 @@ export class ReqOrderDto implements Omit<IOrder, "id" | "createdAt" | "updatedAt
 	@IsDate()
 	dateDelivery: Date;
 
-	// @ApiProperty({
-	// 	type: Decimal,
-	// 	description: 'Property summary cost of order',
-	// 	required: true,
-	// 	example: faker.number.int({
-	// 		min: 0,
-	// 		max: 100.00,
-	// 	}),
-	// })
-	// @IsDecimal()
 	@ApiProperty({
-
+		type: Decimal,
+		description: 'Property summary cost of order',
+		required: true,
+		example: faker.number.int({
+			min: 0,
+			max: 100.00,
+		}),
 	})
-	@IsNumber()
+	@IsDecimal()
 	cost: Decimal;
 
 	@ApiProperty({

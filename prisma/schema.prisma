@@ -48,7 +48,6 @@ model User {
   deletedAt        DateTime?      @map("deleted_at") @db.Timestamptz(3)
   RefreshToken     RefreshToken[]
   UserBooking      UserBooking[]
-  Order            Order[]
   Bonus            Bonus[]
   Booking          Booking[]
   UserOrder        UserOrder[]
@@ -110,8 +109,6 @@ model Booking {
 
 model Order {
   id           String         @id @default(uuid())
-  userId       String         @map("user_id") @db.VarChar()
-  user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   dateDelivery DateTime       @map("date_delivery") @db.Timestamp(3)
   cost         Decimal        @db.Money
   status       EOrderStatus   @default(active)
@@ -162,6 +159,7 @@ model Product {
   ProductSize     ProductSize[]
   Favorite        Favorite[]
   Bucket          Bucket[]
+  orderId         String?
 }
 
 model Category {
@@ -205,10 +203,10 @@ model Bucket {
 }
 
 model ProductOrder {
-  productId String  @map("product_id") @db.VarChar()
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   orderId   String  @map("order_id") @db.VarChar()
   order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String  @map("product_id") @db.VarChar()
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@id([productId, orderId])
 }

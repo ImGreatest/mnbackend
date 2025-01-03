@@ -1,6 +1,6 @@
 import { OrderRepository } from "../../domain/order/repository/order.repository";
 import { Injectable } from "@nestjs/common";
-import { ReqOrderDto } from "../../domain/order/dto/req-dto/req-order.dto";
+import { ReqCreateOrderDto } from "../../domain/order/dto/req-dto/req-create-order.dto";
 import { ResOrderDto } from "../../domain/order/dto/res-dto/res-order.dto";
 import { ResOrdersDto } from "../../domain/order/dto/res-dto/res-orders.dto";
 import { ReqUpdateOrderDto } from "../../domain/order/dto/req-dto/req-update-order.dto";
@@ -11,7 +11,7 @@ export class OrderMockAdapter extends OrderRepository {
 		super();
 	}
 
-	async createOrder(data: ReqOrderDto): Promise<ResOrderDto> {
+	async createOrder(data: ReqCreateOrderDto): Promise<ResOrderDto> {
 		throw new Error(`${JSON.stringify(data)}`);
 	}
 

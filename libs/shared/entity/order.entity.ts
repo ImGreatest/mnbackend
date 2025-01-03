@@ -4,7 +4,6 @@ import { EOrderStatus } from "@prisma/client";
 
 export interface IOrder {
 	id: string;
-	userId: string;
 	dateDelivery: Date;
 	cost: Decimal;
 	status: EOrderStatus;

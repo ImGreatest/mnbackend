@@ -16,14 +16,14 @@ export class ResOrderDto implements IOrder {
 	@IsString()
 	id: string;
 
-	@ApiProperty({
-		type: String,
-		required: true,
-		description: 'Property of user identifier',
-		example: faker.string.uuid(),
-	})
-	@IsString()
-	userId: string;
+	// @ApiProperty({
+	// 	type: String,
+	// 	required: true,
+	// 	description: 'Property of user identifier',
+	// 	example: faker.string.uuid(),
+	// })
+	// @IsString()
+	// userId: string;
 
 	@ApiProperty({
 		type: Date,
