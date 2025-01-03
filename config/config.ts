@@ -12,3 +12,8 @@ export const config = Object.freeze({
 	JwtLifeTime: 10000,
 	TokenCoolDown: 600,
 });
+
+export const JwtConfig = {
+	secret: process.env.JWT_SECRET,
+	expiresIn: process.env.JWT_EXPIRES ?? '900d',
+};
