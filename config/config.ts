@@ -13,6 +13,12 @@ export const config = Object.freeze({
 	TokenCoolDown: 600,
 });
 
+
+export const JwtConfig = {
+	secret: process.env.JWT_SECRET,
+	expiresIn: process.env.JWT_EXPIRES ?? '900d',
+};
+
 export const emailConfig = Object.freeze({
 	EmailFrom: process.env.EMAIL_FROM,
 	EmailPass: process.env.EMAIL_PASS,
