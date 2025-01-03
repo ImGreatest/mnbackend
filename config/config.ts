@@ -13,7 +13,22 @@ export const config = Object.freeze({
 	TokenCoolDown: 600,
 });
 
+
 export const JwtConfig = {
 	secret: process.env.JWT_SECRET,
 	expiresIn: process.env.JWT_EXPIRES ?? '900d',
 };
+
+export const emailConfig = Object.freeze({
+	EmailFrom: process.env.EMAIL_FROM,
+	EmailPass: process.env.EMAIL_PASS,
+});
+
+export const minioConfig = Object.freeze({
+	Host: process.env.MINIO_HOST || 'localhost',
+	Port: parseInt(process.env.MINIO_PORT) || 9000,
+	UseSSL: process.env.MINIO_USE_SSL === 'true' || false,
+	AccessKey: process.env.MINIO_ACCESS_KEY,
+	SecretKey: process.env.MINIO_SECRET_KEY,
+	BucketName: process.env.MINIO_BUCKET_NAME,
+});

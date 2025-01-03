@@ -6,13 +6,13 @@ import { ReqUpdateCategoryDto } from "../dto/req-dto/req-update-category.dto";
 
 @Injectable()
 export abstract class CategoryRepository {
-	abstract createCategory(data: ReqCreateCategoryDto): Promise<void>;
+	abstract createCategory(data: ReqCreateCategoryDto): Promise<ResCategoryDto>;
 
 	abstract getCategory(id: string, name?: string): Promise<ResCategoryDto>;
 
 	abstract getCategories(): Promise<ResCategoriesDto>;
 
-	abstract updateCategory(id: string, data: ReqUpdateCategoryDto): Promise<void>;
+	abstract updateCategory(id: string, data: ReqUpdateCategoryDto): Promise<ResCategoryDto>;
 
 	abstract deleteCategory(id: string): Promise<void>;
 }

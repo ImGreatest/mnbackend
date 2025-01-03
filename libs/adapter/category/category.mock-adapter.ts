@@ -13,7 +13,7 @@ export class CategoryMockAdapter extends CategoryRepository {
 		logger.info('CategoryMockAdapter was init');
 	}
 
-	async createCategory(data: ReqCreateCategoryDto): Promise<void> {
+	async createCategory(data: ReqCreateCategoryDto): Promise<ResCategoryDto> {
 		logger.verbose(`CategoryMockAdapter was called createCategory with param - ${JSON.stringify(data)}`);
 		throw new Error(`${JSON.stringify(data)}`);
 	}
@@ -28,7 +28,7 @@ export class CategoryMockAdapter extends CategoryRepository {
 		throw new Error('Was called getCategories method');
 	}
 
-	async updateCategory(id: string, data: ReqUpdateCategoryDto): Promise<void> {
+	async updateCategory(id: string, data: ReqUpdateCategoryDto): Promise<ResCategoryDto> {
 		logger.verbose(`CategoryMockAdapter was called updateCategory method with param - ${JSON.stringify(id)}, ${JSON.stringify(data)}`);
 		throw new Error(`${JSON.stringify(id)}, ${JSON.stringify(data)}`);
 	}

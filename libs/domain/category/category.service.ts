@@ -9,7 +9,7 @@ import { ReqUpdateCategoryDto } from "./dto/req-dto/req-update-category.dto";
 export class CategoryService {
 	constructor(private readonly categoryRep: CategoryRepository) {}
 
-	createCategory(data: ReqCreateCategoryDto): Promise<void> {
+	createCategory(data: ReqCreateCategoryDto): Promise<ResCategoryDto> {
 		return this.categoryRep.createCategory(data);
 	}
 
@@ -21,7 +21,7 @@ export class CategoryService {
 		return this.categoryRep.getCategories();
 	}
 
-	updateCategory(id: string, data: ReqUpdateCategoryDto): Promise<void> {
+	updateCategory(id: string, data: ReqUpdateCategoryDto): Promise<ResCategoryDto> {
 		return this.categoryRep.updateCategory(id, data);
 	}
 

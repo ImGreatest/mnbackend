@@ -9,7 +9,7 @@ import { ResProductsByNameDto } from "../dto/res-dto/res-products-by-name.dto";
 
 @Injectable()
 export abstract class ProductRepository {
-	abstract createProduct(data: ReqCreateProductDto): Promise<void>;
+	abstract createProduct(data: ReqCreateProductDto): Promise<ResProductDto>;
 
 	abstract getProduct(productId: string): Promise<ResProductDto>;
 

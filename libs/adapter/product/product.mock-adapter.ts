@@ -14,7 +14,7 @@ export class ProductMockAdapter extends ProductRepository {
 		super();
 	}
 
-	async createProduct(data: ReqCreateProductDto): Promise<void> {
+	async createProduct(data: ReqCreateProductDto): Promise<ResProductDto> {
 		throw new Error(`${{ ...data }}`);
 	}
 

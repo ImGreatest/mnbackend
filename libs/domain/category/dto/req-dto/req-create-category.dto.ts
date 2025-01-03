@@ -1,8 +1,9 @@
 import { ICategory } from "@entities";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString } from "class-validator";
+import { IExcludeBasicProperties } from "../../../../shared/interfaces/exclude-basic-properties.interface";
 
-export class ReqCreateCategoryDto implements Omit<ICategory, "id" | "createdAt" | "updatedAt" | "deletedAt"> {
+export class ReqCreateCategoryDto implements Omit<ICategory, keyof IExcludeBasicProperties> {
 	@ApiProperty({
 		type: String,
 		required: true,

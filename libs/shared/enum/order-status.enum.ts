@@ -1,7 +1,7 @@
 export enum EOrderStatus {
-	active = "active",
-	await = "await",
-	collect = "collect",
-	sent = "sent",
-	close = "close"
+	ACTIVE = "ACTIVE",
+	AWAIT = "AWAIT",
+	COLLECT = "COLLECT",
+	SENT = "SENT",
+	CLOSE = "CLOSE",
 }
