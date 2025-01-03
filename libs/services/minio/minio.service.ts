@@ -1,24 +1,20 @@
 import { Injectable, OnModuleInit } from "@nestjs/common";
-import { Client } from 'minio';
 import { minioConfig } from "../../../config/config";
 import { logger } from "../../../logger/logger";
 import { ResFileDto } from "./dto/res-file.dto";
+import { MinioService, MinioClient } from 'nestjs-minio-client';
 import * as crypto from 'crypto';
 
 @Injectable()
-export class MinioService implements OnModuleInit {
-	private readonly baseBucket: string;
-	private minioClient: Client;
+export class MinioClientService implements OnModuleInit {
+	private readonly baseBucket = minioConfig.BucketName;
 
-	constructor() {
-		this.minioClient = new Client({
-			endPoint: minioConfig.Host,
-			port: minioConfig.Port,
-			useSSL: minioConfig.UseSSL,
-			accessKey: minioConfig.AccessKey,
-			secretKey: minioConfig.SecretKey,
-		});
-		this.baseBucket = minioConfig.BucketName;
+	public get client(): MinioClient {
+		return this.minio.client;
+	}
+
+	constructor(private readonly minio: MinioService) {
+		logger.info('MinioService was init');
 	}
 
   async onModuleInit(): Promise<void> {
@@ -26,19 +22,9 @@ export class MinioService implements OnModuleInit {
   }
 
 	async createBucket(): Promise<void> {
-		if (!await this.minioClient.bucketExists(this.baseBucket)) {
-			logger.info('Trying create new Bucket');
+		logger.verbose('MinioService was createBucket method without params');
 
-			try {
-				await this.minioClient.makeBucket(this.baseBucket);
-
-				logger.info('New bucket was created');
-			} catch (e) {
-				logger.error('Error create minio bucket');
-
-				throw new Error('Error create minio bucket');
-			}
-		}
+		await this.client.makeBucket(this.baseBucket, 'eu-west-3');
 	}
 
 	async uploadFile(file: Express.Multer.File): Promise<ResFileDto> {
@@ -49,7 +35,7 @@ export class MinioService implements OnModuleInit {
 		const ext = file.originalname.substring(file.originalname.lastIndexOf('.'), file.originalname.length);
 		const filename = hashedFileName + ext;
 
-		await this.minioClient.putObject(this.baseBucket, hashedFileName + ext, file.buffer);
+		await this.client.putObject(this.baseBucket, hashedFileName + ext, file.buffer);
 
 		return {
       url: `https://${minioConfig.Host}:${minioConfig.Port}/${minioConfig.BucketName}/${filename}`,
@@ -59,7 +45,7 @@ export class MinioService implements OnModuleInit {
 	async removeFile(objectName: string, bucket: string = this.baseBucket): Promise<void> {
 		logger.info('Trying removing object');
 		try {
-			await this.minioClient.removeObject(bucket, objectName);
+			await this.client.removeObject(bucket, objectName);
 		} catch (e) {
 			logger.error('Unknown error');
 

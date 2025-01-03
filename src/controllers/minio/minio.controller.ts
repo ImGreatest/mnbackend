@@ -1,14 +1,14 @@
 import { Controller, Delete, Param, Post, Query, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { ApiBearerAuth, ApiBody, ApiTags } from "@nestjs/swagger";
-import { ResFileDto } from "./dto/res-file.dto";
-import { MinioService } from "./minio.service";
 import { FileInterceptor } from "@nestjs/platform-express/multer/interceptors";
+import { MinioClientService } from "../../../libs/services/minio/minio.service";
+import { ResFileDto } from "../../../libs/services/minio/dto/res-file.dto";
 
 @ApiTags('minio')
 @ApiBearerAuth()
 @Controller(['minio', 'file', 'items'])
 export class MinioController {
-	constructor(private readonly minioService: MinioService) {}
+	constructor(private readonly minioService: MinioClientService) {}
 
 	@Post('upload')
 	@ApiBody({

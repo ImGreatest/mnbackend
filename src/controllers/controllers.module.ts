@@ -5,7 +5,6 @@ import { ProductControllerModule } from "./product/product-controller.module";
 import { SizeControllerModule } from "./size/size-controller.module";
 import { CollectionControllerModule } from "./collection/collection-controller.module";
 import { OrderControllerModule } from "./order/order-controller.module";
-import { MinioModule } from "../../libs/services/minio/minio.module";
 import { AuthControllerModule } from "./auth/auth-controller.module";
 
 @Module({
@@ -17,7 +16,7 @@ import { AuthControllerModule } from "./auth/auth-controller.module";
 		SizeControllerModule,
 		OrderControllerModule,
 		CollectionControllerModule,
-    MinioModule,
+    // MinioControllerModule,
 	],
 })
 export class ControllersModule {}
