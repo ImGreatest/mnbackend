@@ -49,7 +49,7 @@ export class UserAdapter extends UserRepository {
 	async createUser(data: ReqCreateUserDto): Promise<ResUserDto> {
 		logger.info(`Adapter call - createUser method params - ${JSON.stringify(data)}`);
 
-		return await this.prisma.user.create({
+		return this.prisma.user.create({
 			data: {
 				...data,
 				password: this.crypto.getHash(data.password),

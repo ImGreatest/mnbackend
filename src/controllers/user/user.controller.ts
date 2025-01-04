@@ -30,9 +30,11 @@ import { MockResUserByEmail } from "../../../libs/domain/user/mocks/res-mocks/mo
 import { MockResUserByPhone } from "../../../libs/domain/user/mocks/res-mocks/mock-res-user-by-phone";
 import { MockReqUpdateUser } from "../../../libs/domain/user/mocks/req-mocks/mock-req-update-user";
 import { ResUsersDto } from "../../../libs/domain/user/dto/res-dto/res-users.dto";
+import { Public } from "../../../libs/decorators/public.decorator";
 
+@Public()
 @ApiTags("user")
-@ApiBearerAuth()
+// @ApiBearerAuth()
 @Controller("user")
 /**
  * A class controller for method that work with users.

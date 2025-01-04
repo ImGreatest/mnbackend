@@ -30,11 +30,14 @@ export class AuthService {
 			throw new UnauthorizedException();
 		}
 
-		const access = this.tokenService.generateAccessToken(user.id);
-		const refresh = await this.tokenService.generateRefresh(
+		const access = this.tokenService.generateJwtToken({
+			sub: user.id,
+		});
+
+		const refresh = await this.tokenService.generateRefreshToken(
 			user.id,
 			data.deviceId,
-		)
+		);
 
 		return {
 			access,
@@ -47,39 +50,39 @@ export class AuthService {
 	//
 	// }
 
-	async refresh(data: RefreshDataDto): Promise<AuthDataDto> {
-		const oldToken = await this.prisma.refreshToken.findUnique({
-			where: {
-				token_deviceId: {
-					token: data.token,
-					deviceId: data.deviceId,
-				},
-			},
-		});
-
-		if (
-			!oldToken ||
-			oldToken.deviceId !== data.deviceId ||
-			DateTime.now() > DateTime.fromJSDate(oldToken.expiresAt)
-		) {
-			throw new UnauthorizedException();
-		}
-
-		await this.prisma.refreshToken.delete({
-			where: {
-				token_deviceId: {
-					token: data.token,
-					deviceId: data.deviceId,
-				},
-			},
-		});
-
-		const access = this.tokenService.generateAccessToken(oldToken.userId);
-		const refresh = await this.tokenService.generateRefresh(oldToken.userId, data.deviceId);
-
-		return {
-			access,
-			refresh,
-		};
-	}
+	// async refresh(data: RefreshDataDto): Promise<AuthDataDto> {
+	// 	const oldToken = await this.prisma.refreshToken.findUnique({
+	// 		where: {
+	// 			token_deviceId: {
+	// 				token: data.token,
+	// 				deviceId: data.deviceId,
+	// 			},
+	// 		},
+	// 	});
+	//
+	// 	if (
+	// 		!oldToken ||
+	// 		oldToken.deviceId !== data.deviceId ||
+	// 		DateTime.now() > DateTime.fromJSDate(oldToken.expiresAt)
+	// 	) {
+	// 		throw new UnauthorizedException();
+	// 	}
+	//
+	// 	await this.prisma.refreshToken.delete({
+	// 		where: {
+	// 			token_deviceId: {
+	// 				token: data.token,
+	// 				deviceId: data.deviceId,
+	// 			},
+	// 		},
+	// 	});
+	//
+	// 	const access = this.tokenService.generateAccessToken(oldToken.userId);
+	// 	const refresh = await this.tokenService.generateRefresh(oldToken.userId, data.deviceId);
+	//
+	// 	return {
+	// 		access,
+	// 		refresh,
+	// 	};
+	// }
 }

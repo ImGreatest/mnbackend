@@ -6,6 +6,9 @@ import { SizeControllerModule } from "./size/size-controller.module";
 import { CollectionControllerModule } from "./collection/collection-controller.module";
 import { OrderControllerModule } from "./order/order-controller.module";
 import { AuthControllerModule } from "./auth/auth-controller.module";
+import { APP_GUARD } from "@nestjs/core";
+import { AuthGuard } from "../services/auth/guards/auth.guard";
+import { JwtService } from "@nestjs/jwt";
 
 @Module({
 	imports: [
@@ -17,6 +20,13 @@ import { AuthControllerModule } from "./auth/auth-controller.module";
 		OrderControllerModule,
 		CollectionControllerModule,
     // MinioControllerModule,
+	],
+	providers: [
+		{
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+		JwtService,
 	],
 })
 export class ControllersModule {}

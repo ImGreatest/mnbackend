@@ -4,21 +4,23 @@ import { DateTime } from "luxon";
 import { randomBytes } from "node:crypto";
 import { PrismaService } from "../../../libs/services/prisma/prisma.service";
 import { config } from "../../../config/config";
+import { IPayload } from "./payloads/payload.interface";
 
 @Injectable()
 export class AuthTokenService {
 	constructor(
-		private readonly JwtService: JwtService,
+		private readonly jwtService: JwtService,
 		private readonly prisma: PrismaService,
 	) {}
 
-	generateAccessToken(userId: string): string {
-		return this.JwtService.sign({
-			sub: userId,
+	generateJwtToken(payload: IPayload) {
+		return this.jwtService.sign(payload, {
+			secret: config.JwtSecret,
+			expiresIn: config.JwtExpiresIn,
 		});
 	}
 
-	async generateRefresh(userId: string, deviceId: string): Promise<string> {
+	async generateRefreshToken(userId: string, deviceId: string): Promise<string> {
 		return this.prisma.refreshToken.create({
 			data: {
 				token: randomBytes(config.RefreshLength).toString('hex'),
