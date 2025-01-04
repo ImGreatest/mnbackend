@@ -1,6 +1,5 @@
-import { IUser } from "@entities";
+import { IUser } from "../../../../shared/entity";
 import { faker } from "@faker-js/faker";
-import { DateTime } from "luxon";
 import { ERole } from "../../../../shared/enum";
 
 export const MockDataResUser: IUser = {

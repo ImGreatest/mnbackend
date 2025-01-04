@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { ERole } from "@prisma/client";
-import { IUser } from "@entities";
+import { IUser } from "../../../../shared/entity";
 import { IExcludeBasicProperties } from "../../../../shared/interfaces/exclude-basic-properties.interface";
 
 export const MockDataReqUser: Omit<IUser, keyof IExcludeBasicProperties> = {

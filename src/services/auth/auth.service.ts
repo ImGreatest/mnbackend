@@ -21,20 +21,15 @@ export class AuthService {
 	) {}
 
 	async signIn(data: SignInDto): Promise<AuthDataDto> {
-		console.log(data);
 		const user: ResUserDto = await this.prisma.user.findUnique({
 			where: {
 				email: data?.email,
 				login: data?.login,
 				phone: data?.phone,
-				password: data.password,
 			},
 		});
 
-
-		console.log(user, this.cryptoService.compareHash(data.password, user.password))
-
-		if (!user || this.cryptoService.compareHash(data.password, user.password)) {
+		if (!user || !this.cryptoService.compareHash(data.password, user.password)) {
 			throw new UnauthorizedException();
 		}
 

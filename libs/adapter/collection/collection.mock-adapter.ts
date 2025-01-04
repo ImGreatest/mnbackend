@@ -4,7 +4,7 @@ import { ResCollectionDto } from "../../domain/collection/dto/res-dto/res-collec
 import { ResCollectionsDto } from "../../domain/collection/dto/res-dto/res-collections.dto";
 import { ReqUpdateCollectionDto } from "../../domain/collection/dto/req-dto/req-update-collection.dto";
 import { logger } from "../../../logger/logger";
-import { ICollection } from "@entities";
+import { ICollection } from "../../shared/entity";
 
 @Injectable()
 export class CollectionMockAdapter extends CollectionRepository {

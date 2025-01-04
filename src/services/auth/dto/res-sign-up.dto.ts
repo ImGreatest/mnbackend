@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString } from "class-validator";
-import { IUser } from "@entities";
+import { IUser } from "../../../../libs/shared/entity";
+
 
 export class ResSignUpDto {
 	@ApiProperty()

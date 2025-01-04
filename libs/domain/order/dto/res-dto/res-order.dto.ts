@@ -1,10 +1,9 @@
-import { IOrder } from "@entities";
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
 import { IsDate, IsEnum, IsNumber, IsOptional, IsString } from "class-validator";
 import { Decimal } from "@prisma/client/runtime/library";
 import { EOrderStatus } from "@prisma/client";
-// import { EOrderStatus } from "../../../../shared/enum";
+import { IOrder } from "../../../../shared/entity";
 
 export class ResOrderDto implements IOrder {
 	@ApiProperty({
@@ -15,15 +14,6 @@ export class ResOrderDto implements IOrder {
 	})
 	@IsString()
 	id: string;
-
-	// @ApiProperty({
-	// 	type: String,
-	// 	required: true,
-	// 	description: 'Property of user identifier',
-	// 	example: faker.string.uuid(),
-	// })
-	// @IsString()
-	// userId: string;
 
 	@ApiProperty({
 		type: Date,

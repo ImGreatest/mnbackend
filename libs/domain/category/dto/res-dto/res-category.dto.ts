@@ -1,7 +1,7 @@
-import { ICategory } from "@entities";
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
 import { IsDate, IsString } from "class-validator";
+import { ICategory } from "../../../../shared/entity";
 
 export class ResCategoryDto implements ICategory {
 	@ApiProperty({

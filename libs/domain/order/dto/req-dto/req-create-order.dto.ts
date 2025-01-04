@@ -1,4 +1,4 @@
-import { IOrder } from "@entities";
+import { IOrder } from "../../../../shared/entity";
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
 import { IsDate, IsDecimal, IsEnum, IsOptional, IsString } from "class-validator";

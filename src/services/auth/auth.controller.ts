@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Put, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Get, Post, Put, ValidationPipe } from "@nestjs/common";
 import { ApiBearerAuth, ApiBody, ApiTags } from "@nestjs/swagger";
 import { AuthService } from "./auth.service";
 import { TokenService } from "./token.service";
@@ -44,5 +44,10 @@ export class AuthController {
 	@ApiBody({ type: ReqResetPasswordDto })
 	resetPassword(@Body() data: ReqResetPasswordDto): Promise<void> {
 		return this.authService.resetPassword(data);
+	}
+
+	@Get('test-auth')
+	testAuth(): string {
+		return "Вы авторизованы";
 	}
 }

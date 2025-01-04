@@ -1,4 +1,4 @@
-import { IProduct } from "@entities";
+import { IProduct } from "../../../../shared/entity";
 import { faker } from "@faker-js/faker";
 import { IExcludeBasicProperties } from "../../../../shared/interfaces/exclude-basic-properties.interface";
 

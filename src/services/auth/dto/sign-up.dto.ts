@@ -1,9 +1,9 @@
-import { IUser } from "@entities";
 import { IExcludeBasicProperties } from "../../../../libs/shared/interfaces/exclude-basic-properties.interface";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsPhoneNumber, IsString, IsStrongPassword } from "class-validator";
 import { faker } from "@faker-js/faker";
 import { ERole } from "@prisma/client";
+import { IUser } from "../../../../libs/shared/entity";
 
 export class ReqSignUpDto implements Omit<IUser, keyof IExcludeBasicProperties> {
 	@ApiProperty({
@@ -42,7 +42,7 @@ export class ReqSignUpDto implements Omit<IUser, keyof IExcludeBasicProperties> 
 		description: "Property password",
 	})
 	@IsNotEmpty({ message: "Property is required" })
-	@IsStrongPassword()
+	@IsString()
 	password: string;
 
 	@ApiProperty({

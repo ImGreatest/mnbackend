@@ -1,6 +1,6 @@
 import { IsString } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
-import { ICollection } from "@entities";
+import { ICollection } from "../../../../shared/entity";
 import { IExcludeBasicProperties } from "../../../../shared/interfaces/exclude-basic-properties.interface";
 
 export class ReqCreateCollectionDto implements Omit<ICollection, keyof IExcludeBasicProperties> {

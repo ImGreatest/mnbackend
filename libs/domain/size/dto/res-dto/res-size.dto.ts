@@ -1,8 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
 import { ESize } from "../../enum/size.enum";
-import { ISize } from "@entities";
 import { IsString } from "class-validator";
+import { ISize } from "../../../../shared/entity";
 
 export class ResSizeDto implements ISize {
 	@ApiProperty({

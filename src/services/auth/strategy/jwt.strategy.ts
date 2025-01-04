@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { IPayload } from "../payloads/payload.interface";
-import { IUser } from "@entities";
+import { IUser } from "../../../../libs/shared/entity";
 import { PrismaService } from "../../../../libs/services/prisma/prisma.service";
 import { config } from "../../../../config/config";
 

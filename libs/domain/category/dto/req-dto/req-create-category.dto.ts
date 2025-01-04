@@ -1,4 +1,4 @@
-import { ICategory } from "@entities";
+import { ICategory } from "../../../../shared/entity";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString } from "class-validator";
 import { IExcludeBasicProperties } from "../../../../shared/interfaces/exclude-basic-properties.interface";

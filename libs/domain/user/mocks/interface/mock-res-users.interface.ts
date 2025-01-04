@@ -1,4 +1,4 @@
-import { IUser } from "@entities";
+import { IUser } from "../../../../shared/entity";
 
 export interface IMockResUsers {
 	users: IUser[];

@@ -12,6 +12,7 @@ import { AuthModule } from "../services/auth/auth.module";
 
 @Module({
 	imports: [
+		AuthModule,
 		UserControllerModule,
 		BookingControllerModule,
 		ProductControllerModule,
@@ -20,13 +21,12 @@ import { AuthModule } from "../services/auth/auth.module";
 		CollectionControllerModule,
     // MinioControllerModule,
 	],
-	// providers: [
-	// 	{
-  //     provide: APP_GUARD,
-  //     useClass: AuthGuard,
-  //   },
-	// 	JwtService,
-	// ],
-	providers: [JwtService],
+	providers: [
+		{
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+		JwtService,
+	],
 })
 export class ControllersModule {}
