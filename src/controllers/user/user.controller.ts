@@ -5,7 +5,7 @@ import {
   Get,
   HttpStatus,
   Param,
-  Post,
+  Post, UseGuards,
 } from "@nestjs/common";
 import {
   ApiBearerAuth,
@@ -30,11 +30,12 @@ import { MockResUserByEmail } from "../../../libs/domain/user/mocks/res-mocks/mo
 import { MockResUserByPhone } from "../../../libs/domain/user/mocks/res-mocks/mock-res-user-by-phone";
 import { MockReqUpdateUser } from "../../../libs/domain/user/mocks/req-mocks/mock-req-update-user";
 import { ResUsersDto } from "../../../libs/domain/user/dto/res-dto/res-users.dto";
-import { Public } from "../../../libs/decorators/public.decorator";
+import { RolesGuard } from "../../services/auth/guards/roles.guard";
+import { Roles } from "../../../libs/decorators/roles.decorator";
 
-@Public()
 @ApiTags("user")
-// @ApiBearerAuth()
+@ApiBearerAuth()
+@UseGuards(RolesGuard)
 @Controller("user")
 /**
  * A class controller for method that work with users.
@@ -49,6 +50,7 @@ export class UserController {
    */
   constructor(private readonly userService: UserService) {}
 
+  @Roles('admin')
   @Post("create-user")
   @ApiBody({
     type: ReqCreateUserDto,
