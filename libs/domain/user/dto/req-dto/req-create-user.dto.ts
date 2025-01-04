@@ -191,7 +191,7 @@ export class ReqCreateUserDto {
 		format: 'enum',
 		nullable: false,
 	})
-	@IsEnum(ERole)
+	// @IsEnum(ERole)
 	@IsNotEmpty()
 	/**
 	 * Represents the role of the user in the system.
@@ -199,5 +199,6 @@ export class ReqCreateUserDto {
 	 * @type { ERole }
 	 * @requires
 	 */
-	role: ERole;
+	role: string;
+	// role: ERole;
 }

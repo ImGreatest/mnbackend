@@ -5,15 +5,19 @@ import { randomBytes } from "node:crypto";
 import { PrismaService } from "../../../libs/services/prisma/prisma.service";
 import { config } from "../../../config/config";
 import { IPayload } from "./payloads/payload.interface";
+import { ResSignDto } from "./dto/res-sign.dto";
+import { ReqRefreshDto } from "./dto/req-refresh.dto";
+import { UserService } from "../../../libs/domain/user/user.service";
 
 @Injectable()
-export class AuthTokenService {
+export class TokenService {
 	constructor(
 		private readonly jwtService: JwtService,
 		private readonly prisma: PrismaService,
+		private readonly userService: UserService,
 	) {}
 
-	generateJwtToken(payload: IPayload) {
+	generateJwt(payload: IPayload) {
 		return this.jwtService.sign(payload, {
 			secret: config.JwtSecret,
 			expiresIn: config.JwtExpiresIn,
@@ -21,13 +25,50 @@ export class AuthTokenService {
 	}
 
 	async generateRefreshToken(userId: string, deviceId: string): Promise<string> {
-		return this.prisma.refreshToken.create({
+		const token = await this.prisma.refreshToken.create({
 			data: {
 				token: randomBytes(config.RefreshLength).toString('hex'),
 				deviceId: deviceId,
 				userId: userId,
 				expiresAt: DateTime.now().plus({ month: 1 }).toJSDate(),
 			},
-		}).then((data) => data.token);
+		});
+
+		return token.token;
+	}
+
+	async refresh(data: ReqRefreshDto): Promise<ResSignDto> {
+		const oldRefresh = await this.prisma.refreshToken.findUnique({
+			where: {
+				token_deviceId: {
+					token: data.token,
+					deviceId: data.deviceId,
+				},
+			},
+		});
+		const user = await this.userService.getUser(oldRefresh.userId);
+
+		if (!oldRefresh || !user) {
+			throw new Error('Auth error');
+		}
+
+		await this.prisma.refreshToken.delete({
+			where: {
+				token_deviceId: {
+					token: data.token,
+					deviceId: data.deviceId,
+				},
+			},
+		});
+		const access = this.generateJwt({
+			sub: oldRefresh.userId,
+			role: user.role,
+		});
+		const refresh = await this.generateRefreshToken(oldRefresh.userId, oldRefresh.deviceId);
+
+		return {
+			access: access,
+			refresh: refresh,
+		};
 	}
 }

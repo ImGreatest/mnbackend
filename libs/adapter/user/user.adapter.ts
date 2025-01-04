@@ -10,6 +10,7 @@ import { ResUserByLoginDto } from "../../domain/user/dto/res-dto/res-user-by-log
 import { ResUserByEmailDto } from "../../domain/user/dto/res-dto/res-user-by-email.dto";
 import { ResUserByPhoneDto } from "../../domain/user/dto/res-dto/res-user-by-phone.dto";
 import { ResUsersDto } from "../../domain/user/dto/res-dto/res-users.dto";
+import { ERole } from "@prisma/client";
 
 @Injectable()
 /**
@@ -52,6 +53,7 @@ export class UserAdapter extends UserRepository {
 		return this.prisma.user.create({
 			data: {
 				...data,
+				role: ERole[data.role],
 				password: this.crypto.getHash(data.password),
 			},
 		});
@@ -186,6 +188,7 @@ export class UserAdapter extends UserRepository {
 			},
 			data: {
 				...data,
+				role: ERole[data.role],
 			},
 		});
 	}

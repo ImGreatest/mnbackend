@@ -29,9 +29,9 @@ export class SignInDto {
 	@IsString()
 	password: string;
 
-	// @ApiProperty({
-	// 	type: String,
-	// })
-	// @IsString()
-	// deviceId: string;
+	@ApiProperty({
+		type: String,
+	})
+	@IsString()
+	deviceId: string;
 }

@@ -11,7 +11,7 @@ export interface IUser {
 	lastname?: string;
 	address?: string;
 	alternateContact?: string;
-	role: ERole;
+	role: string;
 	createdAt: Date;
 	updatedAt?: Date;
 	deletedAt?: Date;
