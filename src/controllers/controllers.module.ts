@@ -10,6 +10,8 @@ import { AuthGuard } from "../services/auth/guards/auth.guard";
 import { JwtService } from "@nestjs/jwt";
 import { AuthModule } from "../services/auth/auth.module";
 import { RolesGuard } from "../services/auth/guards/roles.guard";
+import { NotificationControllerModule } from "./notification/notification-controller.module";
+import { NotificationTemplateControllerModule } from "./notification-template/notification-template-controller.module";
 
 @Module({
 	imports: [
@@ -20,6 +22,8 @@ import { RolesGuard } from "../services/auth/guards/roles.guard";
 		SizeControllerModule,
 		OrderControllerModule,
 		CollectionControllerModule,
+		NotificationControllerModule,
+		NotificationTemplateControllerModule,
     // MinioControllerModule,
 	],
 	providers: [

@@ -55,6 +55,7 @@ model User {
   Referral         Referral[]     @relation("referral-users")
   Favorite         Favorite[]
   Bucket           Bucket[]
+  Notification     Notification[]
 }
 
 model Bonus {
@@ -198,6 +199,36 @@ model Bucket {
   createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
   updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz(3)
   deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3)
+}
+
+enum ENotificationType {
+  trigger // trigger action user on the website into
+  transaction // ... payments
+  promotion
+  personal
+  information
+  engage // events, inactive time
+  mass
+}
+
+model NotificationTemplate {
+  id           String            @id @default(uuid())
+  title        String            @db.VarChar(128)
+  description  String?           @db.VarChar(255)
+  type         ENotificationType @default(information)
+  createdAt    DateTime          @default(now()) @map("created_at") @db.Timestamp(3)
+  updatedAt    DateTime?         @updatedAt @map("updated_at") @db.Timestamptz(3)
+  deletedAt    DateTime?         @map("deleted_at") @db.Timestamptz(3)
+  notification Notification[]
+}
+
+model Notification {
+  id         String               @id @default(uuid())
+  userId     String               @map("user_id") @db.VarChar()
+  user       User                 @relation(fields: [userId], references: [id])
+  templateId String               @map("template_id")
+  template   NotificationTemplate @relation(fields: [templateId], references: [id])
+  createdAt  DateTime             @default(now()) @map("created_at") @db.Timestamp(3)
 }
 
 model ProductOrder {

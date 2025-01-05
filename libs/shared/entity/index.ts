@@ -10,3 +10,5 @@ export * from "libs/shared/entity/product-size.entity";
 export * from "libs/shared/entity/referral.entity";
 export * from "libs/shared/entity/size.entity";
 export * from "libs/shared/entity/user.entity";
+export * from "libs/shared/entity/notification-template.entity";
+export * from "libs/shared/entity/notification.entity";
