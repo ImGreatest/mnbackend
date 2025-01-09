@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { SizeRepository } from "../../domain/size/repository/size.repository";
+import { SizeRepository } from "../../domain/size/repositories/size.repository";
 import { logger } from "../../../logger/logger";
 import { ResSizeDto } from "../../domain/size/dto/res-dto/res-size.dto";
 import { PrismaService } from "../../services/prisma/prisma.service";

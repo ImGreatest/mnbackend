@@ -1,16 +1,9 @@
 import { Module } from "@nestjs/common";
 import { NotificationTemplateService } from "./notification-template.service";
-import { NotificationTemplateRepository } from "./repository/notification-template.repository";
-import { NotificationTemplateAdapter } from "../../adapter/notification-template/notification-template.adapter";
+import { NotificationTemplateProvider } from "./providers/notification-template.providers";
 
 @Module({
-	providers: [
-		NotificationTemplateService,
-		{
-			provide: NotificationTemplateRepository,
-			useClass: NotificationTemplateAdapter,
-		},
-	],
+	providers: [...NotificationTemplateProvider],
 	exports: [NotificationTemplateService],
 })
 export class NotificationTemplateModule {}

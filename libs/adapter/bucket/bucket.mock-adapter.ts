@@ -1,4 +1,4 @@
-import { BucketRepository } from "../../domain/bucket/repository/bucket.repository";
+import { BucketRepository } from "../../domain/bucket/repositories/bucket.repository";
 import { Injectable } from "@nestjs/common";
 import { ReqCreateBucketDto } from "../../domain/bucket/dto/req-dto/req-create-bucket.dto";
 import { ResBucketDto } from "../../domain/bucket/dto/res-dto/res-bucket.dto";

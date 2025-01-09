@@ -1,16 +1,9 @@
 import { Module } from "@nestjs/common";
 import { BucketService } from "./bucket.service";
-import { BucketRepository } from "./repository/bucket.repository";
-import { BucketAdapter } from "../../adapter/bucket/bucket.adapter";
+import { BucketProvider } from "./providers/bucket.provider";
 
 @Module({
-	providers: [
-		BucketService,
-		{
-			provide: BucketRepository,
-			useClass: BucketAdapter,
-		},
-	],
+	providers: [...BucketProvider],
 	exports: [BucketService],
 })
 export class BucketModule {}

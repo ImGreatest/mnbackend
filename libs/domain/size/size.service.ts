@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { SizeRepository } from "./repository/size.repository";
+import { SizeRepository } from "./repositories/size.repository";
 import { ResSizeDto } from "./dto/res-dto/res-size.dto";
 import { ResSizesDto } from "./dto/res-dto/res-sizes.dto";
 

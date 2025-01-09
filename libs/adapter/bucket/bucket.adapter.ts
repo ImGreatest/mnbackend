@@ -1,4 +1,4 @@
-import { BucketRepository } from "../../domain/bucket/repository/bucket.repository";
+import { BucketRepository } from "../../domain/bucket/repositories/bucket.repository";
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../../services/prisma/prisma.service";
 import { logger } from "../../../logger/logger";

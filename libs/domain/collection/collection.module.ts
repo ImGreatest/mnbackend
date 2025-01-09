@@ -1,16 +1,9 @@
 import { Module } from "@nestjs/common";
 import { CollectionService } from "./collection.service";
-import { CollectionRepository } from "./repository/collection.repository";
-import { CollectionAdapter } from "../../adapter/collection/collection.adapter";
+import { CollectionProvider } from "./providers/collection.provider";
 
 @Module({
-	providers: [
-		CollectionService,
-		{
-			provide: CollectionRepository,
-			useClass: CollectionAdapter,
-		},
-	],
+	providers: [...CollectionProvider],
 	exports: [CollectionService],
 })
 export class CollectionModule {}
