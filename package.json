@@ -18,6 +18,9 @@
     "prettier-watch": "onchange 'src/**/*.ts' -- prettier --write {{ changed }}",
     "preinstall": "npx only-allow pnpm"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
     "@nestjs/common": "^10.0.0",
