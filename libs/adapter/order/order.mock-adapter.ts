@@ -1,4 +1,4 @@
-import { OrderRepository } from "../../domain/order/repository/order.repository";
+import { OrderRepository } from "../../domain/order/repositories/order.repository";
 import { Injectable } from "@nestjs/common";
 import { ReqCreateOrderDto } from "../../domain/order/dto/req-dto/req-create-order.dto";
 import { ResOrderDto } from "../../domain/order/dto/res-dto/res-order.dto";

@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { CollectionRepository } from "../../domain/collection/repository/collection.repository";
+import { CollectionRepository } from "../../domain/collection/repositories/collection.repository";
 import { PrismaService } from "../../services/prisma/prisma.service";
 import { ReqCreateCollectionDto } from "../../domain/collection/dto/req-dto/req-create-collection.dto";
 import { ResCollectionDto } from "../../domain/collection/dto/res-dto/res-collection.dto";

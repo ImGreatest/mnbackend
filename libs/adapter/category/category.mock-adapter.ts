@@ -1,4 +1,4 @@
-import { CategoryRepository } from "../../domain/category/repository/category.repository";
+import { CategoryRepository } from "../../domain/category/repositories/category.repository";
 import { Injectable } from "@nestjs/common";
 import { ReqCreateCategoryDto } from "../../domain/category/dto/req-dto/req-create-category.dto";
 import { logger } from "../../../logger/logger";

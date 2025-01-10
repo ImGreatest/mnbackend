@@ -1,4 +1,4 @@
-import { CategoryRepository } from "../../domain/category/repository/category.repository";
+import { CategoryRepository } from "../../domain/category/repositories/category.repository";
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../../services/prisma/prisma.service";
 import { ReqCreateCategoryDto } from "../../domain/category/dto/req-dto/req-create-category.dto";

@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { NotificationTemplateRepository } from "./repository/notification-template.repository";
+import { NotificationTemplateRepository } from "./repositories/notification-template.repository";
 import { ReqCreateNotificationTemplateDto } from "./dto/req-dto/req-create-notification-template.dto";
 import { ResNotificationTemplateDto } from "./dto/res-dto/res-notification-template.dto";
 import { ENotificationType } from "@prisma/client";

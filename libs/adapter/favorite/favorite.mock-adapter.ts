@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { FavoriteRepository } from "../../domain/favorite/repository/favorite.repository";
+import { FavoriteRepository } from "../../domain/favorite/repositories/favorite.repository";
 import { ReqCreateRelationDto } from "../../domain/favorite/dto/req-dto/req-create-relation.dto";
 import { ReqUpdatedRelationDto } from "../../domain/favorite/dto/req-dto/req-updated-relation.dto";
 import { logger } from "../../../logger/logger";
