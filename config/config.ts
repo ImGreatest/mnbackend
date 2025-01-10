@@ -13,11 +13,19 @@ export const config = Object.freeze({
 	TokenCoolDown: 600,
 });
 
+export const geoLiteConfig = Object.freeze({
+	DatabaseHost: Number(process.env.DATABASE_GEOLITE_HOST) || process.env.DATABASE_GEOLITE_HOST,
+	DatabasePort: Number(process.env.DATABASE_GEOLITE_PORT),
+	DatabaseUser: process.env.DATABASE_GEOLITE_USER,
+	DatabaseName: process.env.DATABASE_GEOLITE_NAME,
+	DatabasePassword: process.env.DATABASE_GEOLITE_PASSWORD,
+	DatabaseURL: process.env.DATABASE_GEOLITE_URL,
+});
 
-export const JwtConfig = {
+export const JwtConfig = Object.freeze({
 	secret: process.env.JWT_SECRET,
 	expiresIn: process.env.JWT_EXPIRES ?? '900d',
-};
+});
 
 export const emailConfig = Object.freeze({
 	EmailFrom: process.env.EMAIL_FROM,
