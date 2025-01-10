@@ -31,43 +31,75 @@ enum EBookingStatus {
   close
 }
 
+enum EOperationType {
+  credit
+  debit
+}
+
+enum EPromoType {
+  booking
+  order
+}
+
 model User {
-  id               String         @id @default(uuid()) @map("identifier")
-  login            String?        @unique @map("userlogin") @db.VarChar()
-  email            String         @unique @db.VarChar(64)
-  phone            String?        @unique @db.VarChar()
-  password         String         @db.VarChar(64)
-  firstname        String?        @db.VarChar(255)
-  middleName       String?        @map("middle_name") @db.VarChar(255)
-  lastname         String?        @db.VarChar(255)
-  address          String?        @db.VarChar(255)
-  alternateContact String?        @map("alternate_contact") @db.VarChar(255)
-  role             ERole          @default(client)
-  createdAt        DateTime       @default(now()) @map("created_at") @db.Timestamptz(3)
-  updatedAt        DateTime?      @updatedAt @map("updated_at") @db.Timestamptz(3)
-  deletedAt        DateTime?      @map("deleted_at") @db.Timestamptz(3)
-  RefreshToken     RefreshToken[]
-  UserBooking      UserBooking[]
-  Bonus            Bonus[]
-  Booking          Booking[]
-  UserOrder        UserOrder[]
-  Referrer         Referral[]     @relation("referrer-users")
-  Referral         Referral[]     @relation("referral-users")
-  Favorite         Favorite[]
-  Bucket           Bucket[]
-  Notification     Notification[]
+  id               String    @id @default(uuid()) @map("identifier")
+  login            String?   @unique @map("userlogin") @db.VarChar()
+  email            String    @unique @db.VarChar(64)
+  phone            String?   @unique @db.VarChar()
+  password         String    @db.VarChar(64)
+  firstname        String?   @db.VarChar(255)
+  middleName       String?   @map("middle_name") @db.VarChar(255)
+  lastname         String?   @db.VarChar(255)
+  address          String?   @db.VarChar(255)
+  alternateContact String?   @map("alternate_contact") @db.VarChar(255)
+  role             ERole     @default(client)
+  createdAt        DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt        DateTime? @updatedAt @map("updated_at") @db.Timestamptz(3)
+  deletedAt        DateTime? @map("deleted_at") @db.Timestamptz(3)
+
+  RefreshToken RefreshToken[]
+  UserBooking  UserBooking[]
+  Booking      Booking[]
+  UserOrder    UserOrder[]
+  Referrer     Referral[]     @relation("referrer-users")
+  Referral     Referral[]     @relation("referral-users")
+  Favorite     Favorite[]
+  Bucket       Bucket[]
+  Bonus        Bonus[]
+  Notification Notification[]
 }
 
 model Bonus {
-  id         String    @id @default(uuid())
-  userId     String    @map("user_id") @db.VarChar()
-  user       User      @relation(fields: [userId], references: [id])
-  percentage Int       @default(1) @db.Integer
-  bonusValue Int       @default(0) @map("bonus_value") @db.Integer
-  startValue Int       @default(0) @map("start_value") @db.Integer
-  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamp(3)
-  updatedAt  DateTime? @updatedAt @map("updated_at") @db.Timestamp(3)
-  deletedAt  DateTime? @map("deleted_at") @db.Timestamp(3)
+  id             String           @id @default(uuid())
+  userId         String           @map("user_id") @db.VarChar()
+  user           User             @relation(fields: [userId], references: [id])
+  percentage     Int              @default(1) @db.Integer
+  bonusValue     Int              @default(0) @map("bonus_value") @db.Integer
+  startValue     Int              @default(0) @map("start_value") @db.Integer
+  createdAt      DateTime         @default(now()) @map("created_at") @db.Timestamp(3)
+  updatedAt      DateTime?        @updatedAt @map("updated_at") @db.Timestamp(3)
+  deletedAt      DateTime?        @map("deleted_at") @db.Timestamp(3)
+  BonusOperatios BonusOperatios[]
+}
+
+model BonusOperatios {
+  id        String    @id @default(uuid())
+  content   String    @db.VarChar()
+  bonusId   String    @db.VarChar()
+  bonus     Bonus     @relation(fields: [bonusId], references: [id])
+  amount    Int       @db.Integer
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp(3)
+  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamp(3)
+}
+
+model Promo {
+  id              String     @id @default(uuid())
+  code            String     @unique @db.VarChar(64)
+  startTimeActive DateTime   @default(now()) @db.Timestamp(3)
+  endTimeActive   DateTime?
+  type            EPromoType @default(order)
+  createdAt       DateTime   @default(now()) @map("created_at") @db.Timestamp(3)
+  deletedAt       DateTime?  @map("deleted_at") @db.Timestamp(3)
 }
 
 model Referral {
