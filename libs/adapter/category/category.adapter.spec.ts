@@ -5,7 +5,6 @@ import { CategoryModule } from "../../domain/category/category.module";
 import { afterEach } from "node:test";
 import { ResCategoryDto } from "../../domain/category/dto/res-dto/res-category.dto";
 import { MockDataReqCategory } from "../../domain/category/mocks/const/mock-data-req-category.const";
-import { checkCreated } from "../../../test/check-created";
 import { ResCategoriesDto } from "../../domain/category/dto/res-dto/res-categories.dto";
 import { PrismaModule } from "../../services/prisma/prisma.module";
 
@@ -44,7 +43,9 @@ describe('Category endpoint prepare to tests', () => {
 		it('should get current category by identifier', async () => {
 			const created: ResCategoryDto = await adapter.createCategory(MockDataReqCategory);
 
-			await checkCreated(created);
+			expect(created).toHaveProperty('id');
+			expect(created.id).toBeDefined();
+			expect(typeof created.id).toBe('string');
 
 			const res: ResCategoryDto = await adapter.getCategory(created.id);
 

@@ -4,7 +4,6 @@ import { CollectionAdapter } from "./collection.adapter";
 import { CollectionModule } from "../../domain/collection/collection.module";
 import { PrismaModule } from "../../services/prisma/prisma.module";
 import { ResCollectionDto } from "../../domain/collection/dto/res-dto/res-collection.dto";
-import { checkCreated } from "../../../test/check-created";
 import { afterEach } from "node:test";
 import { ResCollectionsDto } from "../../domain/collection/dto/res-dto/res-collections.dto";
 import { MockDataReqCollection } from "../../domain/collection/mocks/const/mock-data-req-collection.const";
@@ -30,17 +29,21 @@ describe('Collection endpoint prepare to tests', () => {
 		});
 
 		it('should create and get collection', async () => {
-			const collection = await adapter.createCollection({
+			const collection: ResCollectionDto = await adapter.createCollection({
 				name: 'Test collection',
 			});
 
-			await checkCreated(collection);
+			expect(collection).toHaveProperty('id');
+			expect(collection.id).toBeDefined();
+			expect(typeof collection.id).toBe('string');
 		});
 
 		it('should get collection by identifier', async () => {
 			const created: ResCollectionDto = await adapter.createCollection(MockDataReqCollection);
 
-			await checkCreated(created);
+			expect(created).toHaveProperty('id');
+			expect(created.id).toBeDefined();
+			expect(typeof created.id).toBe('string');
 
 			const res: ResCollectionDto = await adapter.getCollection(created.id);
 

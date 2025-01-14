@@ -4,7 +4,6 @@ import { Test } from "@nestjs/testing";
 import { PrismaModule } from "../../services/prisma/prisma.module";
 import { FavoriteModule } from "../../domain/favorite/favorite.module";
 import { afterEach } from "node:test";
-import { checkCreated } from "../../../test/check-created";
 import { ResRelationDto } from "../../domain/favorite/dto/res-dto/res-relation.dto";
 import { UserModule } from "../../domain/user/user.module";
 import { ProductModule } from "../../domain/product/product.module";
@@ -56,7 +55,9 @@ describe('FavoriteAdapter', () => {
 		});
 
 		it('should create favorite-relation', async () => {
-			await checkCreated(await setupUserProductRelations());
+			expect(setupUserProductRelations).toHaveProperty('id');
+			expect(await setupUserProductRelations().then((data) => data.id)).toBeDefined();
+			expect(typeof await setupUserProductRelations().then((data) => data.id)).toBe('string');
 		});
 
 		it('should get current relation by identifier', async () => {
