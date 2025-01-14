@@ -1,20 +1,21 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import { NestFactory } from "@nestjs/core";
+import { AppModule } from "./app.module";
 import { logger } from "../logger/logger";
+import { config } from "../config/config";
+import { swagger } from "./swagger";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const config = new DocumentBuilder()
-    .setTitle('MN Cloth Api')
-    .setDescription('Origin api for mn cloth')
-    .setVersion('1.0')
-    .addTag('MN')
-    .build();
-  const doc = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, doc);
+  app.setGlobalPrefix("api");
+  app.enableCors({
+    origin: "*",
+    methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  });
+  swagger(app);
 
-  await app.listen(3000);
+  await app.listen(config.PostgresPort);
 }
-bootstrap().then(r => logger.info(r));
+bootstrap().then((r) => logger.info(r));

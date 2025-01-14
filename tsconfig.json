@@ -16,8 +16,19 @@
     "skipLibCheck": true,
     "strictNullChecks": false,
     "noImplicitAny": false,
+    "noImplicitOverride": false,
     "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  }
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": false,
+    "moduleResolution": "node",
+    "paths": {},
+  },
+  "include": [
+    "src/**/*.ts",
+    "libs/**/*.ts",
+    "src/**/*.{test,spec}.ts",
+    "libs/**/*.{test,spec}.ts",
+    "test/**/*.ts",
+  ],
+  "exclude": ["node_modules", "dist"],
 }

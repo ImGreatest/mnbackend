@@ -1,0 +1,292 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters", "postgresqlExtensions", "fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ERole {
+  admin
+  client
+}
+
+enum EOrderStatus {
+  active
+  await
+  collect
+  sent
+  close
+}
+
+enum EBookingStatus {
+  active
+  await
+  close
+}
+
+enum EOperationType {
+  credit
+  debit
+}
+
+enum EPromoType {
+  booking
+  order
+}
+
+model User {
+  id               String    @id @default(uuid()) @map("identifier")
+  login            String?   @unique @map("userlogin") @db.VarChar()
+  email            String    @unique @db.VarChar(64)
+  phone            String?   @unique @db.VarChar()
+  password         String    @db.VarChar(64)
+  firstname        String?   @db.VarChar(255)
+  middleName       String?   @map("middle_name") @db.VarChar(255)
+  lastname         String?   @db.VarChar(255)
+  address          String?   @db.VarChar(255)
+  alternateContact String?   @map("alternate_contact") @db.VarChar(255)
+  role             ERole     @default(client)
+  createdAt        DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt        DateTime? @updatedAt @map("updated_at") @db.Timestamptz(3)
+  deletedAt        DateTime? @map("deleted_at") @db.Timestamptz(3)
+
+  RefreshToken RefreshToken[]
+  UserBooking  UserBooking[]
+  Booking      Booking[]
+  UserOrder    UserOrder[]
+  Referrer     Referral[]     @relation("referrer-users")
+  Referral     Referral[]     @relation("referral-users")
+  Favorite     Favorite[]
+  Bucket       Bucket[]
+  Bonus        Bonus[]
+  Notification Notification[]
+}
+
+model Bonus {
+  id             String           @id @default(uuid())
+  userId         String           @map("user_id") @db.VarChar()
+  user           User             @relation(fields: [userId], references: [id])
+  percentage     Int              @default(1) @db.Integer
+  bonusValue     Int              @default(0) @map("bonus_value") @db.Integer
+  startValue     Int              @default(0) @map("start_value") @db.Integer
+  createdAt      DateTime         @default(now()) @map("created_at") @db.Timestamp(3)
+  updatedAt      DateTime?        @updatedAt @map("updated_at") @db.Timestamp(3)
+  deletedAt      DateTime?        @map("deleted_at") @db.Timestamp(3)
+  BonusOperatios BonusOperatios[]
+}
+
+model BonusOperatios {
+  id        String    @id @default(uuid())
+  content   String    @db.VarChar()
+  bonusId   String    @db.VarChar()
+  bonus     Bonus     @relation(fields: [bonusId], references: [id])
+  amount    Int       @db.Integer
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp(3)
+  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamp(3)
+}
+
+model Promo {
+  id              String     @id @default(uuid())
+  code            String     @unique @db.VarChar(64)
+  startTimeActive DateTime   @default(now()) @db.Timestamp(3)
+  endTimeActive   DateTime?
+  type            EPromoType @default(order)
+  createdAt       DateTime   @default(now()) @map("created_at") @db.Timestamp(3)
+  deletedAt       DateTime?  @map("deleted_at") @db.Timestamp(3)
+}
+
+model Referral {
+  id         String    @id @default(uuid())
+  referral   User      @relation(fields: [referralId], references: [id], name: "referral-users")
+  referralId String    @map("referral_id") @db.VarChar()
+  referrer   User      @relation(fields: [referrerId], references: [id], name: "referrer-users")
+  referrerId String    @map("referrer_id") @db.VarChar()
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt  DateTime? @updatedAt @map("updated_at") @db.Timestamptz(3)
+  deletedAt  DateTime? @map("deleted_at") @db.Timestamptz(3)
+}
+
+model RefreshToken {
+  token     String   @db.VarChar()
+  deviceId  String   @db.VarChar()
+  userId    String   @db.VarChar()
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  @@id([token, deviceId])
+}
+
+model Booking {
+  id          String        @id @default(uuid())
+  userId      String        @map("user_id") @db.VarChar()
+  user        User          @relation(fields: [userId], references: [id])
+  timeStart   DateTime      @map("time_start") @db.Timestamptz(3)
+  timeEnd     DateTime      @map("time_end") @db.Timestamptz(3)
+  comment     String?       @db.VarChar(1024)
+  address     String?       @db.VarChar(1024)
+  createdAt   DateTime      @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt   DateTime?     @updatedAt @map("updated_at") @db.Timestamptz(3)
+  deletedAt   DateTime?     @map("deleted_at") @db.Timestamptz(3)
+  UserBooking UserBooking[]
+}
+
+model Order {
+  id           String         @id @default(uuid())
+  dateDelivery DateTime       @map("date_delivery") @db.Timestamp(3)
+  cost         Decimal        @db.Money
+  status       EOrderStatus   @default(active)
+  comment      String?        @db.VarChar(255)
+  createdAt    DateTime       @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt    DateTime?      @updatedAt @map("updated_at") @db.Timestamptz(3)
+  deletedAt    DateTime?      @map("deleted_at") @db.Timestamptz(3)
+  ProductOrder ProductOrder[]
+  UserOrder    UserOrder[]
+}
+
+model Size {
+  name        String        @unique @db.VarChar(255)
+  ProductSize ProductSize[]
+}
+
+model UserBooking {
+  userId    String  @map("user_id") @db.VarChar()
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bookingId String  @map("booking_id") @db.VarChar()
+  booking   Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@id([userId, bookingId])
+}
+
+model UserOrder {
+  userId  String @map("user_id") @db.VarChar()
+  user    User   @relation(references: [id], fields: [userId])
+  orderId String @map("order_id") @db.VarChar()
+  order   Order  @relation(fields: [orderId], references: [id])
+
+  @@id([userId, orderId])
+}
+
+model Product {
+  id              String            @id @default(uuid())
+  name            String            @unique @db.VarChar()
+  description     String?           @map("desc") @db.VarChar()
+  cost            Int               @default(1) @db.Integer
+  compound        String            @db.VarChar(1024)
+  collectionId    String            @map("collection_id") @db.VarChar()
+  collection      Collection        @relation(fields: [collectionId], references: [id])
+  createdAt       DateTime          @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt       DateTime?         @updatedAt @map("updated_at") @db.Timestamptz(3)
+  deletedAt       DateTime?         @map("deleted_at") @db.Timestamptz(3)
+  ProductOrder    ProductOrder[]
+  ProductCategory ProductCategory[]
+  ProductSize     ProductSize[]
+  Favorite        Favorite[]
+  Bucket          Bucket[]
+  orderId         String?
+}
+
+model Category {
+  id              String            @id @default(uuid())
+  name            String            @db.VarChar(255)
+  createdAt       DateTime          @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt       DateTime?         @updatedAt @map("updated_at") @db.Timestamptz(3)
+  deletedAt       DateTime?         @map("deleted_at") @db.Timestamptz(3)
+  ProductCategory ProductCategory[]
+}
+
+model Collection {
+  id        String    @id @default(uuid())
+  name      String    @db.VarChar(255)
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz(3)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3)
+  Product   Product[]
+}
+
+model Favorite {
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id") @db.VarChar()
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String    @map("product_id") @db.VarChar()
+  product   Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz(3)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3)
+}
+
+model Bucket {
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id") @db.VarChar()
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String    @map("product_id") @db.VarChar()
+  product   Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz(3)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3)
+}
+
+enum ENotificationType {
+  trigger // trigger action user on the website into
+  transaction // ... payments
+  promotion
+  personal
+  information
+  engage // events, inactive time
+  mass
+}
+
+model NotificationTemplate {
+  id           String            @id @default(uuid())
+  title        String            @db.VarChar(128)
+  description  String?           @db.VarChar(255)
+  type         ENotificationType @default(information)
+  createdAt    DateTime          @default(now()) @map("created_at") @db.Timestamp(3)
+  updatedAt    DateTime?         @updatedAt @map("updated_at") @db.Timestamptz(3)
+  deletedAt    DateTime?         @map("deleted_at") @db.Timestamptz(3)
+  notification Notification[]
+}
+
+model Notification {
+  id         String               @id @default(uuid())
+  userId     String               @map("user_id") @db.VarChar()
+  user       User                 @relation(fields: [userId], references: [id])
+  templateId String               @map("template_id")
+  template   NotificationTemplate @relation(fields: [templateId], references: [id])
+  createdAt  DateTime             @default(now()) @map("created_at") @db.Timestamp(3)
+}
+
+model ProductOrder {
+  orderId   String  @map("order_id") @db.VarChar()
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String  @map("product_id") @db.VarChar()
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([productId, orderId])
+}
+
+model ProductSize {
+  productId String  @map("product_id") @db.VarChar()
+  product   Product @relation(fields: [productId], references: [id])
+  sizeName  String  @map("size_id") @db.VarChar()
+  size      Size    @relation(fields: [sizeName], references: [name])
+  able      Boolean @db.Boolean
+
+  @@id([productId, sizeName])
+}
+
+model ProductCategory {
+  productId  String   @map("product_id") @db.VarChar()
+  product    Product  @relation(fields: [productId], references: [id])
+  categoryId String   @map("category_id") @db.VarChar()
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@id([productId, categoryId])
+}

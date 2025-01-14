@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  postgres-client:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - ${POSTGRES_PORT}:${DATABASE_PORT}
+
+  migrations:
+    build: .
+    env_file:
+      - .env
+    command: npx prisma migrate deploy
+    depends_on:
+      - postgres-client
+
+  mn-backend:
+    build: .
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - ${API_PORT}:${API_PORT}
+    command: pnpm run start:dev
+    depends_on:
+      migrations:
+        condition: service_completed_successfully
