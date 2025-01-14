@@ -12,6 +12,7 @@ import { AuthModule } from "../services/auth/auth.module";
 import { RolesGuard } from "../services/auth/guards/roles.guard";
 import { NotificationControllerModule } from "./notification/notification-controller.module";
 import { NotificationTemplateControllerModule } from "./notification-template/notification-template-controller.module";
+import { DadataControllerModule } from "../services/dadata/dadata-controller.module";
 
 @Module({
 	imports: [
@@ -24,6 +25,7 @@ import { NotificationTemplateControllerModule } from "./notification-template/no
 		CollectionControllerModule,
 		NotificationControllerModule,
 		NotificationTemplateControllerModule,
+		DadataControllerModule,
 	],
 	providers: [
 		{
