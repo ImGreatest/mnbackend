@@ -24,7 +24,6 @@ import { NotificationTemplateControllerModule } from "./notification-template/no
 		CollectionControllerModule,
 		NotificationControllerModule,
 		NotificationTemplateControllerModule,
-    // MinioControllerModule,
 	],
 	providers: [
 		{
