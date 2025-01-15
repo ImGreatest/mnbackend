@@ -1,18 +1,11 @@
 import { Module } from "@nestjs/common";
 import { CryptoModule } from "../../services/crypto/crypto.module";
 import { UserService } from "./user.service";
-import { UserRepository } from "./repositories/user.repository";
-import { UserAdapter } from "../../adapter/user/user.adapter";
+import { UserProvider } from "./providers/user.provider";
 
 @Module({
 	imports: [CryptoModule],
-	providers: [
-		UserService,
-		{
-			provide: UserRepository,
-			useClass: UserAdapter,
-		},
-	],
+	providers: [...UserProvider],
 	exports: [UserService],
 })
 /**

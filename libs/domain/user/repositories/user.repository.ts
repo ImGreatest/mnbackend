@@ -23,11 +23,12 @@ export abstract class UserRepository {
 	 * @instance
 	 * @method createUser
 	 * @param data
-	 * @return { Promise&lt;void> }
+	 * @return { Promise&lt;ResUserDto> }
 	 * @throws { Error } If was given invalid data or user creation fail.
 	 * @see { ReqCreateUserDto }
+	 * @see { ResUserDto }
 	 */
-	abstract createUser(data: ReqCreateUserDto): Promise<void>;
+	abstract createUser(data: ReqCreateUserDto): Promise<ResUserDto>;
 
 	/**
 	 * Get a specific user by his identifier

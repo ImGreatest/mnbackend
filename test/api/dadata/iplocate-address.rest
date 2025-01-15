@@ -1,0 +1,17 @@
+### POST request to dadata api for get address by ipv4 or ipv6
+POST https://suggestions.dadata.ru/suggestions/api/4_1/rs/iplocate/address HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: Token {{ DADATA_API_KEY}}
+
+// example ip from dadata sandbox https://dadata.ru/api/iplocate/
+{
+  "ip": "46.226.227.20"
+}
+
+> {%
+    client.test("Request execute successfully", () => {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+ %}
+###

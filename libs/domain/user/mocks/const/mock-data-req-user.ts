@@ -1,8 +1,9 @@
 import { faker } from "@faker-js/faker";
-import { ERole } from "@enums";
-import { IUser } from "@entities";
+import { ERole } from "@prisma/client";
+import { IUser } from "../../../../shared/entity";
+import { IExcludeBasicProperties } from "../../../../shared/interfaces/exclude-basic-properties.interface";
 
-export const MockDataReqUser: Omit<IUser, "id" | "createdAt" | "updatedAt" | "deletedAt"> = {
+export const MockDataReqUser: Omit<IUser, keyof IExcludeBasicProperties> = {
 	login: faker.person.fullName(),
 	email: faker.internet.email(),
 	phone: faker.phone.number(),

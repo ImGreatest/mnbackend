@@ -1,7 +1,6 @@
-import { IUser } from "@entities";
+import { IUser } from "../../../../shared/entity";
 import { faker } from "@faker-js/faker";
-import { DateTime } from "luxon";
-import { ERole } from "@enums";
+import { ERole } from "../../../../shared/enum";
 
 export const MockDataResUser: IUser = {
 	id: faker.string.uuid(),
@@ -18,7 +17,7 @@ export const MockDataResUser: IUser = {
 		min: 1,
 		max: Object.keys(ERole).length,
 	})],
-	createdAt: DateTime.fromJSDate(faker.date.past()),
-	updatedAt: DateTime.fromJSDate(faker.date.past()),
-	deletedAt: DateTime.fromJSDate(faker.date.past()),
+	createdAt: faker.date.past(),
+	updatedAt: faker.date.past(),
+	deletedAt: faker.date.past(),
 }

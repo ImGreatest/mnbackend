@@ -11,15 +11,18 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+# rethinkDb
+rethinkdb_data
+
 # OS
 .DS_Store
 
 # Environment
 .env
+http-client.private.env.json
 
 # Migrations
 /prisma/migrations
-/prisma/schema.prisma
 
 # CI/CD
 /.github

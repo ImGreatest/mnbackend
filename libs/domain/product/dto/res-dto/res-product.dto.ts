@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
 import { IsDate, IsNumber, IsString } from "class-validator";
-import { IProduct } from "@entities";
+import { IProduct } from "../../../../shared/entity";
 
 export class ResProductDto implements IProduct {
 	@ApiProperty({
@@ -29,7 +29,7 @@ export class ResProductDto implements IProduct {
 		example: faker.lorem.sentence(),
 	})
 	@IsString()
-	desc?: string;
+	description?: string;
 
 	@ApiProperty({
 		type: Number,

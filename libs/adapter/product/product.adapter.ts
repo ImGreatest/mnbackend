@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { ProductRepository } from "../../domain/product/repository/product.repository";
+import { ProductRepository } from "../../domain/product/repositories/product.repository";
 import { ReqCreateProductDto } from "../../domain/product/dto/req-dto/req-create-product.dto";
 import { ResProductDto } from "../../domain/product/dto/res-dto/res-product.dto";
 import { ResProductsDto } from "../../domain/product/dto/res-dto/res-products.dto";
@@ -17,10 +17,10 @@ export class ProductAdapter extends ProductRepository {
 		logger.info('ProductAdapter was init');
 	}
 
-	async createProduct(data: ReqCreateProductDto): Promise<void> {
+	async createProduct(data: ReqCreateProductDto): Promise<ResProductDto> {
 		logger.verbose(`ProductAdapter called createProduct with param - ${JSON.stringify(data)}`);
 
-		await this.prisma.product.create({ data: { ...data }});
+		return this.prisma.product.create({ data: { ...data } });
 	}
 
 	async getProduct(productId: string): Promise<ResProductDto> {
@@ -40,9 +40,7 @@ export class ProductAdapter extends ProductRepository {
 		});
 
 		return {
-			products: products.map(product => ({
-				...product,
-			})),
+			products: products.map(product => (product)),
 		}
 	}
 

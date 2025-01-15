@@ -10,6 +10,7 @@ import { ResUserByLoginDto } from "../../domain/user/dto/res-dto/res-user-by-log
 import { ResUserByEmailDto } from "../../domain/user/dto/res-dto/res-user-by-email.dto";
 import { ResUserByPhoneDto } from "../../domain/user/dto/res-dto/res-user-by-phone.dto";
 import { ResUsersDto } from "../../domain/user/dto/res-dto/res-users.dto";
+import { ERole } from "@prisma/client";
 
 @Injectable()
 /**
@@ -44,13 +45,15 @@ export class UserAdapter extends UserRepository {
 	 * @returns { Promise&ltvoid> }
 	 * @see { ReqCreateUserDto }
 	 * @see { UserRepository }
+	 * @see { ResUserDto }
 	 */
-	async createUser(data: ReqCreateUserDto): Promise<void> {
-		logger.info(`Adapter call - createUser method params - ${{ ...data }}`);
+	async createUser(data: ReqCreateUserDto): Promise<ResUserDto> {
+		logger.info(`Adapter call - createUser method params - ${JSON.stringify(data)}`);
 
-		await this.prisma.user.create({
+		return this.prisma.user.create({
 			data: {
 				...data,
+				role: ERole[data.role],
 				password: this.crypto.getHash(data.password),
 			},
 		});
@@ -69,7 +72,7 @@ export class UserAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async getUser(userId: string): Promise<ResUserDto> {
-		logger.info(`Adapter call - getUser method params - ${userId}`);
+		logger.info(`Adapter call - getUser method params - ${JSON.stringify(userId)}`);
 
 		return this.prisma.user.findUnique({
 			where: {
@@ -91,7 +94,7 @@ export class UserAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async getUserByLogin(login: string): Promise<ResUserByLoginDto> {
-		logger.info(`Adapter call - getUserByLogin method params - ${login}`);
+		logger.info(`Adapter call - getUserByLogin method params - ${JSON.stringify(login)}`);
 
 		return this.prisma.user.findUnique({
 			where: {
@@ -113,7 +116,7 @@ export class UserAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async getUserByEmail(email: string): Promise<ResUserByEmailDto> {
-		logger.info(`Adapter call - getUserByEmail method params - ${email}`);
+		logger.info(`Adapter call - getUserByEmail method params - ${JSON.stringify(email)}`);
 
 		return this.prisma.user.findUnique({
 			where: {
@@ -135,7 +138,7 @@ export class UserAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async getUserByPhone(phone: string): Promise<ResUserByPhoneDto> {
-		logger.info(`Adapter call - getUserByPhone method params - ${phone}`);
+		logger.info(`Adapter call - getUserByPhone method params - ${JSON.stringify(phone)}`);
 
 		return this.prisma.user.findUnique({
 			where: {
@@ -156,9 +159,11 @@ export class UserAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async getUsers(): Promise<ResUsersDto> {
-		logger.info('Adapter call - getUsers method');
+		logger.info('Adapter call - getUsers method without params');
 
-		return this.prisma.user.findMany();
+		return {
+			users: await this.prisma.user.findMany(),
+		}
 	}
 
 	/**
@@ -175,7 +180,7 @@ export class UserAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async updateUser(userId: string, data: ReqUpdateUserDto): Promise<void> {
-		logger.info(`Adapter call - updateUser method, params - ${userId}, ${{ ...data }}`);
+		logger.info(`Adapter call - updateUser method, params - ${JSON.stringify(userId)}, ${JSON.stringify(data)}`);
 
 		await this.prisma.user.update({
 			where: {
@@ -183,6 +188,7 @@ export class UserAdapter extends UserRepository {
 			},
 			data: {
 				...data,
+				role: ERole[data.role],
 			},
 		});
 	}
@@ -199,7 +205,7 @@ export class UserAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async deleteUser(userId: string): Promise<void> {
-		logger.info(`Adapter call - deleteUser method, params - ${userId}`);
+		logger.info(`Adapter call - deleteUser method, params - ${JSON.stringify(userId)}`);
 
 		await this.prisma.user.delete({
 			where: {

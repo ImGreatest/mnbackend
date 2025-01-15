@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
 import { IsAlpha, IsEmpty, IsEnum, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
-import { ERole } from "@enums";
+import { ERole } from "@prisma/client";
 
 /**
  * Class describing the properties sent to create user instance
@@ -191,7 +191,7 @@ export class ReqCreateUserDto {
 		format: 'enum',
 		nullable: false,
 	})
-	@IsEnum(ERole)
+	// @IsEnum(ERole)
 	@IsNotEmpty()
 	/**
 	 * Represents the role of the user in the system.
@@ -199,5 +199,6 @@ export class ReqCreateUserDto {
 	 * @type { ERole }
 	 * @requires
 	 */
-	role: ERole;
+	role: string;
+	// role: ERole;
 }

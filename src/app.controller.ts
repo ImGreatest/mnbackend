@@ -2,13 +2,13 @@ import { Controller, Get, Req } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { AppService } from "./app.service";
 
-@ApiTags('server')
-@Controller('server')
+@ApiTags("server")
+@Controller("server")
 export class AppController {
-	constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) {}
 
-	@Get('ping')
-	ping(@Req() request: Request): Promise<string> {
-		return this.appService.pong();
-	}
+  @Get("ping")
+  ping(@Req() request: Request): Promise<string> {
+    return this.appService.pong();
+  }
 }

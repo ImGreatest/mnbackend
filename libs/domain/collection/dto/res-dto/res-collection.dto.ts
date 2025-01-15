@@ -1,7 +1,7 @@
-import { ICollection } from "@entities";
 import { IsDate, IsString } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
+import { ICollection } from "../../../../shared/entity";
 
 export class ResCollectionDto implements ICollection {
 	@ApiProperty({

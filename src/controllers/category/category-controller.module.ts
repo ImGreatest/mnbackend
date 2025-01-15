@@ -3,7 +3,7 @@ import { CategoryController } from "./category.controller";
 import { CategoryModule } from "../../../libs/domain/category/category.module";
 
 @Module({
-	imports: [CategoryModule],
-	controllers: [CategoryController],
+  imports: [CategoryModule],
+  controllers: [CategoryController],
 })
 export class CategoryControllerModule {}
