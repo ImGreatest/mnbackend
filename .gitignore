@@ -19,6 +19,7 @@ rethinkdb_data
 
 # Environment
 .env
+http-client.private.env.json
 
 # Migrations
 /prisma/migrations
