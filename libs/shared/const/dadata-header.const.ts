@@ -5,6 +5,6 @@ export const DADATA_HEADER: RequestInit = {
 	headers: {
 		'Content-Type': "application/json",
 		'Accept': "application/json",
-		'Authorization': `Token ${dadataConfig.apiKey}`,
+		'Authorization': `Token ` + dadataConfig.apiKey,
 	}
 }
