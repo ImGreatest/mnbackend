@@ -1,109 +1,101 @@
+import { IProfile } from "libs/shared/entity/profile.entity";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsEnum, IsString } from 'class-validator';
 import { faker } from "@faker-js/faker";
-import { IUser } from "../../../../shared/entity";
-import { ERole } from "@prisma/client";
+import { IsDate, IsString } from "class-validator";
 
 /**
- * Class describing the returns order properties of the user instance
+ * Class describing the returns order properties of the profile instance
  *
  * @export
- * @class ResUserDto
- * @property id
- * @property login
- * @property email
- * @property phone
- * @property password
- * @property role
+ * @class ResProfileDto
+ * @property userId
+ * @property firstname
+ * @property middleName
+ * @property lastname
+ * @property address
+ * @property alternateContact
  * @property createdAt
  * @property updatedAt
- * @see { IUser }
+ * @see { IProfile }
  */
-export class ResUserDto implements IUser {
+export class ResProfileDto implements IProfile {
 	@ApiProperty({
 		type: String,
 		required: true,
-		description: 'Property id user',
+		description: 'Property id profile',
 		example: faker.string.uuid(),
 	})
 	@IsString()
 	/**
-	 * Property identifier user
+	 * Property of identifier user profile
 	 *
 	 * @requires
 	 * @type { string }
 	 */
-	id: string;
+	userId: string;
 
 	@ApiProperty({
 		type: String,
-		description: 'Property login user',
-		required: true,
-		example: faker.person.fullName(),
+		description: 'Property firstname user',
+		example: faker.person.firstName().toString(),
 	})
 	@IsString()
 	/**
-	 * Property login
+	 * Property firstname
 	 *
 	 * @type { string }
-	 * @requires
 	 */
-	login: string;
+	firstname: string;
 
 	@ApiProperty({
 		type: String,
-		description: 'Property email user',
-		required: true,
-		example: faker.internet.email(),
+		description: 'Property middlename user',
+		example: faker.person.middleName(),
 	})
 	@IsString()
 	/**
-	 * Property email
+	 * Property middleName
 	 *
 	 * @type { string }
-	 * @requires
 	 */
-	email: string;
+	middleName: string;
 
-	@ApiProperty({
+		@ApiProperty({
 		type: String,
-		description: 'Property phone user',
-		required: true,
-		example: String(faker.phone.number()),
+		description: 'Property lastname user',
+		example: faker.person.lastName(),
 	})
 	@IsString()
 	/**
-	 * Property phone
+	 * Property lastname
 	 *
 	 * @type { string }
-	 * @requires
 	 */
-	phone: string;
+	lastname: string;
 
 	@ApiProperty({
 		type: String,
-		description: 'Property password user',
-		required: true,
+		description: 'Property address user',
 	})
 	@IsString()
 	/**
-	 * Property password
+	 * Property address
 	 *
 	 * @type { string }
 	 */
-	password: string;
+	address: string;
 
 	@ApiProperty({
 		type: String,
-		description: 'Property role user',
+		description: 'Property alternate contact information user',
 	})
-	@IsEnum(ERole)
+	@IsString()
 	/**
-	 * Property role
+	 * Property alternateContact
 	 *
 	 * @type { string }
 	 */
-	role: ERole;
+	alternateContact: string;
 
 	@ApiProperty({
 		type: Date,
