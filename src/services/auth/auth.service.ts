@@ -10,6 +10,7 @@ import { ReqSignUpDto } from "./dto/sign-up.dto";
 import { ResSignUpDto } from "./dto/res-sign-up.dto";
 import { ReqResetPasswordDto } from "./dto/req-reset-password.dto";
 import { UserService } from "../../../libs/domain/user/user.service";
+import { ProfileService } from "../../../libs/domain/profile/profile.service";
 
 @Injectable()
 export class AuthService {
@@ -18,6 +19,7 @@ export class AuthService {
 		private readonly tokenService: TokenService,
 		private readonly cryptoService: CryptoService,
 		private readonly userService: UserService,
+		private readonly profileService: ProfileService,
 	) {}
 
 	async signIn(data: SignInDto): Promise<AuthDataDto> {
@@ -89,12 +91,23 @@ export class AuthService {
 			email: user.email,
 			phone: user.phone,
 			password: this.cryptoService.getHash(data.newPassword),
-			firstname: user.firstname,
-			middleName: user.middleName,
-			lastname: user.lastname,
-			address: user.address,
-			alternateContact: user.alternateContact,
 			role: user.role,
-		});
+		}).then(res => res)
+			.catch(e => {
+				logger.error(e);
+				logger.info('Update user is fail check error log');
+			});
+
+		await this.profileService.updateProfile(user.id, {
+			firstname: user.profile.firstname,
+			middleName: user.profile.middleName,
+			lastname: user.profile.lastname,
+			address: user.profile.address,
+			alternateContact: user.profile.alternateContact,
+		}).then(res => res)
+			.catch(e => {
+				logger.error(e);
+				logger.info('Update profile is fail check error log');
+			})
 	}
 }

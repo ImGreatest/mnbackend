@@ -7,10 +7,12 @@ import { AuthService } from "./auth.service";
 import { CryptoService } from "../../../libs/services/crypto/crypto.service";
 import { UserModule } from "../../../libs/domain/user/user.module";
 import { AuthController } from "./auth.controller";
+import { ProfileModule } from "../../../libs/domain/profile/profile.module";
 
 @Module({
 	imports: [
 		UserModule,
+		ProfileModule,
 		JwtModule.register({
 			global: true,
 			secret: JwtConfig.secret,

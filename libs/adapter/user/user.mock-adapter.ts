@@ -7,6 +7,8 @@ import { ResUserByLoginDto } from "../../domain/user/dto/res-dto/res-user-by-log
 import { ResUserByEmailDto } from "../../domain/user/dto/res-dto/res-user-by-email.dto";
 import { ResUserByPhoneDto } from "../../domain/user/dto/res-dto/res-user-by-phone.dto";
 import { ResUsersDto } from "../../domain/user/dto/res-dto/res-users.dto";
+import { ResCreatedUserDto } from "../../domain/user/dto/res-dto/res-created-user.dto";
+import { ResUpdatedUserDto } from "../../domain/user/dto/res-dto/res-updated-user.dto";
 
 @Injectable()
 /**
@@ -32,12 +34,12 @@ export class UserMockAdapter extends UserRepository {
 	 * @instance
 	 * @method createUser
 	 * @param data
-	 * @returns { Promise&lt;void> }
+	 * @returns { Promise&lt;ResCreatedUserDto> }
 	 * @see { ReqCreateUserDto }
 	 * @see { UserRepository }
 	 */
-	async createUser(data: ReqCreateUserDto): Promise<ResUserDto> {
-		throw new Error(`${{...data}}`);
+	async createUser(data: ReqCreateUserDto): Promise<ResCreatedUserDto> {
+		throw new Error(`${JSON.stringify(data)}`);
 	}
 
 	/**
@@ -52,7 +54,7 @@ export class UserMockAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async getUser(userId: string): Promise<ResUserDto> {
-		throw new Error(`${userId}`);
+		throw new Error(`${JSON.stringify(userId)}`);
 	}
 
 	/**
@@ -67,7 +69,7 @@ export class UserMockAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async getUserByLogin(login: string): Promise<ResUserByLoginDto> {
-		throw new Error(`${login}`);
+		throw new Error(`${JSON.stringify(login)}`);
 	}
 
 	/**
@@ -82,7 +84,7 @@ export class UserMockAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async getUserByEmail(email: string): Promise<ResUserByEmailDto> {
-		throw new Error(`${email}`);
+		throw new Error(`${JSON.stringify(email)}`);
 	}
 
 	/**
@@ -97,7 +99,7 @@ export class UserMockAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async getUserByPhone(phone: string): Promise<ResUserByPhoneDto> {
-		throw new Error(`${phone}`);
+		throw new Error(`${JSON.stringify(phone)}`);
 	}
 
 	/**
@@ -122,25 +124,12 @@ export class UserMockAdapter extends UserRepository {
 	 * @method updateUser
 	 * @param { string } userId
 	 * @param { ReqUpdateUserDto } data
-	 * @returns { Promise&lt;void> }
+	 * @returns { Promise&lt;ResUpdatedUserDto> }
 	 * @see { ReqUpdateUserDto }
+	 * @see { ResUpdatedUserDto }
 	 * @see { UserRepository }
 	 */
-	async updateUser(userId: string, data: ReqUpdateUserDto): Promise<void> {
-		throw new Error(`${userId}, ${{...data}}`);
-	}
-
-	/**
-	 * Mock method for delete user instance.
-	 *
-	 * @async
-	 * @instance
-	 * @method deleteUser
-	 * @param { string } userId
-	 * @returns { Promise&lt;void> }
-	 * @see { UserRepository }
-	 */
-	async deleteUser(userId: string): Promise<void> {
-		throw new Error(`${userId}`);
+	async updateUser(userId: string, data: ReqUpdateUserDto): Promise<ResUpdatedUserDto> {
+		throw new Error(`${JSON.stringify(userId)}, ${JSON.stringify(data)}`);
 	}
 }

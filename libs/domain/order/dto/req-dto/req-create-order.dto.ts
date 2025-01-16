@@ -3,10 +3,10 @@ import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
 import { IsDate, IsDecimal, IsEnum, IsOptional, IsString } from "class-validator";
 import { Decimal } from "@prisma/client/runtime/library";
-// import { EOrderStatus } from "../../../../shared/enum";
 import { EOrderStatus } from "@prisma/client";
+import { IExcludeBasicProperties } from "../../../../shared/interfaces/exclude-basic-properties.interface";
 
-export class ReqCreateOrderDto implements Omit<IOrder, "id" | "createdAt" | "updatedAt" | "deletedAt"> {
+export class ReqCreateOrderDto implements Omit<IOrder, keyof IExcludeBasicProperties> {
 	@ApiProperty({
 		type: Date,
 		required: true,

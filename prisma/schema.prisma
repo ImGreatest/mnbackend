@@ -54,8 +54,7 @@ model User {
 }
 
 model Profile {
-  id String @id @default(uuid())
-  userId         String           @map("user_id") @db.VarChar() @unique
+  userId         String           @id @map("user_id") @db.VarChar() @unique
   user           User             @relation(fields: [userId], references: [id])
   firstname        String?   @db.VarChar(255)
   middleName       String?   @map("middle_name") @db.VarChar(255)
