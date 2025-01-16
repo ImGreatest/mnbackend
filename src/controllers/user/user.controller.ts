@@ -342,7 +342,7 @@ export class UserController {
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
-    description: "An error occurred while updating the user",
+    description: "An error occurred while getting the user profile",
   })
   /**
    * Controller method for getting user profile.
