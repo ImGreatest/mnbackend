@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { ProfileRepository } from "../../domain/profile/repository/profile.repository";
+import { ProfileRepository } from "../../domain/profile/repositories/profile.repository";
 import { PrismaService } from "../../services/prisma/prisma.service";
 import { logger } from "../../../logger/logger";
 import { ReqCreateProfileDto } from "../../domain/profile/dto/req-dto/req-create-profile.dto";

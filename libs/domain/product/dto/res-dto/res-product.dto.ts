@@ -52,11 +52,20 @@ export class ResProductDto implements IProduct {
 	@ApiProperty({
 		type: String,
 		required: true,
-		description: 'Property for identifier collection',
+		description: 'Property is identifier collection',
 		example: faker.string.uuid(),
 	})
 	@IsString()
 	collectionId: string;
+
+	@ApiProperty({
+		type: String,
+		required: true,
+		description: "Property is identifier category",
+		example: faker.string.uuid(),
+	})
+	@IsString()
+	categoryId: string;
 
 	@ApiProperty({
 		type: Date,

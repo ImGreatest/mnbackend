@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { ProfileRepository } from "../../domain/profile/repository/profile.repository";
+import { ProfileRepository } from "../../domain/profile/repositories/profile.repository";
 import { ReqCreateProfileDto } from "../../domain/profile/dto/req-dto/req-create-profile.dto";
 import { ResProfileDto } from "../../domain/profile/dto/res-dto/res-profile.dto";
 import { logger } from "../../../logger/logger";
