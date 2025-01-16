@@ -183,15 +183,15 @@ model Product {
   compound        String            @db.VarChar(1024)
   collectionId    String            @map("collection_id") @db.VarChar()
   collection      Collection        @relation(fields: [collectionId], references: [id])
+  categoryId String
+  category Category @relation(fields: [categoryId], references: [id])
   createdAt       DateTime          @default(now()) @map("created_at") @db.Timestamptz(3)
   updatedAt       DateTime?         @updatedAt @map("updated_at") @db.Timestamptz(3)
   deletedAt       DateTime?         @map("deleted_at") @db.Timestamptz(3)
-  ProductOrder    ProductOrder[]
-  ProductCategory ProductCategory[]
   ProductSize     ProductSize[]
   Favorite        Favorite[]
   Bucket          Bucket[]
-  orderId         String?
+  ProductOrder ProductOrder[]
 }
 
 model Category {
@@ -200,7 +200,7 @@ model Category {
   createdAt       DateTime          @default(now()) @map("created_at") @db.Timestamptz(3)
   updatedAt       DateTime?         @updatedAt @map("updated_at") @db.Timestamptz(3)
   deletedAt       DateTime?         @map("deleted_at") @db.Timestamptz(3)
-  ProductCategory ProductCategory[]
+  Product Product[]
 }
 
 model Collection {
@@ -281,13 +281,4 @@ model ProductSize {
   able      Boolean @db.Boolean
 
   @@id([productId, sizeName])
-}
-
-model ProductCategory {
-  productId  String   @map("product_id") @db.VarChar()
-  product    Product  @relation(fields: [productId], references: [id])
-  categoryId String   @map("category_id") @db.VarChar()
-  category   Category @relation(fields: [categoryId], references: [id])
-
-  @@id([productId, categoryId])
 }
