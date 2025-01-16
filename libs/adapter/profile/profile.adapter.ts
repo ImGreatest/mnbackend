@@ -52,6 +52,7 @@ export class ProfileAdapter extends ProfileRepository {
 			})
 		} catch (e) {
 			logger.error(e);
+			throw e;
 		}
 	}
 }
