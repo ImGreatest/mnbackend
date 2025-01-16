@@ -8,6 +8,7 @@ export const MockResProductDto: ResProductDto = {
 	cost: faker.number.int(),
 	compound: faker.lorem.slug(),
 	collectionId: faker.string.uuid(),
+	categoryId: faker.string.uuid(),
 	createdAt: faker.date.past(),
 	updatedAt: faker.date.past(),
 	deletedAt: faker.date.past(),

@@ -8,4 +8,5 @@ export const MockDataReqProduct: Omit<IProduct, keyof IExcludeBasicProperties> =
 	cost: 99999,
 	compound: faker.lorem.text(),
 	collectionId: faker.string.uuid(),
+	categoryId: faker.string.uuid(),
 }
