@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   HttpStatus,
   Param,
@@ -32,6 +31,11 @@ import { MockReqUpdateUser } from "../../../libs/domain/user/mocks/req-mocks/moc
 import { ResUsersDto } from "../../../libs/domain/user/dto/res-dto/res-users.dto";
 import { RolesGuard } from "../../services/auth/guards/roles.guard";
 import { Roles } from "../../../libs/decorators/roles.decorator";
+import { ResCreatedUserDto } from "../../../libs/domain/user/dto/res-dto/res-created-user.dto";
+import { ProfileService } from "../../../libs/domain/profile/profile.service";
+import { ResProfileDto } from "../../../libs/domain/profile/dto/res-dto/res-profile.dto";
+import { ReqUpdateProfileDto } from "../../../libs/domain/profile/dto/req-dto/req-update-profile.dto";
+import { ResUpdatedProfileDto } from "../../../libs/domain/profile/dto/res-dto/res-updated-profile.dto";
 
 @ApiTags("user")
 @ApiBearerAuth()
@@ -47,8 +51,12 @@ export class UserController {
   /**
    * @constructor
    * @param userService
+   * @param profileService
    */
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly profileService: ProfileService,
+  ) {}
 
   @Roles('admin')
   @Post("create-user")
@@ -73,12 +81,12 @@ export class UserController {
    * @instance
    * @method createUser
    * @param { ReqCreateUserDto } data
-   * @return { Promise&lt;void> }
+   * @return { Promise&lt;ResCreatedUserDto> }
    * @see { ReqCreateUserDto }
    * @see { UserService }
-   * @see { ResUserDto }
+   * @see { ResCreatedUserDto }
    */
-  createUser(@Body() data: ReqCreateUserDto): Promise<ResUserDto> {
+  createUser(@Body() data: ReqCreateUserDto): Promise<ResCreatedUserDto> {
     return this.userService.createUser(data);
   }
 
@@ -296,28 +304,33 @@ export class UserController {
    * @method updateUser
    * @param { string } userId
    * @param { ReqUpdateUserDto } data
-   * @returns { Promise&lt;void> }
+   * @returns { Promise&lt;ResUpdatedUserDto> }
    * @see { ReqUpdateUserDto }
+   * @see { ResUpdatedUserDto }
    * @see { UserService }
    */
   updateUser(
     @Param("id") userId: string,
     @Body() data: ReqUpdateUserDto,
-  ): Promise<void> {
+  ): Promise<ResUpdatedUserDto> {
     return this.userService.updateUser(userId, data);
   }
 
-  @Delete("delete-user/:id")
+  @Get("get-profile/:id")
   @ApiParam({
     name: "id",
-    type: String,
     required: true,
-    description: "Identifier user for remove",
+    type: String,
+    description: "Identifier user",
     example: faker.string.uuid(),
   })
   @ApiResponse({
-    status: HttpStatus.NO_CONTENT,
-    description: "User remove successfully",
+    status: HttpStatus.OK,
+    type: ResProfileDto,
+    description: "Return user profile",
+    isArray: false,
+    // TODO adds example response profile
+    // example:
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -329,18 +342,72 @@ export class UserController {
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
-    description: "An error occurred while deleting the user",
+    description: "An error occurred while updating the user",
   })
   /**
-   * Controller method for deleting the user by identifier.
+   * Controller method for getting user profile.
    *
    * @instance
-   * @method deleteUser
-   * @param { string } userId
-   * @return { Promise&lt;void> }
-   * @see { UserService }
+   * @method getProfile
+   * @param userId
+   * @returns { Promise&lt;ResProfileDto> }
+   * @see { ResProfileDto }
+   * @see { ProfileService }
    */
-  deleteUser(@Param("id") userId: string): Promise<void> {
-    return this.userService.deleteUser(userId);
+  getProfile(@Param("id") userId: string): Promise<ResProfileDto> {
+    return this.profileService.getProfile(userId);
+  }
+
+  @Post("update-profile/:id")
+  @ApiParam({
+    name: "id",
+    required: true,
+    type: String,
+    description: "Identifier user",
+    example: faker.string.uuid(),
+  })
+  @ApiBody({
+    required: true,
+    type: ReqUpdateProfileDto,
+    description: "New data for update user profile",
+    isArray: false,
+    // examples: {  },
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: ResProfileDto,
+    description: "Return user updated profile",
+    isArray: false,
+    // TODO adds example response updated profile
+    // example:
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: "Invalid input data",
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "User is not found",
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: "An error occurred while updating the user",
+  })
+  /**
+   * Controller method for update user profile.
+   *
+   * @instance
+   * @method updateProfile
+   * @param { string } userId
+   * @param { ReqUpdateProfileDto } data
+   * @returns { Promise&ResUpdatedProfileDto> }
+   * @see { ReqUpdateProfileDto }
+   * @see { ResUpdatedProfileDto }
+   */
+  updateProfile(
+    @Param("id") userId: string,
+    @Body() data: ReqUpdateProfileDto,
+  ): Promise<ResUpdatedProfileDto> {
+    return this.profileService.updateProfile(userId, data);
   }
 }
