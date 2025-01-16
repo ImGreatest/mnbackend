@@ -2,13 +2,20 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsStrongPassword } from "class-validator";
 
 export class ReqResetPasswordDto {
-	// TODO describe dto
-	@ApiProperty()
-	@IsString()
+	@ApiProperty({
+		type: String,
+		description: "Property of email",
+		required: true,
+	})
+	@IsString({ message: "Email value must be type string" })
 	email: string;
 
-	@ApiProperty({})
+	@ApiProperty({
+		type: String,
+		description: "Property of new password",
+		required: true,
+	})
 	@IsStrongPassword()
-	@IsString()
+	@IsString({ message: "Email value must be type string" })
 	newPassword: string;
 }
