@@ -52,7 +52,10 @@ describe('Bucket endpoint prepare to tests', () => {
 			const created: ResBucketDto = await adapter.createBucket({
 
 				userId: await userService.createUser(MockDataReqUser)
-					.then((newUser) => newUser.id),
+					.then(async (newUser) => {
+						return await userService.getUserByLogin(newUser.login)
+							.then(res => res.id);
+					}),
 
 				productId: await productService.createProduct({
 					...MockDataReqProduct,
@@ -75,9 +78,12 @@ describe('Bucket endpoint prepare to tests', () => {
 
 	it('should get bucket by user and product identifier', async () => {
 		// Test on a getting bucket, only by identifier user
-		const resOnlyUserData = await adapter.getBuckets(
+		const resOnlyUserData: ResBucketsDto = await adapter.getBuckets(
 			await userService.createUser(MockDataReqUser)
-				.then((newUser) => newUser.id),
+				.then(async (newUser) => {
+					return await userService.getUserByLogin(newUser.login)
+						.then(res => res.id);
+				}),
 			null,
 		);
 
@@ -93,9 +99,12 @@ describe('Bucket endpoint prepare to tests', () => {
 		gettingBucketTestExpects(resOnlyProductData);
 
 		// Test on getting bucket with use user and product ids
-		const resTwiceData = await adapter.getBuckets(
+		const resTwiceData: ResBucketsDto = await adapter.getBuckets(
 			await userService.createUser(MockDataReqUser)
-				.then((newUser) => newUser.id),
+				.then(async (newUser) => {
+					return await userService.getUserByLogin(newUser.login)
+						.then(res => res.id);
+				}),
 			await productService.createProduct(MockDataReqProduct)
 				.then((newProduct) => newProduct.id),
 		);
@@ -112,9 +121,12 @@ describe('Bucket endpoint prepare to tests', () => {
 	});
 
 	it('should update bucket', async () => {
-		const created = await adapter.createBucket({
+		const created: ResBucketDto = await adapter.createBucket({
 			userId: await userService.createUser(MockDataReqUser)
-				.then((newUser) => newUser.id),
+				.then(async (newUser) => {
+					return await userService.getUserByLogin(newUser.login)
+						.then(res => res.id);
+				}),
 			productId: await productService.createProduct(MockDataReqProduct)
 				.then((newProduct) => newProduct.id),
 		});

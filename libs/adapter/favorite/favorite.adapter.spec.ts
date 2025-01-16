@@ -18,11 +18,11 @@ import { CollectionModule } from "../../domain/collection/collection.module";
 import { ResCollectionsDto } from "../../domain/collection/dto/res-dto/res-collections.dto";
 import { ResCollectionDto } from "../../domain/collection/dto/res-dto/res-collection.dto";
 import { ResRelationsDto } from "../../domain/favorite/dto/res-dto/res-relations.dto";
-import { ResUserDto } from "../../domain/user/dto/res-dto/res-user.dto";
 import { ResProductDto } from "../../domain/product/dto/res-dto/res-product.dto";
 import { MockDataReqCollection } from "../../domain/collection/mocks/const/mock-data-req-collection.const";
 import { MockDataReqFavoriteRelation } from "../../domain/favorite/mocks/const/mock-data-req-favorite-relation.const";
 import { faker } from "@faker-js/faker";
+import { ResCreatedUserDto } from "../../domain/user/dto/res-dto/res-created-user.dto";
 
 describe('FavoriteAdapter', () => {
 	let prisma: PrismaService;
@@ -67,7 +67,7 @@ describe('FavoriteAdapter', () => {
 			try {
 				created = await adapter.createRelation(MockDataReqFavoriteRelation);
 			} catch (e) {
-				const user: ResUserDto = await userService.createUser(MockDataReqUser);
+				const user: ResCreatedUserDto = await userService.createUser(MockDataReqUser);
 
 				try {
 					product = await productService.createProduct(MockDataReqProduct);
@@ -81,7 +81,8 @@ describe('FavoriteAdapter', () => {
 				}
 
 				created = await adapter.createRelation({
-					userId: user.id,
+					userId: await userService.getUserByLogin(user.login)
+						.then(res => res.id),
 					productId: product.id,
 				});
 			}
@@ -118,21 +119,23 @@ describe('FavoriteAdapter', () => {
 			}
 
 			// Update test using replace value identifier of user relation
-			const createdUser: ResUserDto = await userService.createUser({
+			const createdUser: ResCreatedUserDto = await userService.createUser({
 				...MockDataReqUser,
 				login: 'newUpdatedLogin',
 				email: faker.internet.email(),
 				phone: faker.phone.number().toString(),
 			});
+			const createdUserId = await userService.getUserByLogin(createdUser.login)
+				.then(res => res.id);
 			const updated: ResRelationDto = await adapter.updateRelation(relations.relations[0].id!, {
-				userId: createdUser.id,
+				userId: createdUserId,
 				productId: relations.relations[0].productId!,
 			});
 
 			expect(updated).toBeDefined();
 			expect(updated).toHaveProperty('id');
 			expect(typeof updated.id).toBe('string');
-			expect(updated.userId).toBe(createdUser.id);
+			expect(updated.userId).toBe(createdUserId);
 			expect(updated.productId).toBe(relations.relations[0].productId!);
 			expect(typeof updated.userId).toBe('string');
 		});
@@ -157,8 +160,9 @@ describe('FavoriteAdapter', () => {
 
 		if (!users.users?.length) {
 			const createdUser = await userService.createUser(MockDataReqUser);
-
-			users.users.push(createdUser);
+			const createdUserId = await userService.getUserByLogin(createdUser.login)
+				.then(res => res.id);
+			users.users.push({ id: createdUserId, ...createdUser });
 		}
 
 		const products: ResProductsDto = await productService.getProducts();
