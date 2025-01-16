@@ -5,6 +5,7 @@ export interface IProduct {
 	cost: number;
 	compound: string;
 	collectionId: string;
+	categoryId: string;
 	createdAt: Date;
 	updatedAt?: Date;
 	deletedAt?: Date;
