@@ -16,6 +16,10 @@ lerna-debug.log*
 
 # Environment
 .env
+http-client.private.env.json
+
+# Migrations
+/prisma/migrations
 
 # CI/CD
 /.github
@@ -39,3 +43,9 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# CERT
+ca.crt
+ca.key
+cert.crt
+cert.key

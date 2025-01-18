@@ -1,20 +1,31 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import { NestFactory } from "@nestjs/core";
+import { AppModule } from "./app.module";
 import { logger } from "../logger/logger";
+import { config } from "../config/config";
+import { swagger } from "./swagger";
+import * as fs from "fs";
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    httpsOptions: {
+      key: fs.readFileSync('./cert.key'),
+      cert: fs.readFileSync('./cert.crt'),
+    },
+  });
 
-  const config = new DocumentBuilder()
-    .setTitle('MN Cloth Api')
-    .setDescription('Origin api for mn cloth')
-    .setVersion('1.0')
-    .addTag('MN')
-    .build();
-  const doc = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, doc);
+  app.setGlobalPrefix("api");
+  app.enableCors({
+    origin: "*",
+    methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  });
+  swagger(app);
 
-  await app.listen(3000);
+  await app.listen(config.PostgresPort);
 }
-bootstrap().then(r => logger.info(r));
+bootstrap().then((r) => {
+    const url = `https://${config.DatabaseHost}:${config.ApiPort}/api`;
+    const link = `\u001b]8;;${url}\u001b\\Api way ${url}\u001b]8;;\u001b\\`;
+    logger.info(link);
+});

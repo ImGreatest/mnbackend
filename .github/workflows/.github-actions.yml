@@ -1,0 +1,32 @@
+name: "Github CI/CD works"
+on:
+  push:
+    branches: [ master, stage, dev ]
+  pull_request:
+    branches: [ master, stage, dev ]
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Starting init"
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm install
+      - name: Install pnpm
+        run: npm install -g pnpm
+      - name: Set up environment variables
+        run: echo "DATABASE_URL=postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/${{ secrets.DATABASE_NAME }}" >> $GITHUB_ENV
+      - name: Building
+        run: npm run build
+      - name: List src directory
+        run: ls -l src
+      - name: lint check
+        run: npm run lint
+#      - name: Running tests
+#        run: npm test -- --passWithNoTests
