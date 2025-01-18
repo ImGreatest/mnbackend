@@ -11,9 +11,6 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
-# rethinkDb
-rethinkdb_data
-
 # OS
 .DS_Store
 
@@ -46,3 +43,9 @@ http-client.private.env.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# CERT
+ca.crt
+ca.key
+cert.crt
+cert.key
