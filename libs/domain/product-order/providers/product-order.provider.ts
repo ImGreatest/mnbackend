@@ -1,12 +1,12 @@
 import { Provider } from "@nestjs/common";
 import { ProductOrderService } from "../product-order.service";
-import { ProductRepository } from "../../product/repositories/product.repository";
-import { ProductAdapter } from "../../../adapter/product/product.adapter";
+import { ProductOrderRepository } from "../repositories/product-order.repository";
+import { ProductOrderAdapter } from "../../../adapter/product-order/product-order.adapter";
 
 export const ProductOrderProvider: Provider[] = [
 	ProductOrderService,
 	{
-		provide: ProductRepository,
-		useClass: ProductAdapter,
-	}
+		provide: ProductOrderRepository,
+		useClass: ProductOrderAdapter,
+	},
 ];
