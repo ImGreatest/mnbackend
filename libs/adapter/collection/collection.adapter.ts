@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { CollectionRepository } from "../../domain/collection/repository/collection.repository";
+import { CollectionRepository } from "../../domain/collection/repositories/collection.repository";
 import { PrismaService } from "../../services/prisma/prisma.service";
 import { ReqCreateCollectionDto } from "../../domain/collection/dto/req-dto/req-create-collection.dto";
 import { ResCollectionDto } from "../../domain/collection/dto/res-dto/res-collection.dto";
@@ -38,10 +38,10 @@ export class CollectionAdapter extends CollectionRepository {
 		}
 	}
 
-	async updateCollection(collectionId: string, data: ReqUpdateCollectionDto): Promise<void> {
+	async updateCollection(collectionId: string, data: ReqUpdateCollectionDto): Promise<ResCollectionDto> {
 		logger.verbose(`Adapter call - updateCollection method, params - ${JSON.stringify(collectionId)}, ${JSON.stringify(data)}`);
 
-		await this.prisma.collection.update({ where: { id: collectionId }, data: { ...data } });
+		return await this.prisma.collection.update({ where: { id: collectionId }, data: { ...data } });
 	}
 
 	async deleteCollection(collectionId: string): Promise<void> {

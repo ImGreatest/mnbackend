@@ -10,6 +10,9 @@ import { ResUserByLoginDto } from "../../domain/user/dto/res-dto/res-user-by-log
 import { ResUserByEmailDto } from "../../domain/user/dto/res-dto/res-user-by-email.dto";
 import { ResUserByPhoneDto } from "../../domain/user/dto/res-dto/res-user-by-phone.dto";
 import { ResUsersDto } from "../../domain/user/dto/res-dto/res-users.dto";
+import { ERole } from "@prisma/client";
+import { ResCreatedUserDto } from "../../domain/user/dto/res-dto/res-created-user.dto";
+import { ProfileService } from "../../domain/profile/profile.service";
 
 @Injectable()
 /**
@@ -25,11 +28,14 @@ export class UserAdapter extends UserRepository {
 	 * @constructor
 	 * @param prisma
 	 * @param crypto
+	 * @param profileService
 	 */
 	constructor(
 		private readonly prisma: PrismaService,
 		private readonly crypto: CryptoService,
+		private readonly profileService: ProfileService,
 	) {
+		logger.info('UserAdapter was init');
 		super();
 	}
 
@@ -40,20 +46,39 @@ export class UserAdapter extends UserRepository {
 	 * @instance
 	 * @method createUser
 	 * @param { ReqCreateUserDto } data
-	 * @type { function(data: ReqCreateUserDto): Promise@lt;void> }
-	 * @returns { Promise&ltvoid> }
+	 * @type { function(data: ReqCreateUserDto): Promise@lt;ResCreatedUserDto> }
+	 * @returns { Promise&ResCreatedUserDto> }
 	 * @see { ReqCreateUserDto }
+	 * @see { ProfileService }
 	 * @see { UserRepository }
+	 * @see { ResUserDto }
 	 */
-	async createUser(data: ReqCreateUserDto): Promise<void> {
-		logger.info(`Adapter call - createUser method params - ${{ ...data }}`);
+	async createUser(data: ReqCreateUserDto): Promise<ResCreatedUserDto> {
+		logger.info(`Adapter call - createUser method params - ${JSON.stringify(data)}`);
 
-		await this.prisma.user.create({
-			data: {
-				...data,
-				password: this.crypto.getHash(data.password),
-			},
-		});
+		try {
+			const user = await this.prisma.user.create({
+				data: {
+					login: data.login,
+					email: data.email,
+					phone: data.phone,
+					password: this.crypto.getHash(data.password),
+					role: ERole[data.role],
+				},
+			});
+			const { id, ...userData } = user;
+
+			return {
+				...userData,
+				profile: await this.profileService.createProfile({
+					userId: id,
+					...data,
+				}),
+			}
+		} catch (e) {
+			logger.error('Error creating user or profile', e);
+			throw e;
+		}
 	}
 
 	/**
@@ -69,12 +94,10 @@ export class UserAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async getUser(userId: string): Promise<ResUserDto> {
-		logger.info(`Adapter call - getUser method params - ${userId}`);
+		logger.info(`Adapter call - getUser method params - ${JSON.stringify(userId)}`);
 
 		return this.prisma.user.findUnique({
-			where: {
-				id: userId,
-			}
+			where: { id: userId }
 		});
 	}
 
@@ -91,13 +114,21 @@ export class UserAdapter extends UserRepository {
 	 * @see { UserRepository }
 	 */
 	async getUserByLogin(login: string): Promise<ResUserByLoginDto> {
-		logger.info(`Adapter call - getUserByLogin method params - ${login}`);
+		logger.info(`Adapter call - getUserByLogin method params - ${JSON.stringify(login)}`);
 
-		return this.prisma.user.findUnique({
-			where: {
-				login: login,
-			},
-		});
+		try {
+			const user = await this.prisma.user.findUnique({
+				where: { login: login },
+			});
+
+			return {
+				...user,
+				profile: await this.profileService.getProfile(user.id),
+			}
+		} catch (e) {
+			logger.error('Error creating user or profile', e);
+			throw e;
+		}
 	}
 
 	/**
@@ -110,16 +141,25 @@ export class UserAdapter extends UserRepository {
 	 * @type { function(email: string): Promise@lt;ResUserByEmailDto> }
 	 * @returns { Promise&lt;ResUserByEmailDto> }
 	 * @see { ResUserByEmailDto }
+	 * @see { ProfileService }
 	 * @see { UserRepository }
 	 */
 	async getUserByEmail(email: string): Promise<ResUserByEmailDto> {
-		logger.info(`Adapter call - getUserByEmail method params - ${email}`);
+		logger.info(`Adapter call - getUserByEmail method params - ${JSON.stringify(email)}`);
 
-		return this.prisma.user.findUnique({
-			where: {
-				email: email,
-			},
-		});
+		try {
+			const user = await this.prisma.user.findUnique({
+					where: { email: email }
+			});
+
+			return {
+				...user,
+				profile: await this.profileService.getProfile(user.id),
+			}
+		} catch (e) {
+			logger.error('Error creating user or profile', e);
+			throw e;
+		}
 	}
 
 	/**
@@ -132,16 +172,25 @@ export class UserAdapter extends UserRepository {
 	 * @type { function(phone: string): Promise@lt;ResUserByPhoneDto> }
 	 * @returns { Promise&lt;ResUserByPhoneDto> }
 	 * @see { ResUserByPhoneDto }
+	 * @see { ProfileService }
 	 * @see { UserRepository }
 	 */
 	async getUserByPhone(phone: string): Promise<ResUserByPhoneDto> {
-		logger.info(`Adapter call - getUserByPhone method params - ${phone}`);
+		logger.info(`Adapter call - getUserByPhone method params - ${JSON.stringify(phone)}`);
 
-		return this.prisma.user.findUnique({
-			where: {
-				phone: phone,
-			},
-		});
+		try {
+			const user = await this.prisma.user.findUnique({
+				where: { phone: phone },
+			});
+
+			return {
+				...user,
+				profile: await this.profileService.getProfile(user.id),
+			}
+		} catch (e) {
+			logger.error('Error creating user or profile', e);
+			throw e;
+		}
 	}
 
 	/**
@@ -150,15 +199,17 @@ export class UserAdapter extends UserRepository {
 	 * @async
 	 * @instance
 	 * @method getUsers
-	 * @type { function(): Promise@lt;ResUserDto[]> }
+	 * @type { function(): Promise@lt;ResUsersDto> }
 	 * @returns { Promise&lt;ResUsersDto>> }
 	 * @see { ResUsersDto }
 	 * @see { UserRepository }
 	 */
 	async getUsers(): Promise<ResUsersDto> {
-		logger.info('Adapter call - getUsers method');
+		logger.info('Adapter call - getUsers method without params');
 
-		return this.prisma.user.findMany();
+		return {
+			users: await this.prisma.user.findMany(),
+		}
 	}
 
 	/**
@@ -169,41 +220,19 @@ export class UserAdapter extends UserRepository {
 	 * @method updateUser
 	 * @param { string } userId
 	 * @param { ReqUpdateUserDto } data
-	 * @type { function(userId: string, data: ReqUpdateUserDto): Promise@lt;void> }
-	 * @returns { Promise&lt;void> }
+	 * @type { function(userId: string, data: ReqUpdateUserDto): Promise@lt;ResUserDto> }
+	 * @returns { Promise&lt;ResUserDto> }
 	 * @see { ReqUpdateUserDto }
 	 * @see { UserRepository }
 	 */
-	async updateUser(userId: string, data: ReqUpdateUserDto): Promise<void> {
-		logger.info(`Adapter call - updateUser method, params - ${userId}, ${{ ...data }}`);
+	async updateUser(userId: string, data: ReqUpdateUserDto): Promise<ResUserDto> {
+		logger.info(`Adapter call - updateUser method, params - ${JSON.stringify(userId)}, ${JSON.stringify(data)}`);
 
-		await this.prisma.user.update({
-			where: {
-				id: userId,
-			},
+		return await this.prisma.user.update({
+			where: { id: userId },
 			data: {
 				...data,
-			},
-		});
-	}
-
-	/**
-	 * Delete the user instance
-	 *
-	 * @async
-	 * @instance
-	 * @method deleteUser
-	 * @param { string } userId
-	 * @type { function(userId: string): Promise&lt;void> }
-	 * @returns { Promise&lt;void> }
-	 * @see { UserRepository }
-	 */
-	async deleteUser(userId: string): Promise<void> {
-		logger.info(`Adapter call - deleteUser method, params - ${userId}`);
-
-		await this.prisma.user.delete({
-			where: {
-				id: userId,
+				role: ERole[data.role],
 			},
 		});
 	}

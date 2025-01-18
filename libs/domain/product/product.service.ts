@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { ProductRepository } from "./repository/product.repository";
+import { ProductRepository } from "./repositories/product.repository";
 import { ReqCreateProductDto } from "./dto/req-dto/req-create-product.dto";
 import { ResProductDto } from "./dto/res-dto/res-product.dto";
 import { ResProductsDto } from "./dto/res-dto/res-products.dto";
@@ -12,7 +12,7 @@ import { ResProductsByNameDto } from "./dto/res-dto/res-products-by-name.dto";
 export class ProductService {
 	constructor(private readonly productRepository: ProductRepository) {}
 
-	createProduct(data: ReqCreateProductDto): Promise<void> {
+	createProduct(data: ReqCreateProductDto): Promise<ResProductDto> {
 		return this.productRepository.createProduct(data);
 	}
 

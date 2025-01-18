@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { CategoryRepository } from "./repository/category.repository";
+import { CategoryRepository } from "./repositories/category.repository";
 import { ReqCreateCategoryDto } from "./dto/req-dto/req-create-category.dto";
 import { ResCategoriesDto } from "./dto/res-dto/res-categories.dto";
 import { ResCategoryDto } from "./dto/res-dto/res-category.dto";
@@ -9,7 +9,7 @@ import { ReqUpdateCategoryDto } from "./dto/req-dto/req-update-category.dto";
 export class CategoryService {
 	constructor(private readonly categoryRep: CategoryRepository) {}
 
-	createCategory(data: ReqCreateCategoryDto): Promise<void> {
+	createCategory(data: ReqCreateCategoryDto): Promise<ResCategoryDto> {
 		return this.categoryRep.createCategory(data);
 	}
 
@@ -21,7 +21,7 @@ export class CategoryService {
 		return this.categoryRep.getCategories();
 	}
 
-	updateCategory(id: string, data: ReqUpdateCategoryDto): Promise<void> {
+	updateCategory(id: string, data: ReqUpdateCategoryDto): Promise<ResCategoryDto> {
 		return this.categoryRep.updateCategory(id, data);
 	}
 

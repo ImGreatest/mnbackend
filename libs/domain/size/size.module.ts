@@ -1,16 +1,9 @@
 import { Module } from "@nestjs/common";
 import { SizeService } from "./size.service";
-import { SizeRepository } from "./repository/size.repository";
-import { SizeAdapter } from "../../adapter/size/size.adapter";
+import { SizeProvider } from "./providers/size.provider";
 
 @Module({
-	providers: [
-		SizeService,
-		{
-			provide: SizeRepository,
-			useClass: SizeAdapter,
-		}
-	],
+	providers: [...SizeProvider],
 	exports: [SizeService],
 })
 export class SizeModule {}

@@ -6,6 +6,8 @@ import { ResUserByPhoneDto } from "../dto/res-dto/res-user-by-phone.dto";
 import { ResUserByEmailDto } from "../dto/res-dto/res-user-by-email.dto";
 import { ResUserByLoginDto } from "../dto/res-dto/res-user-by-login.dto";
 import { ResUsersDto } from "../dto/res-dto/res-users.dto";
+import { ResCreatedUserDto } from "../dto/res-dto/res-created-user.dto";
+import { ResUpdatedUserDto } from "../dto/res-dto/res-updated-user.dto";
 
 @Injectable()
 /**
@@ -23,11 +25,12 @@ export abstract class UserRepository {
 	 * @instance
 	 * @method createUser
 	 * @param data
-	 * @return { Promise&lt;void> }
+	 * @return { Promise&lt;ResCreatedUserDto> }
 	 * @throws { Error } If was given invalid data or user creation fail.
 	 * @see { ReqCreateUserDto }
+	 * @see { ResCreatedUserDto }
 	 */
-	abstract createUser(data: ReqCreateUserDto): Promise<void>;
+	abstract createUser(data: ReqCreateUserDto): Promise<ResCreatedUserDto>;
 
 	/**
 	 * Get a specific user by his identifier
@@ -102,20 +105,10 @@ export abstract class UserRepository {
 	 * @param userId
 	 * @param data
 	 * @throws { Error } If the user updating by invalid input data. User the updating fail.
-	 * @returns { Promise&lt;void> }
+	 * @returns { Promise&lt;ResUpdatedUserDto> }
 	 * @see { ReqUpdateUserDto }
+	 * @see { ResUpdatedUserDto }
+	 * @see { ResUserDto }
 	 */
-	abstract updateUser(userId: string, data: ReqUpdateUserDto): Promise<void>;
-
-	/**
-	 * Deletes the user instance.
-	 *
-	 * @abstract
-	 * @instance
-	 * @method deleteUser
-	 * @param userId
-	 * @throws { Error } If the user deleting by invalid input data. User the deleting fail.
-	 * @returns { Promise&lt;void> }
-	 */
-	abstract deleteUser(userId: string): Promise<void>;
+	abstract updateUser(userId: string, data: ReqUpdateUserDto): Promise<ResUpdatedUserDto>;
 }

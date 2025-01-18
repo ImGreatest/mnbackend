@@ -1,5 +1,4 @@
-import { ERole } from "@enums";
-import { DateTime } from "luxon";
+import { ERole } from "@prisma/client";
 
 export interface IUser {
 	id: string;
@@ -7,13 +6,7 @@ export interface IUser {
 	email: string;
 	phone?: string;
 	password: string;
-	firstname?: string;
-	middleName?: string;
-	lastname?: string;
-	address?: string;
-	alternateContact?: string;
 	role: ERole;
-	createdAt: DateTime;
-	updatedAt?: DateTime;
-	deletedAt?: DateTime;
+	createdAt: Date;
+	updatedAt?: Date;
 }

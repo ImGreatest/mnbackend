@@ -1,6 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString } from 'class-validator';
+import { IsDate, IsEnum, IsString } from 'class-validator';
 import { faker } from "@faker-js/faker";
+import { IUser } from "../../../../shared/entity";
+import { ERole } from "@prisma/client";
 
 /**
  * Class describing the returns order properties of the user instance
@@ -12,17 +14,12 @@ import { faker } from "@faker-js/faker";
  * @property email
  * @property phone
  * @property password
- * @property firstname
- * @property middleName
- * @property lastname
- * @property address
- * @property alternateContact
  * @property role
  * @property createdAt
  * @property updatedAt
- * @property deletedAt
+ * @see { IUser }
  */
-export class ResUserDto {
+export class ResUserDto implements IUser {
 	@ApiProperty({
 		type: String,
 		required: true,
@@ -98,78 +95,15 @@ export class ResUserDto {
 
 	@ApiProperty({
 		type: String,
-		description: 'Property firstname user',
-		example: faker.person.firstName().toString(),
-	})
-	@IsString()
-	/**
-	 * Property firstname
-	 *
-	 * @type { string }
-	 */
-	firstname: string;
-
-	@ApiProperty({
-		type: String,
-		description: 'Property middlename user',
-		example: faker.person.middleName(),
-	})
-	@IsString()
-	/**
-	 * Property middleName
-	 *
-	 * @type { string }
-	 */
-	middleName: string;
-
-	@ApiProperty({
-		type: String,
-		description: 'Property lastname user',
-		example: faker.person.lastName(),
-	})
-	@IsString()
-	/**
-	 * Property lastname
-	 *
-	 * @type { string }
-	 */
-	lastname: string;
-
-	@ApiProperty({
-		type: String,
-		description: 'Property address user',
-	})
-	@IsString()
-	/**
-	 * Property address
-	 *
-	 * @type { string }
-	 */
-	address: string;
-
-	@ApiProperty({
-		type: String,
-		description: 'Property alternate contact information user',
-	})
-	@IsString()
-	/**
-	 * Property alternateContact
-	 *
-	 * @type { string }
-	 */
-	alternateContact: string;
-
-	@ApiProperty({
-		type: String,
 		description: 'Property role user',
 	})
-	@IsString()
+	@IsEnum(ERole)
 	/**
 	 * Property role
 	 *
 	 * @type { string }
 	 */
-	role: string;
+	role: ERole;
 
 	@ApiProperty({
 		type: Date,
@@ -197,19 +131,5 @@ export class ResUserDto {
 	 *
 	 * @type { Date }
 	 */
-	readonly updatedAt!: Date;
-
-	@ApiProperty({
-		type: Date,
-		description: 'Property of date-time deleting user',
-		format: 'date-time',
-		example: faker.date.past(),
-	})
-	@IsDate()
-	/**
-	 * Property deletedAt
-	 *
-	 * @type { Date }
-	 */
-	deletedAt: Date;
+	 updatedAt: Date;
 }

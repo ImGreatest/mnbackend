@@ -1,8 +1,9 @@
 import { Injectable } from "@nestjs/common";
-import { SizeRepository } from "../../domain/size/repository/size.repository";
+import { SizeRepository } from "../../domain/size/repositories/size.repository";
 import { logger } from "../../../logger/logger";
 import { ResSizeDto } from "../../domain/size/dto/res-dto/res-size.dto";
 import { PrismaService } from "../../services/prisma/prisma.service";
+import { ResSizesDto } from "../../domain/size/dto/res-dto/res-sizes.dto";
 
 @Injectable()
 /**
@@ -30,25 +31,27 @@ export class SizeAdapter extends SizeRepository {
 	 * @instance
 	 * @method getSize
 	 * @param { string } name
-	 * @type { function(name?: string): Promise@lt;ResSizeDto> }
-	 * @returns { Promise&lt;ResSizeDto> }
+	 * @type { function(name?: string): Promise@lt;ResSizeDto | ResSizesDto> }
+	 * @returns { Promise&lt;ResSizeDto | ResSizesDto> }
 	 * @see { ResSizeDto }
+	 * @see { ResSizesDto }
 	 * @see { SizeRepository }
 	 */
-	async getSize(name?: string): Promise<ResSizeDto[]> {
+	async getSize(name?: string): Promise<ResSizeDto | ResSizesDto> {
 		logger.info(`Adapter call - getSize method param - ${name}`)
 
+		let res: ResSizeDto | ResSizesDto;
+
 		try {
-			const response = await this.prisma.size.findUnique({
-				where: {
-					name: name,
-				},
+			res = await this.prisma.size.findUnique({
+				where: { name: name },
 			});
-
-			return response ? [response] : [];
-
 		} catch (e) {
-			return this.prisma.size.findMany();
+			res = {
+				sizes: await this.prisma.size.findMany(),
+			};
 		}
+
+		return res;
 	}
 }

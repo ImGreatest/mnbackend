@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
 import { IsDate, IsNumber, IsString } from "class-validator";
-import { IProduct } from "@entities";
+import { IProduct } from "../../../../shared/entity";
 
 export class ResProductDto implements IProduct {
 	@ApiProperty({
@@ -29,7 +29,7 @@ export class ResProductDto implements IProduct {
 		example: faker.lorem.sentence(),
 	})
 	@IsString()
-	desc?: string;
+	description?: string;
 
 	@ApiProperty({
 		type: Number,
@@ -52,11 +52,20 @@ export class ResProductDto implements IProduct {
 	@ApiProperty({
 		type: String,
 		required: true,
-		description: 'Property for identifier collection',
+		description: 'Property is identifier collection',
 		example: faker.string.uuid(),
 	})
 	@IsString()
 	collectionId: string;
+
+	@ApiProperty({
+		type: String,
+		required: true,
+		description: "Property is identifier category",
+		example: faker.string.uuid(),
+	})
+	@IsString()
+	categoryId: string;
 
 	@ApiProperty({
 		type: Date,

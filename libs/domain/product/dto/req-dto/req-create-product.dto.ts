@@ -1,16 +1,17 @@
 import { IsNumber, IsString } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
-import { IProduct } from "@entities";
+import { IExcludeBasicProperties } from "../../../../shared/interfaces/exclude-basic-properties.interface";
+import { IProduct } from "../../../../shared/entity";
 
-export class ReqCreateProductDto implements Omit<IProduct, "id" | "createdAt" | "updatedAt" | "deletedAt"> {
+export class ReqCreateProductDto implements Omit<IProduct, keyof IExcludeBasicProperties> {
 	@ApiProperty({
 		type: String,
 		required: true,
 		description: 'Namely of product',
 		example: faker.commerce.product(),
 	})
-	@IsString()
+	@IsString({ message: "Name value type must be string" })
 	name: string;
 
 	@ApiProperty({
@@ -19,8 +20,8 @@ export class ReqCreateProductDto implements Omit<IProduct, "id" | "createdAt" | 
 		description: 'Property of description product',
 		example: faker.lorem.sentence(),
 	})
-	@IsString()
-	description?: string;
+	@IsString({ message: "Description value type must be string" })
+	desc?: string;
 
 	@ApiProperty({
 		type: Number,
@@ -37,15 +38,24 @@ export class ReqCreateProductDto implements Omit<IProduct, "id" | "createdAt" | 
 		description: 'Description product compound',
 		example: faker.lorem.slug(),
 	})
-	@IsString()
+	@IsString({ message: "Compound value type must be string" })
 	compound: string;
 
 	@ApiProperty({
 		type: String,
 		required: true,
-		description: 'Property for identifier collection to refer product',
+		description: 'Property identifier collection to refer product',
 		example: faker.string.uuid(),
 	})
-	@IsString()
+	@IsString({ message: "Collection identifier value type must be string" })
 	collectionId: string;
+
+	@ApiProperty({
+		type: String,
+		required: true,
+		description: "Property identifier category to refer product",
+		example: faker.string.uuid(),
+	})
+	@IsString({ message: "Category identifier value must be string" })
+	categoryId: string;
 }

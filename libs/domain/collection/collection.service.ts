@@ -3,7 +3,7 @@ import { ReqCreateCollectionDto } from "./dto/req-dto/req-create-collection.dto"
 import { ResCollectionDto } from "./dto/res-dto/res-collection.dto";
 import { ResCollectionsDto } from "./dto/res-dto/res-collections.dto";
 import { ReqUpdateCollectionDto } from "./dto/req-dto/req-update-collection.dto";
-import { CollectionRepository } from "./repository/collection.repository";
+import { CollectionRepository } from "./repositories/collection.repository";
 import { logger } from "../../../logger/logger";
 
 @Injectable()
@@ -24,7 +24,7 @@ export class CollectionService {
 		return this.collectionRep.getCollections();
 	}
 
-	updateCollection(collectionId: string, data: ReqUpdateCollectionDto): Promise<void> {
+	updateCollection(collectionId: string, data: ReqUpdateCollectionDto): Promise<ResCollectionDto> {
 		return this.collectionRep.updateCollection(collectionId, data);
 	}
 

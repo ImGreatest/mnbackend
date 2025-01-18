@@ -1,4 +1,0 @@
-### POST request to example server
-POST https://localhost:8080/user/create-user
-accept: application/json
-###

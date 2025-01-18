@@ -7,6 +7,8 @@ import { ResUserByLoginDto } from "./dto/res-dto/res-user-by-login.dto";
 import { ResUserByEmailDto } from "./dto/res-dto/res-user-by-email.dto";
 import { ResUserByPhoneDto } from "./dto/res-dto/res-user-by-phone.dto";
 import { ResUsersDto } from "./dto/res-dto/res-users.dto";
+import { ResCreatedUserDto } from "./dto/res-dto/res-created-user.dto";
+import { ResUpdatedUserDto } from "./dto/res-dto/res-updated-user.dto";
 
 @Injectable()
 /**
@@ -31,8 +33,9 @@ export class UserService {
 	 * @returns { Promise&lt;void> }
 	 * @see { ReqCreateUserDto }
 	 * @see { UserRepository }
+	 * @see { ResUserDto }
 	 */
-	createUser(data: ReqCreateUserDto): Promise<void> {
+	createUser(data: ReqCreateUserDto): Promise<ResCreatedUserDto> {
 		return this.userRepository.createUser(data);
 	}
 
@@ -113,24 +116,12 @@ export class UserService {
 	 * @method updateUser
 	 * @param { string } userId
 	 * @param { ReqUpdateUserDto } data
-	 * @returns { Promise&lt;void> }
+	 * @returns { Promise&lt;ResUpdatedUserDto> }
 	 * @see { ReqUpdateUserDto }
+	 * @see { ResUpdatedUserDto }
 	 * @see { UserRepository }
 	 */
-	updateUser(userId: string, data: ReqUpdateUserDto): Promise<void> {
+	updateUser(userId: string, data: ReqUpdateUserDto): Promise<ResUpdatedUserDto> {
 		return this.userRepository.updateUser(userId, data);
-	}
-
-	/**
-	 * Service method for deleting the user.
-	 *
-	 * @instance
-	 * @method deleteUser
-	 * @param { string } userId
-	 * @returns { Promise&lt;void> }
-	 * @see { UserRepository }
-	 */
-	deleteUser(userId: string): Promise<void> {
-		return this.userRepository.deleteUser(userId);
 	}
 }

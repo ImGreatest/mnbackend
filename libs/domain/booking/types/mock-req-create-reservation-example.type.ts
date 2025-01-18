@@ -1,4 +1,4 @@
 import { ReqCreateReservationDto } from "../dto/req-dto/req-create-reservation.dto";
-import { IMockExamplesAttrs } from "@interfaces";
+import { IMockExamplesAttrs } from "../../../shared/interfaces";
 
 export type TMockReqCreateReservationExample = IMockExamplesAttrs<ReqCreateReservationDto>;
