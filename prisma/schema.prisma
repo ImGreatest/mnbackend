@@ -79,10 +79,9 @@ model Bonus {
 
 model BonusOperations {
   id        String    @id @default(uuid())
-  content   String    @db.VarChar()
   bonusAccountId   String    @db.VarChar()
   bonus     Bonus     @relation(fields: [bonusAccountId], references: [userId])
-  orderId String @db.VarChar()
+  orderId String @unique @db.VarChar()
   order Order @relation(fields: [orderId], references: [id])
   amount    Int       @db.Integer
   createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp(3)

@@ -24,7 +24,7 @@ async function bootstrap() {
 
   await app.listen(config.PostgresPort);
 }
-bootstrap().then((r) => {
+bootstrap().then(() => {
   const url = `https://${config.DatabaseHost}:${config.ApiPort}/api`;
   const link = `\u001b]8;;${url}\u001b\\Api way ${url}\u001b]8;;\u001b\\`;
   logger.info(link);
