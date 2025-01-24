@@ -6,8 +6,8 @@ import { CollectionModule } from "../collection/collection.module";
 import { FavoriteProvider } from "./providers/favorite.provider";
 
 @Module({
-	imports: [UserModule, ProductModule, CollectionModule],
-	providers: [...FavoriteProvider],
-	exports: [FavoriteService],
+  imports: [UserModule, ProductModule, CollectionModule],
+  providers: [...FavoriteProvider],
+  exports: [FavoriteService],
 })
 export class FavoriteModule {}

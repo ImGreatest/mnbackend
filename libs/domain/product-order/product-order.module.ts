@@ -5,8 +5,8 @@ import { ProductModule } from "../product/product.module";
 import { OrderModule } from "../order/order.module";
 
 @Module({
-	imports: [ProductModule, OrderModule],
-	providers: [...ProductOrderProvider],
-	exports: [ProductOrderService],
+  imports: [ProductModule, OrderModule],
+  providers: [...ProductOrderProvider],
+  exports: [ProductOrderService],
 })
 export class ProductOrderModule {}

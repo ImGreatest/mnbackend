@@ -4,9 +4,9 @@ import { ProductAdapter } from "../../../adapter/product/product.adapter";
 import { ProductRepository } from "../repositories/product.repository";
 
 export const ProductProvider: Provider[] = [
-	ProductService,
-	{
-		provide: ProductRepository,
-		useClass: ProductAdapter,
-	}
+  ProductService,
+  {
+    provide: ProductRepository,
+    useClass: ProductAdapter,
+  },
 ];

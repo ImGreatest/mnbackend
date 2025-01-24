@@ -1,9 +1,16 @@
-import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from "@nestjs/swagger";
 import {
   Body,
   Controller,
   Delete,
-  Get, HttpStatus,
+  Get,
+  HttpStatus,
   Param,
   Post,
   Put,
@@ -50,7 +57,10 @@ export class OrderController {
   }
 
   @Get("products-order/:orderId")
-  @ApiOperation({ summary: "Method for getting separate data about products in order, without data order" })
+  @ApiOperation({
+    summary:
+      "Method for getting separate data about products in order, without data order",
+  })
   @ApiParam({
     name: "orderId",
     type: String,
@@ -73,9 +83,12 @@ export class OrderController {
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
-    description: "An error occurred while getting the products by identifier order",
+    description:
+      "An error occurred while getting the products by identifier order",
   })
-  getProductsOrder(@Param("orderId") orderId: string): Promise<ResProductsOrderDto> {
+  getProductsOrder(
+    @Param("orderId") orderId: string,
+  ): Promise<ResProductsOrderDto> {
     return this.productOrderService.getProductsOrder(orderId);
   }
 

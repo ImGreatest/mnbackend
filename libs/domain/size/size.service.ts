@@ -5,9 +5,9 @@ import { ResSizesDto } from "./dto/res-dto/res-sizes.dto";
 
 @Injectable()
 export class SizeService {
-	constructor(private readonly sizeRepository: SizeRepository) {}
+  constructor(private readonly sizeRepository: SizeRepository) {}
 
-	getSize(name?: string): Promise<ResSizeDto | ResSizesDto> {
-		return this.sizeRepository.getSize(name);
-	}
+  getSize(name?: string): Promise<ResSizeDto | ResSizesDto> {
+    return this.sizeRepository.getSize(name);
+  }
 }

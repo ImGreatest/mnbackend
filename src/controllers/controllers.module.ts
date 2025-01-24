@@ -15,28 +15,28 @@ import { NotificationTemplateControllerModule } from "./notification-template/no
 import { DadataControllerModule } from "../services/dadata/dadata-controller.module";
 
 @Module({
-	imports: [
-		AuthModule,
-		UserControllerModule,
-		BookingControllerModule,
-		ProductControllerModule,
-		SizeControllerModule,
-		OrderControllerModule,
-		CollectionControllerModule,
-		NotificationControllerModule,
-		NotificationTemplateControllerModule,
-		DadataControllerModule,
-	],
-	providers: [
-		{
+  imports: [
+    AuthModule,
+    UserControllerModule,
+    BookingControllerModule,
+    ProductControllerModule,
+    SizeControllerModule,
+    OrderControllerModule,
+    CollectionControllerModule,
+    NotificationControllerModule,
+    NotificationTemplateControllerModule,
+    DadataControllerModule,
+  ],
+  providers: [
+    {
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
-		{
+    {
       provide: APP_GUARD,
       useClass: RolesGuard,
     },
-		JwtService,
-	],
+    JwtService,
+  ],
 })
 export class ControllersModule {}

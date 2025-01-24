@@ -4,7 +4,9 @@ import { ResOrdersContainProductDto } from "../dto/res-orders-contain-product.dt
 
 @Injectable()
 export abstract class ProductOrderRepository {
-	abstract getProductsOrder(orderId: string): Promise<ResProductsOrderDto>;
+  abstract getProductsOrder(orderId: string): Promise<ResProductsOrderDto>;
 
-	abstract getOrdersContainProduct(productId: string): Promise<ResOrdersContainProductDto>;
+  abstract getOrdersContainProduct(
+    productId: string,
+  ): Promise<ResOrdersContainProductDto>;
 }

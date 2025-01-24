@@ -8,37 +8,52 @@ import { ResRelationDto } from "../../domain/favorite/dto/res-dto/res-relation.d
 
 @Injectable()
 export class FavoriteMockAdapter extends FavoriteRepository {
-	constructor() {
-		super();
-		logger.info('FavoriteMockAdapter was init');
-	}
+  constructor() {
+    super();
+    logger.info("FavoriteMockAdapter was init");
+  }
 
-	createRelation(data: ReqCreateRelationDto): Promise<ResRelationDto> {
-		logger.verbose(`FavoriteMockAdapter was called createRelation with param - ${JSON.stringify(data)}`);
-		throw new Error(`${JSON.stringify(data)}`);
-	}
+  createRelation(data: ReqCreateRelationDto): Promise<ResRelationDto> {
+    logger.verbose(
+      `FavoriteMockAdapter was called createRelation with param - ${JSON.stringify(data)}`,
+    );
+    throw new Error(`${JSON.stringify(data)}`);
+  }
 
-	getRelation(id: string): Promise<ResRelationDto> {
-		logger.verbose(`FavoriteMockAdapter was called getRelation with param - ${JSON.stringify(id)}`);
-		throw new Error(`${JSON.stringify(id)}`);
-	}
+  getRelation(id: string): Promise<ResRelationDto> {
+    logger.verbose(
+      `FavoriteMockAdapter was called getRelation with param - ${JSON.stringify(id)}`,
+    );
+    throw new Error(`${JSON.stringify(id)}`);
+  }
 
-	getRelations(userId?: string): Promise<ResRelationsDto> {
-		if (userId) {
-			logger.verbose(`FavoriteMockAdapter was called getRelations with param - ${userId}`);
-		} else {
-			logger.verbose('FavoriteMockAdapter was called getRelations without params');
-		}
-		throw new Error(`${JSON.stringify(userId)}`);
-	}
+  getRelations(userId?: string): Promise<ResRelationsDto> {
+    if (userId) {
+      logger.verbose(
+        `FavoriteMockAdapter was called getRelations with param - ${userId}`,
+      );
+    } else {
+      logger.verbose(
+        "FavoriteMockAdapter was called getRelations without params",
+      );
+    }
+    throw new Error(`${JSON.stringify(userId)}`);
+  }
 
-	updateRelation(id: string, data: ReqUpdatedRelationDto): Promise<ResRelationDto> {
-		logger.verbose(`FavoriteMockAdapter was called updateRelation with params - ${JSON.stringify(id)}, ${JSON.stringify(data)}`);
-		throw new Error(`${JSON.stringify(id)}, ${JSON.stringify(data)}`);
-	}
+  updateRelation(
+    id: string,
+    data: ReqUpdatedRelationDto,
+  ): Promise<ResRelationDto> {
+    logger.verbose(
+      `FavoriteMockAdapter was called updateRelation with params - ${JSON.stringify(id)}, ${JSON.stringify(data)}`,
+    );
+    throw new Error(`${JSON.stringify(id)}, ${JSON.stringify(data)}`);
+  }
 
-	deleteRelation(id: string): Promise<void> {
-		logger.verbose(`FavoriteMockAdapter was called deleteRelation with param - ${JSON.stringify(id)}`);
-		throw new Error(`${JSON.stringify(id)}`);
-	}
+  deleteRelation(id: string): Promise<void> {
+    logger.verbose(
+      `FavoriteMockAdapter was called deleteRelation with param - ${JSON.stringify(id)}`,
+    );
+    throw new Error(`${JSON.stringify(id)}`);
+  }
 }

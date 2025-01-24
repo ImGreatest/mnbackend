@@ -5,17 +5,19 @@ import { ENotificationType } from "@prisma/client";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEnum, IsOptional, IsString } from "class-validator";
 
-export class ReqCreateNotificationTemplateDto implements Omit<INotificationTemplate, keyof IExcludeBasicProperties> {
-	@ApiProperty()
-	@IsString()
-	title: string;
+export class ReqCreateNotificationTemplateDto
+  implements Omit<INotificationTemplate, keyof IExcludeBasicProperties>
+{
+  @ApiProperty()
+  @IsString()
+  title: string;
 
-	@ApiProperty()
-	@IsString()
-	@IsOptional()
-	description?: string;
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  description?: string;
 
-	@ApiProperty()
-	@IsEnum(ENotificationType)
-	type: ENotificationType;
+  @ApiProperty()
+  @IsEnum(ENotificationType)
+  type: ENotificationType;
 }

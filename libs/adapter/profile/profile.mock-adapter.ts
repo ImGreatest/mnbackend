@@ -8,20 +8,23 @@ import { ResUpdatedProfileDto } from "../../domain/profile/dto/res-dto/res-updat
 
 @Injectable()
 export class ProfileMockAdapter extends ProfileRepository {
-	constructor() {
-		super();
-		logger.info('ProfileMockAdapter was init');
-	}
+  constructor() {
+    super();
+    logger.info("ProfileMockAdapter was init");
+  }
 
-	async createProfile(data: ReqCreateProfileDto): Promise<ResProfileDto> {
-		throw new Error(`${JSON.stringify(data)}`);
-	}
+  async createProfile(data: ReqCreateProfileDto): Promise<ResProfileDto> {
+    throw new Error(`${JSON.stringify(data)}`);
+  }
 
-	async getProfile(userId: string): Promise<ResProfileDto> {
-		throw new Error(`${JSON.stringify(userId)}`);
-	}
+  async getProfile(userId: string): Promise<ResProfileDto> {
+    throw new Error(`${JSON.stringify(userId)}`);
+  }
 
-	async updateProfile(userId: string, data: ReqUpdateProfileDto): Promise<ResUpdatedProfileDto> {
-		throw new Error(`${JSON.stringify(userId)}, ${JSON.stringify(data)}`);
-	}
+  async updateProfile(
+    userId: string,
+    data: ReqUpdateProfileDto,
+  ): Promise<ResUpdatedProfileDto> {
+    throw new Error(`${JSON.stringify(userId)}, ${JSON.stringify(data)}`);
+  }
 }

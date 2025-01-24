@@ -11,48 +11,61 @@ import { ResUpdateOrderDto } from "../../domain/order/dto/res-dto/res-update-ord
 
 @Injectable()
 export class OrderAdapter extends OrderRepository {
-	constructor(private readonly prisma: PrismaService) {
-		super();
-	}
+  constructor(private readonly prisma: PrismaService) {
+    super();
+  }
 
-	async createOrder(data: ReqCreateOrderDto): Promise<ResOrderDto> {
-		logger.info(`Adapter call - createOrder method, param - ${JSON.stringify(data)}`);
+  async createOrder(data: ReqCreateOrderDto): Promise<ResOrderDto> {
+    logger.info(
+      `Adapter call - createOrder method, param - ${JSON.stringify(data)}`,
+    );
 
-		return this.prisma.order.create({ data: data });
-	}
+    return this.prisma.order.create({ data: data });
+  }
 
-	async getOrder(orderId: string): Promise<ResOrderDto> {
-		logger.info(`Adapter call - getOrder method, param - ${JSON.stringify(orderId)}`);
+  async getOrder(orderId: string): Promise<ResOrderDto> {
+    logger.info(
+      `Adapter call - getOrder method, param - ${JSON.stringify(orderId)}`,
+    );
 
-		return this.prisma.order.findUnique({ where: { id: orderId } });
-	}
+    return this.prisma.order.findUnique({ where: { id: orderId } });
+  }
 
-	async getOrders(status?: string): Promise<ResOrdersDto> {
-		logger.info(`Adapter call - getOrders method, param - ${JSON.stringify(status)}`);
+  async getOrders(status?: string): Promise<ResOrdersDto> {
+    logger.info(
+      `Adapter call - getOrders method, param - ${JSON.stringify(status)}`,
+    );
 
-		return {
-			orders: await this.prisma.order.findMany({
-				where: {
-					status: EOrderStatus[status],
-				},
-			}).then((orders) => (
-				orders.map((order) => (order))
-			)),
-		}
-	}
+    return {
+      orders: await this.prisma.order
+        .findMany({
+          where: {
+            status: EOrderStatus[status],
+          },
+        })
+        .then((orders) => orders.map((order) => order)),
+    };
+  }
 
-	async updateOrder(orderId: string, data: ReqUpdateOrderDto): Promise<ResUpdateOrderDto> {
-		logger.info(`Adapter call - updateOrder method, param - ${JSON.stringify(orderId)}, ${JSON.stringify(data)}`);
+  async updateOrder(
+    orderId: string,
+    data: ReqUpdateOrderDto,
+  ): Promise<ResUpdateOrderDto> {
+    logger.info(
+      `Adapter call - updateOrder method, param - ${JSON.stringify(orderId)}, ${JSON.stringify(data)}`,
+    );
 
-		return this.prisma.order.update({
-			where: { id: orderId },
-			data: data,
-		});
-	}
+    return this.prisma.order.update({
+      where: { id: orderId },
+      data: data,
+    });
+  }
 
-	async deleteOrder(orderId: string): Promise<void> {
-		logger.info(`Adapter call - deleteOrder method, param - ${JSON.stringify(orderId)}`);
+  async deleteOrder(orderId: string): Promise<void> {
+    logger.info(
+      `Adapter call - deleteOrder method, param - ${JSON.stringify(orderId)}`,
+    );
 
-		await this.prisma.order.delete({ where: { id: orderId } });
-	}
+    await this.prisma.order.delete({ where: { id: orderId } });
+  }
 }

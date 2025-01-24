@@ -11,5 +11,5 @@ import { ResProfileDto } from "../../../profile/dto/res-dto/res-profile.dto";
  * @see { ResProfileDto }
  */
 export class ResUserByPhoneDto extends ResUserDto {
-	profile: ResProfileDto;
+  profile: ResProfileDto;
 }

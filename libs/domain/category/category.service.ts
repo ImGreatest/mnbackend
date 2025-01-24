@@ -7,25 +7,28 @@ import { ReqUpdateCategoryDto } from "./dto/req-dto/req-update-category.dto";
 
 @Injectable()
 export class CategoryService {
-	constructor(private readonly categoryRep: CategoryRepository) {}
+  constructor(private readonly categoryRep: CategoryRepository) {}
 
-	createCategory(data: ReqCreateCategoryDto): Promise<ResCategoryDto> {
-		return this.categoryRep.createCategory(data);
-	}
+  createCategory(data: ReqCreateCategoryDto): Promise<ResCategoryDto> {
+    return this.categoryRep.createCategory(data);
+  }
 
-	getCategory(id: string, name?: string): Promise<ResCategoryDto> {
-		return this.categoryRep.getCategory(id, name);
-	}
+  getCategory(id: string, name?: string): Promise<ResCategoryDto> {
+    return this.categoryRep.getCategory(id, name);
+  }
 
-	getCategories(): Promise<ResCategoriesDto> {
-		return this.categoryRep.getCategories();
-	}
+  getCategories(): Promise<ResCategoriesDto> {
+    return this.categoryRep.getCategories();
+  }
 
-	updateCategory(id: string, data: ReqUpdateCategoryDto): Promise<ResCategoryDto> {
-		return this.categoryRep.updateCategory(id, data);
-	}
+  updateCategory(
+    id: string,
+    data: ReqUpdateCategoryDto,
+  ): Promise<ResCategoryDto> {
+    return this.categoryRep.updateCategory(id, data);
+  }
 
-	deleteCategory(id: string): Promise<void> {
-		return this.categoryRep.deleteCategory(id);
-	}
+  deleteCategory(id: string): Promise<void> {
+    return this.categoryRep.deleteCategory(id);
+  }
 }

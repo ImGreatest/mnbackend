@@ -4,7 +4,8 @@ import {
   Get,
   HttpStatus,
   Param,
-  Post, UseGuards,
+  Post,
+  UseGuards,
 } from "@nestjs/common";
 import {
   ApiBearerAuth,
@@ -58,7 +59,7 @@ export class UserController {
     private readonly profileService: ProfileService,
   ) {}
 
-  @Roles('admin')
+  @Roles("admin")
   @Post("create-user")
   @ApiBody({
     type: ReqCreateUserDto,

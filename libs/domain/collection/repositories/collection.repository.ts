@@ -6,13 +6,18 @@ import { ReqUpdateCollectionDto } from "../dto/req-dto/req-update-collection.dto
 
 @Injectable()
 export abstract class CollectionRepository {
-	abstract createCollection(data: ReqCreateCollectionDto): Promise<ResCollectionDto>;
+  abstract createCollection(
+    data: ReqCreateCollectionDto,
+  ): Promise<ResCollectionDto>;
 
-	abstract getCollection(collectionId: string): Promise<ResCollectionDto>;
+  abstract getCollection(collectionId: string): Promise<ResCollectionDto>;
 
-	abstract getCollections(): Promise<ResCollectionsDto>;
+  abstract getCollections(): Promise<ResCollectionsDto>;
 
-	abstract updateCollection(collectionId: string, data: ReqUpdateCollectionDto): Promise<ResCollectionDto>;
+  abstract updateCollection(
+    collectionId: string,
+    data: ReqUpdateCollectionDto,
+  ): Promise<ResCollectionDto>;
 
-	abstract deleteCollection(collectionId: string): Promise<void>;
+  abstract deleteCollection(collectionId: string): Promise<void>;
 }

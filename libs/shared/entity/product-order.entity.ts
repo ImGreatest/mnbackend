@@ -1,4 +1,4 @@
 export interface IProductOrder {
-	productId: string;
-	orderId: string;
+  productId: string;
+  orderId: string;
 }

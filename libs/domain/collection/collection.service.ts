@@ -8,27 +8,30 @@ import { logger } from "../../../logger/logger";
 
 @Injectable()
 export class CollectionService {
-	constructor(private readonly collectionRep: CollectionRepository) {
-		logger.info('CollectionService was init');
-	}
+  constructor(private readonly collectionRep: CollectionRepository) {
+    logger.info("CollectionService was init");
+  }
 
-	createCollection(data: ReqCreateCollectionDto): Promise<ResCollectionDto> {
-		return this.collectionRep.createCollection(data);
-	}
+  createCollection(data: ReqCreateCollectionDto): Promise<ResCollectionDto> {
+    return this.collectionRep.createCollection(data);
+  }
 
-	getCollection(collectionId: string): Promise<ResCollectionDto> {
-		return this.collectionRep.getCollection(collectionId);
-	}
+  getCollection(collectionId: string): Promise<ResCollectionDto> {
+    return this.collectionRep.getCollection(collectionId);
+  }
 
-	getCollections(): Promise<ResCollectionsDto> {
-		return this.collectionRep.getCollections();
-	}
+  getCollections(): Promise<ResCollectionsDto> {
+    return this.collectionRep.getCollections();
+  }
 
-	updateCollection(collectionId: string, data: ReqUpdateCollectionDto): Promise<ResCollectionDto> {
-		return this.collectionRep.updateCollection(collectionId, data);
-	}
+  updateCollection(
+    collectionId: string,
+    data: ReqUpdateCollectionDto,
+  ): Promise<ResCollectionDto> {
+    return this.collectionRep.updateCollection(collectionId, data);
+  }
 
-	deleteCollection(collectionId: string): Promise<void> {
-		return this.collectionRep.deleteCollection(collectionId);
-	}
+  deleteCollection(collectionId: string): Promise<void> {
+    return this.collectionRep.deleteCollection(collectionId);
+  }
 }

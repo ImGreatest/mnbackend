@@ -8,13 +8,20 @@ import { ReqUpdateNotificationTemplateDto } from "../dto/req-dto/req-update-noti
 
 @Injectable()
 export abstract class NotificationTemplateRepository {
-	abstract createTemplate(data: ReqCreateNotificationTemplateDto): Promise<ResNotificationTemplateDto>;
+  abstract createTemplate(
+    data: ReqCreateNotificationTemplateDto,
+  ): Promise<ResNotificationTemplateDto>;
 
-	abstract getTemplate(id: string): Promise<ResNotificationTemplateDto>;
+  abstract getTemplate(id: string): Promise<ResNotificationTemplateDto>;
 
-	abstract getTemplates(type?: ENotificationType): Promise<ResNotificationTemplatesDto>;
+  abstract getTemplates(
+    type?: ENotificationType,
+  ): Promise<ResNotificationTemplatesDto>;
 
-	abstract updateTemplate(id: string, data: ReqUpdateNotificationTemplateDto): Promise<ResUpdateNotificationTemplateDto>;
+  abstract updateTemplate(
+    id: string,
+    data: ReqUpdateNotificationTemplateDto,
+  ): Promise<ResUpdateNotificationTemplateDto>;
 
-	abstract deleteTemplate(id: string): Promise<void>;
+  abstract deleteTemplate(id: string): Promise<void>;
 }

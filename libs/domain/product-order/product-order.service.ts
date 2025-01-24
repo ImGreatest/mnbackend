@@ -5,13 +5,15 @@ import { ResOrdersContainProductDto } from "./dto/res-orders-contain-product.dto
 
 @Injectable()
 export class ProductOrderService {
-	constructor(private readonly rep: ProductOrderRepository) {}
+  constructor(private readonly rep: ProductOrderRepository) {}
 
-	getProductsOrder(orderId: string): Promise<ResProductsOrderDto> {
-		return this.rep.getProductsOrder(orderId);
-	}
+  getProductsOrder(orderId: string): Promise<ResProductsOrderDto> {
+    return this.rep.getProductsOrder(orderId);
+  }
 
-	getOrdersContainProduct(productId: string): Promise<ResOrdersContainProductDto> {
-		return this.rep.getOrdersContainProduct(productId);
-	}
+  getOrdersContainProduct(
+    productId: string,
+  ): Promise<ResOrdersContainProductDto> {
+    return this.rep.getOrdersContainProduct(productId);
+  }
 }

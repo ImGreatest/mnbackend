@@ -8,32 +8,41 @@ import { logger } from "../../../logger/logger";
 
 @Injectable()
 export class BookingAdapter extends BookingRepository {
-	constructor() {
-		super();
-		logger.info('BookingAdapter was init');
-	}
+  constructor() {
+    super();
+    logger.info("BookingAdapter was init");
+  }
 
-	async createReservation(data: ReqCreateReservationDto): Promise<void> {
-		throw new Error(`${{ ...data }}`);
-	}
+  async createReservation(data: ReqCreateReservationDto): Promise<void> {
+    throw new Error(`${{ ...data }}`);
+  }
 
-	async getReservation(reservationId: string, userId?: string): Promise<ResReservationDto> {
-		throw new Error(`${reservationId}, ${userId}`);
-	}
+  async getReservation(
+    reservationId: string,
+    userId?: string,
+  ): Promise<ResReservationDto> {
+    throw new Error(`${reservationId}, ${userId}`);
+  }
 
-	async getReservations(): Promise<ResReservationDto[]> {
-		throw new Error();
-	}
+  async getReservations(): Promise<ResReservationDto[]> {
+    throw new Error();
+  }
 
-	async getReservationsByDate(date: Date, userId?: string): Promise<ResReservationDto[]> {
-		throw new Error(`${date}, ${userId}`);
-	}
+  async getReservationsByDate(
+    date: Date,
+    userId?: string,
+  ): Promise<ResReservationDto[]> {
+    throw new Error(`${date}, ${userId}`);
+  }
 
-	async updateReservation(reservationId: string, data: ReqUpdateReservationDto): Promise<ResUpdateReservationDto> {
-		throw new Error(`${reservationId}, ${{ ...data }}`);
-	}
+  async updateReservation(
+    reservationId: string,
+    data: ReqUpdateReservationDto,
+  ): Promise<ResUpdateReservationDto> {
+    throw new Error(`${reservationId}, ${{ ...data }}`);
+  }
 
-	async deleteReservation(reservationId: string): Promise<void> {
-		throw new Error(`${reservationId}`);
-	}
+  async deleteReservation(reservationId: string): Promise<void> {
+    throw new Error(`${reservationId}`);
+  }
 }

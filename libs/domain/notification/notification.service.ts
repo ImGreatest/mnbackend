@@ -6,17 +6,22 @@ import { ResNotificationsDto } from "./dto/res-dto/res-notifications.dto";
 
 @Injectable()
 export class NotificationService {
-	constructor(private readonly rep: NotificationRepository) {}
+  constructor(private readonly rep: NotificationRepository) {}
 
-	createNotification(data: ReqCreateNotificationDto): Promise<ResNotificationDto> {
-		return this.rep.createNotification(data);
-	}
+  createNotification(
+    data: ReqCreateNotificationDto,
+  ): Promise<ResNotificationDto> {
+    return this.rep.createNotification(data);
+  }
 
-	getNotification(id: string): Promise<ResNotificationDto> {
-		return this.rep.getNotification(id);
-	}
+  getNotification(id: string): Promise<ResNotificationDto> {
+    return this.rep.getNotification(id);
+  }
 
-	getNotifications(userId?: string, templateId?: string): Promise<ResNotificationsDto> {
-		return this.rep.getNotifications(userId, templateId);
-	}
+  getNotifications(
+    userId?: string,
+    templateId?: string,
+  ): Promise<ResNotificationsDto> {
+    return this.rep.getNotifications(userId, templateId);
+  }
 }

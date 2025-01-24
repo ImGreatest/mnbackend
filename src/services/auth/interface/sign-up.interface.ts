@@ -1,3 +1,1 @@
-export interface ISignUp {
-	
-}
+export interface ISignUp {}

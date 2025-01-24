@@ -8,27 +8,35 @@ import { logger } from "../../../logger/logger";
 
 @Injectable()
 export class BucketService {
-	constructor(private readonly bucketRep: BucketRepository) {
-		logger.info('BucketService was init');
-	}
+  constructor(private readonly bucketRep: BucketRepository) {
+    logger.info("BucketService was init");
+  }
 
-	createBucket(data: ReqCreateBucketDto): Promise<ResBucketDto> {
-		logger.verbose(`BucketService was called createBucket method with param - ${JSON.stringify(data)}`);
-		return this.bucketRep.createBucket(data);
-	}
+  createBucket(data: ReqCreateBucketDto): Promise<ResBucketDto> {
+    logger.verbose(
+      `BucketService was called createBucket method with param - ${JSON.stringify(data)}`,
+    );
+    return this.bucketRep.createBucket(data);
+  }
 
-	getBuckets(userId?: string, productId?: string): Promise<ResBucketsDto> {
-		logger.verbose(`BucketService was called getBuckets method with params - ${JSON.stringify(userId)}, ${JSON.stringify(productId)}`);
-		return this.bucketRep.getBuckets(userId, productId);
-	}
+  getBuckets(userId?: string, productId?: string): Promise<ResBucketsDto> {
+    logger.verbose(
+      `BucketService was called getBuckets method with params - ${JSON.stringify(userId)}, ${JSON.stringify(productId)}`,
+    );
+    return this.bucketRep.getBuckets(userId, productId);
+  }
 
-	updateBucket(id: string, data: ReqUpdateBucketDto): Promise<ResBucketDto> {
-		logger.verbose(`BucketService was called updateBucket method with params - ${JSON.stringify(id)}, ${JSON.stringify(data)}`);
-		return this.bucketRep.updateBucket(id, data);
-	}
+  updateBucket(id: string, data: ReqUpdateBucketDto): Promise<ResBucketDto> {
+    logger.verbose(
+      `BucketService was called updateBucket method with params - ${JSON.stringify(id)}, ${JSON.stringify(data)}`,
+    );
+    return this.bucketRep.updateBucket(id, data);
+  }
 
-	clearBucket(id: string): Promise<void> {
-		logger.verbose(`BucketService was called clearBucket method with params - ${JSON.stringify(id)}`);
-		return this.bucketRep.clearBucket(id);
-	}
+  clearBucket(id: string): Promise<void> {
+    logger.verbose(
+      `BucketService was called clearBucket method with params - ${JSON.stringify(id)}`,
+    );
+    return this.bucketRep.clearBucket(id);
+  }
 }

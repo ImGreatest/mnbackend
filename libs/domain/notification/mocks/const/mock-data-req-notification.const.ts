@@ -2,6 +2,6 @@ import { ReqCreateNotificationDto } from "../../dto/req-dto/req-create-notificat
 import { faker } from "@faker-js/faker";
 
 export const MockDataReqNotification: ReqCreateNotificationDto = {
-	userId: faker.string.uuid(),
-	templateId: faker.string.uuid(),
-}
+  userId: faker.string.uuid(),
+  templateId: faker.string.uuid(),
+};

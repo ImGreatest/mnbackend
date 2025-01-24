@@ -1,3 +1,3 @@
 export class ResSuggestsAddressDto {
-	suggestions: [];
+  suggestions: [];
 }

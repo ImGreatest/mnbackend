@@ -3,12 +3,14 @@ import { IExcludeBasicProperties } from "../../../../shared/interfaces/exclude-b
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString } from "class-validator";
 
-export class ReqCreateNotificationDto implements Omit<INotification, keyof IExcludeBasicProperties> {
-	@ApiProperty()
-	@IsString()
-	userId: string;
+export class ReqCreateNotificationDto
+  implements Omit<INotification, keyof IExcludeBasicProperties>
+{
+  @ApiProperty()
+  @IsString()
+  userId: string;
 
-	@ApiProperty()
-	@IsString()
-	templateId: string;
+  @ApiProperty()
+  @IsString()
+  templateId: string;
 }

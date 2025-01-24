@@ -4,9 +4,9 @@ import { CategoryRepository } from "../repositories/category.repository";
 import { CategoryAdapter } from "../../../adapter/category/category.adapter";
 
 export const CategoryProvider: Provider[] = [
-	CategoryService,
-	{
-		provide: CategoryRepository,
-		useClass: CategoryAdapter
-	}
+  CategoryService,
+  {
+    provide: CategoryRepository,
+    useClass: CategoryAdapter,
+  },
 ];

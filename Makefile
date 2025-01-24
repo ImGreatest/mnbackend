@@ -1,3 +1,5 @@
+format:
+	pnpm run format
 up:
 	docker-compose up
 down:

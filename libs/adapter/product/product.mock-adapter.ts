@@ -10,35 +10,41 @@ import { ResProductsByNameDto } from "../../domain/product/dto/res-dto/res-produ
 
 @Injectable()
 export class ProductMockAdapter extends ProductRepository {
-	constructor() {
-		super();
-	}
+  constructor() {
+    super();
+  }
 
-	async createProduct(data: ReqCreateProductDto): Promise<ResProductDto> {
-		throw new Error(`${{ ...data }}`);
-	}
+  async createProduct(data: ReqCreateProductDto): Promise<ResProductDto> {
+    throw new Error(`${{ ...data }}`);
+  }
 
-	async getProduct(productId: string): Promise<ResProductDto> {
-		throw new Error(`${productId}`);
-	}
+  async getProduct(productId: string): Promise<ResProductDto> {
+    throw new Error(`${productId}`);
+  }
 
-	async getProducts(name?: string, cost?: number): Promise<ResProductsDto> {
-		throw new Error(`${name}, ${cost}`);
-	}
+  async getProducts(name?: string, cost?: number): Promise<ResProductsDto> {
+    throw new Error(`${name}, ${cost}`);
+  }
 
-	async getProductsByName(name: string): Promise<ResProductsByNameDto[]> {
-		throw new Error(`${name}`);
-	}
+  async getProductsByName(name: string): Promise<ResProductsByNameDto[]> {
+    throw new Error(`${name}`);
+  }
 
-	async getProductsByRangeCost(minCost: number, maxCost: number): Promise<ResProductsByRangeCostDto[]> {
-		throw new Error(`${minCost}, ${maxCost}`);
-	}
+  async getProductsByRangeCost(
+    minCost: number,
+    maxCost: number,
+  ): Promise<ResProductsByRangeCostDto[]> {
+    throw new Error(`${minCost}, ${maxCost}`);
+  }
 
-	async updateProduct(productId: string, data: ReqUpdateProductDto): Promise<ResUpdateProductDto> {
-		throw new Error(`${productId}, ${{ ...data }}`);
-	}
+  async updateProduct(
+    productId: string,
+    data: ReqUpdateProductDto,
+  ): Promise<ResUpdateProductDto> {
+    throw new Error(`${productId}, ${{ ...data }}`);
+  }
 
-	async deleteProduct(productId: string): Promise<void> {
-		throw new Error(`${productId}`);
-	}
+  async deleteProduct(productId: string): Promise<void> {
+    throw new Error(`${productId}`);
+  }
 }

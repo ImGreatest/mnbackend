@@ -6,11 +6,17 @@ import { ReqUpdateBucketDto } from "../dto/req-dto/req-update-bucket.dto";
 
 @Injectable()
 export abstract class BucketRepository {
-	abstract createBucket(data: ReqCreateBucketDto): Promise<ResBucketDto>;
+  abstract createBucket(data: ReqCreateBucketDto): Promise<ResBucketDto>;
 
-	abstract getBuckets(userId?: string, productId?: string): Promise<ResBucketsDto>;
+  abstract getBuckets(
+    userId?: string,
+    productId?: string,
+  ): Promise<ResBucketsDto>;
 
-	abstract updateBucket(id: string, data: ReqUpdateBucketDto): Promise<ResBucketDto>;
+  abstract updateBucket(
+    id: string,
+    data: ReqUpdateBucketDto,
+  ): Promise<ResBucketDto>;
 
-	abstract clearBucket(id: string): Promise<void>;
+  abstract clearBucket(id: string): Promise<void>;
 }

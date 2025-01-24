@@ -5,15 +5,17 @@ import { ResOrdersContainProductDto } from "../../domain/product-order/dto/res-o
 
 @Injectable()
 export class ProductOrderMockAdapter extends ProductOrderRepository {
-	constructor() {
-		super();
-	}
+  constructor() {
+    super();
+  }
 
-	async getProductsOrder(orderId: string): Promise<ResProductsOrderDto> {
-		throw new Error(`${JSON.stringify(orderId)}`);
-	}
+  async getProductsOrder(orderId: string): Promise<ResProductsOrderDto> {
+    throw new Error(`${JSON.stringify(orderId)}`);
+  }
 
-	async getOrdersContainProduct(productId: string): Promise<ResOrdersContainProductDto> {
-		throw new Error(`${JSON.stringify(productId)}`);
-	}
+  async getOrdersContainProduct(
+    productId: string,
+  ): Promise<ResOrdersContainProductDto> {
+    throw new Error(`${JSON.stringify(productId)}`);
+  }
 }

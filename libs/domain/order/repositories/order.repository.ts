@@ -7,13 +7,16 @@ import { ResUpdateOrderDto } from "../dto/res-dto/res-update-order.dto";
 
 @Injectable()
 export abstract class OrderRepository {
-	abstract createOrder(data: ReqCreateOrderDto): Promise<ResOrderDto>;
+  abstract createOrder(data: ReqCreateOrderDto): Promise<ResOrderDto>;
 
-	abstract getOrder(orderId: string, userId?: string): Promise<ResOrderDto>;
+  abstract getOrder(orderId: string, userId?: string): Promise<ResOrderDto>;
 
-	abstract getOrders(userId?: string, status?: string): Promise<ResOrdersDto>;
+  abstract getOrders(userId?: string, status?: string): Promise<ResOrdersDto>;
 
-	abstract updateOrder(orderId: string, data: ReqUpdateOrderDto): Promise<ResUpdateOrderDto>;
+  abstract updateOrder(
+    orderId: string,
+    data: ReqUpdateOrderDto,
+  ): Promise<ResUpdateOrderDto>;
 
-	abstract deleteOrder(orderId: string): Promise<void>;
+  abstract deleteOrder(orderId: string): Promise<void>;
 }

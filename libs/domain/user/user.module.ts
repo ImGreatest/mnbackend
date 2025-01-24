@@ -5,9 +5,9 @@ import { UserProvider } from "./providers/user.provider";
 import { ProfileModule } from "../profile/profile.module";
 
 @Module({
-	imports: [CryptoModule, ProfileModule],
-	providers: [...UserProvider],
-	exports: [UserService],
+  imports: [CryptoModule, ProfileModule],
+  providers: [...UserProvider],
+  exports: [UserService],
 })
 /**
  * Module class for working with users.

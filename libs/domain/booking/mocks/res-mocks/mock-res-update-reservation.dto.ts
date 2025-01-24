@@ -4,5 +4,5 @@ import { MockResReservationDto } from "./mock-res-reservation.dto";
 export type TUpdatedReservationDto = Omit<ResReservationDto, "id">;
 
 export const MockResUpdateReservationDto: TUpdatedReservationDto = {
-	...MockResReservationDto,
+  ...MockResReservationDto,
 };
