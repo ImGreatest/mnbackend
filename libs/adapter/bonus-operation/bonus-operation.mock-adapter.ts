@@ -13,16 +13,16 @@ export class BonusOperationMockAdapter extends BonusOperationsRepository {
   async createOperation(
     data: ReqCreateBonusOperationDto,
   ): Promise<ResBonusOperationsDto> {
-    throw new Error();
+    throw new Error(`${JSON.stringify(data)}`);
   }
 
   async getBonusOperation(id: string): Promise<ResBonusOperationsDto> {
-    throw new Error();
+    throw new Error(`${JSON.stringify(id)}`);
   }
 
   async getBonusOperationsAccount(
     accountId: string,
   ): Promise<ResBonusOperationsAccountDto> {
-    throw new Error();
+    throw new Error(`${JSON.stringify(accountId)}`);
   }
 }
