@@ -4,6 +4,7 @@ import { ReqCreatePromoDto } from "../../domain/promo/dto/req-create-promo.dto";
 import { ResPromoDto } from "../../domain/promo/dto/res-promo.dto";
 import { PrismaService } from "../../services/prisma/prisma.service";
 import { ReqUpdatePromoDto } from "../../domain/promo/dto/req-update-promo.dto";
+import { logger } from "../../../logger/logger";
 
 @Injectable()
 export class PromoAdapter extends PromoRepository {
@@ -29,8 +30,12 @@ export class PromoAdapter extends PromoRepository {
   }
 
   async deletePromo(id: string): Promise<void> {
-    await this.prisma.promo.delete({
-      where: { id: id },
-    });
+    try {
+      await this.prisma.promo.delete({
+        where: { id: id },
+      });
+    } catch (e) {
+      logger.info("Deleting promo is error");
+    }
   }
 }
