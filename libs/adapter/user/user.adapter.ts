@@ -13,6 +13,9 @@ import { ResUsersDto } from "../../domain/user/dto/res-dto/res-users.dto";
 import { ERole } from "@prisma/client";
 import { ResCreatedUserDto } from "../../domain/user/dto/res-dto/res-created-user.dto";
 import { ProfileService } from "../../domain/profile/profile.service";
+import { UserException } from "../../shared/exceptions/user.exception";
+import { EErrorCode } from "../../shared/enum";
+import { ProfileException } from "../../shared/exceptions/profile.exception";
 
 @Injectable()
 /**
@@ -58,6 +61,32 @@ export class UserAdapter extends UserRepository {
       `Adapter call - createUser method params - ${JSON.stringify(data)}`,
     );
 
+    // check user by email
+    await this.prisma.user.findUnique({
+      where: {
+        email: data.email,
+      },
+    })
+      .then(() => {
+        throw new UserException(
+          EErrorCode.Validate,
+          `User with email - ${JSON.stringify(data.email)} already exist`,
+        );
+      });
+
+    // check user by phone
+    await this.prisma.user.findUnique({
+      where: {
+        phone: data.phone,
+      },
+    })
+      .then(() => {
+        throw new UserException(
+          EErrorCode.Validate,
+          `User with phone - ${JSON.stringify(data.phone)} already exist`,
+        );
+      });
+
     try {
       const user = await this.prisma.user.create({
         data: {
@@ -102,7 +131,12 @@ export class UserAdapter extends UserRepository {
 
     return this.prisma.user.findUnique({
       where: { id: userId },
-    });
+    })
+      .then(data => data)
+      .catch((e) => {
+        logger.error("User is not found!", e);
+        throw new UserException(EErrorCode.Unknown, "User is not found!");
+      });
   }
 
   /**
@@ -129,7 +163,12 @@ export class UserAdapter extends UserRepository {
 
       return {
         ...user,
-        profile: await this.profileService.getProfile(user.id),
+        profile: await this.profileService.getProfile(user.id)
+          .then(data => data)
+          .catch((e) => {
+            logger.error("Error is not found", e);
+            throw new ProfileException(EErrorCode.Unknown, 'Profile is not found!');
+          })
       };
     } catch (e) {
       logger.error("Error creating user or profile", e);
@@ -162,7 +201,12 @@ export class UserAdapter extends UserRepository {
 
       return {
         ...user,
-        profile: await this.profileService.getProfile(user.id),
+        profile: await this.profileService.getProfile(user.id)
+          .then(data => data)
+          .catch((e) => {
+            logger.error("Profile is not found!", e);
+            throw new ProfileException(EErrorCode.Unknown, "Profile is not found!");
+          })
       };
     } catch (e) {
       logger.error("Error creating user or profile", e);
@@ -191,11 +235,21 @@ export class UserAdapter extends UserRepository {
     try {
       const user = await this.prisma.user.findUnique({
         where: { phone: phone },
-      });
+      })
+        .then(data => data)
+        .catch((e) => {
+          logger.error("User is not found!", e);
+          throw new UserException(EErrorCode.Unknown, "User is not found!");
+        });
 
       return {
         ...user,
-        profile: await this.profileService.getProfile(user.id),
+        profile: await this.profileService.getProfile(user.id)
+          .then(data => data)
+          .catch((e) => {
+            logger.error("Profile is not found!", e);
+            throw new ProfileException(EErrorCode.Unknown, "Profile is not found!");
+          }),
       };
     } catch (e) {
       logger.error("Error creating user or profile", e);
@@ -218,7 +272,12 @@ export class UserAdapter extends UserRepository {
     logger.info("Adapter call - getUsers method without params");
 
     return {
-      users: await this.prisma.user.findMany(),
+      users: await this.prisma.user.findMany()
+        .then(data => data)
+        .catch((e) => {
+          logger.error("Users is not found!", e);
+          throw new UserException(EErrorCode.Unknown, "Users is not found!");
+        }),
     };
   }
 
