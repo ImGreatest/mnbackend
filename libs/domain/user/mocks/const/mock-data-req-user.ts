@@ -3,6 +3,12 @@ import { ERole } from "@prisma/client";
 import { IUser } from "../../../../shared/entity";
 import { IExcludeBasicProperties } from "../../../../shared/interfaces/exclude-basic-properties.interface";
 
+/**
+ * @export
+ * @const
+ * @name MockDataReqUser
+ * @see { IUser, IExcludeBasicProperties, ERole }
+ */
 export const MockDataReqUser: Omit<IUser, keyof IExcludeBasicProperties> = {
   login: faker.person.fullName(),
   email: faker.internet.email(),

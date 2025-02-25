@@ -3,7 +3,7 @@ import { PrismaModule } from "../../services/prisma/prisma.module";
 import { Test } from "@nestjs/testing";
 import { PromoAdapter } from "./promo.adapter";
 import { afterEach } from "node:test";
-import { ResPromoDto } from "../../domain/promo/dto/res-promo.dto";
+import { ResPromoDto } from "../../domain/promo/dto/res-dto/res-promo.dto";
 import { faker } from "@faker-js/faker";
 import { EPromoType } from "@prisma/client";
 

@@ -36,7 +36,9 @@ import { ResCreatedUserDto } from "../../../libs/domain/user/dto/res-dto/res-cre
 import { ProfileService } from "../../../libs/domain/profile/profile.service";
 import { ResProfileDto } from "../../../libs/domain/profile/dto/res-dto/res-profile.dto";
 import { ReqUpdateProfileDto } from "../../../libs/domain/profile/dto/req-dto/req-update-profile.dto";
-import { ResUpdatedProfileDto } from "../../../libs/domain/profile/dto/res-dto/res-updated-profile.dto";
+import { ResUpdateProfileDto } from "../../../libs/domain/profile/dto/res-dto/res-updated-profile.dto";
+import { MockResUpdateUser } from "../../../libs/domain/user/mocks/res-mocks/mock-res-update-user";
+import { MockResProfile } from "../../../libs/domain/profile/mocks/res-mocks/mock-res-profile";
 
 @ApiTags("user")
 @ApiBearerAuth()
@@ -285,6 +287,7 @@ export class UserController {
     type: ResUpdateUserDto,
     description: "Return updated user",
     isArray: false,
+    example: MockResUpdateUser,
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -330,8 +333,7 @@ export class UserController {
     type: ResProfileDto,
     description: "Return user profile",
     isArray: false,
-    // TODO adds example response profile
-    // example:
+    example: MockResProfile,
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -403,12 +405,12 @@ export class UserController {
    * @param { ReqUpdateProfileDto } data
    * @returns { Promise&ResUpdatedProfileDto> }
    * @see { ReqUpdateProfileDto }
-   * @see { ResUpdatedProfileDto }
+   * @see { ResUpdateProfileDto }
    */
   updateProfile(
     @Param("id") userId: string,
     @Body() data: ReqUpdateProfileDto,
-  ): Promise<ResUpdatedProfileDto> {
+  ): Promise<ResUpdateProfileDto> {
     return this.profileService.updateProfile(userId, data);
   }
 }

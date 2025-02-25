@@ -9,15 +9,17 @@ import { ERole } from "@prisma/client";
  *
  * @export
  * @class ResUserDto
- * @property id
- * @property login
- * @property email
- * @property phone
- * @property password
- * @property role
- * @property createdAt
- * @property updatedAt
- * @see { IUser }
+ * @name ResUserDto
+ * @implements { IUser }
+ * @property { string } id
+ * @property { string? } login
+ * @property { string } email
+ * @property { string? } phone
+ * @property { string } password
+ * @property { string } role
+ * @property { Date } createdAt
+ * @property { Date? } updatedAt
+ * @see { IUser, ERole }
  */
 export class ResUserDto implements IUser {
   @ApiProperty({

@@ -1,16 +1,20 @@
-import { IPromo } from "../../../shared/entity";
-import { IExcludeBasicProperties } from "../../../shared/interfaces/exclude-basic-properties.interface";
-import { EPromoType } from "@prisma/client";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsEnum, IsNumber, IsString } from "class-validator";
 import { faker } from "@faker-js/faker";
+import { IsDate, IsEnum, IsNumber, IsString } from "class-validator";
+import { EPromoType } from "@prisma/client";
+import { IPromo } from "../../../../shared/entity";
 
-export class ReqCreatePromoDto
-  implements Omit<IPromo, keyof IExcludeBasicProperties>
-{
+export class ResPromoDto implements IPromo {
   @ApiProperty({
     type: String,
-    required: true,
+    description: "Property of identifier",
+    example: faker.string.uuid(),
+  })
+  @IsString()
+  id: string;
+
+  @ApiProperty({
+    type: String,
     description: "Property of content code",
   })
   @IsString()
@@ -18,7 +22,6 @@ export class ReqCreatePromoDto
 
   @ApiProperty({
     type: Date,
-    required: true,
     description: "Property of date start time active promo",
   })
   @IsDate()
@@ -26,7 +29,6 @@ export class ReqCreatePromoDto
 
   @ApiProperty({
     type: Date,
-    required: true,
     description: "Property of date end time active promo",
   })
   @IsDate()
@@ -34,7 +36,6 @@ export class ReqCreatePromoDto
 
   @ApiProperty({
     type: EPromoType,
-    required: true,
     description: "Property type of promo code",
     example:
       EPromoType[
@@ -49,10 +50,34 @@ export class ReqCreatePromoDto
 
   @ApiProperty({
     type: Number,
-    required: true,
     description: "Property of percentage after using promo code",
     example: faker.number.int({ min: 1, max: 100 }),
   })
   @IsNumber()
   percentage: number;
+
+  @ApiProperty({
+    type: Date,
+    description: "Parameter for date-time value creating product",
+    example: faker.date.past(),
+  })
+  @IsDate()
+  createdAt: Date;
+
+  @ApiProperty({
+    type: Date,
+    description: "Parameter for date-time value last updating product",
+    example: faker.date.past(),
+  })
+  @IsDate()
+  updatedAt: Date;
+
+  @ApiProperty({
+    type: Date,
+    format: "date-time",
+    description: "Parameter for date-time value deleting product",
+    example: faker.date.past(),
+  })
+  @IsDate()
+  deletedAt: Date;
 }

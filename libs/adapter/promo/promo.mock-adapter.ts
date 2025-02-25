@@ -1,8 +1,9 @@
 import { PromoRepository } from "../../domain/promo/repositories/promo.repository";
 import { Injectable } from "@nestjs/common";
-import { ReqCreatePromoDto } from "../../domain/promo/dto/req-create-promo.dto";
-import { ResPromoDto } from "../../domain/promo/dto/res-promo.dto";
-import { ReqUpdatePromoDto } from "../../domain/promo/dto/req-update-promo.dto";
+import { ReqCreatePromoDto } from "../../domain/promo/dto/req-dto/req-create-promo.dto";
+import { ResPromoDto } from "../../domain/promo/dto/res-dto/res-promo.dto";
+import { ReqUpdatePromoDto } from "../../domain/promo/dto/req-dto/req-update-promo.dto";
+import { ResUpdatePromoDto } from "../../domain/promo/dto/res-dto/res-update-promo.dto";
 
 @Injectable()
 export class PromoMockAdapter extends PromoRepository {
@@ -14,7 +15,7 @@ export class PromoMockAdapter extends PromoRepository {
     throw new Error(`${JSON.stringify(id)}`);
   }
 
-  async updatePromo(id: string, data: ReqUpdatePromoDto): Promise<ResPromoDto> {
+  async updatePromo(id: string, data: ReqUpdatePromoDto): Promise<ResUpdatePromoDto > {
     throw new Error(`${JSON.stringify(id)}, ${JSON.stringify(data)}`);
   }
 

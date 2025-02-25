@@ -5,7 +5,7 @@ import { logger } from "../../../logger/logger";
 import { ReqCreateProfileDto } from "../../domain/profile/dto/req-dto/req-create-profile.dto";
 import { ResProfileDto } from "../../domain/profile/dto/res-dto/res-profile.dto";
 import { ReqUpdateProfileDto } from "../../domain/profile/dto/req-dto/req-update-profile.dto";
-import { ResUpdatedProfileDto } from "../../domain/profile/dto/res-dto/res-updated-profile.dto";
+import { ResUpdateProfileDto } from "../../domain/profile/dto/res-dto/res-updated-profile.dto";
 
 @Injectable()
 export class ProfileAdapter extends ProfileRepository {
@@ -51,7 +51,7 @@ export class ProfileAdapter extends ProfileRepository {
   async updateProfile(
     userId: string,
     data: ReqUpdateProfileDto,
-  ): Promise<ResUpdatedProfileDto> {
+  ): Promise<ResUpdateProfileDto> {
     logger.verbose(
       `ProfileAdapter was called updateProfile method with params - ${JSON.stringify(userId)}, ${JSON.stringify(data)}`,
     );

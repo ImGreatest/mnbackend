@@ -3,7 +3,6 @@ import { faker } from "@faker-js/faker";
 import {
   IsAlpha,
   IsEmpty,
-  IsEnum,
   IsNotEmpty,
   IsOptional,
   IsString,

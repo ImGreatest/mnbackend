@@ -1,10 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { PromoRepository } from "../../domain/promo/repositories/promo.repository";
-import { ReqCreatePromoDto } from "../../domain/promo/dto/req-create-promo.dto";
-import { ResPromoDto } from "../../domain/promo/dto/res-promo.dto";
+import { ReqCreatePromoDto } from "../../domain/promo/dto/req-dto/req-create-promo.dto";
+import { ResPromoDto } from "../../domain/promo/dto/res-dto/res-promo.dto";
 import { PrismaService } from "../../services/prisma/prisma.service";
-import { ReqUpdatePromoDto } from "../../domain/promo/dto/req-update-promo.dto";
+import { ReqUpdatePromoDto } from "../../domain/promo/dto/req-dto/req-update-promo.dto";
 import { logger } from "../../../logger/logger";
+import { ResUpdatePromoDto } from "../../domain/promo/dto/res-dto/res-update-promo.dto";
 
 @Injectable()
 export class PromoAdapter extends PromoRepository {
@@ -27,7 +28,7 @@ export class PromoAdapter extends PromoRepository {
     });
   }
 
-  async updatePromo(id: string, data: ReqUpdatePromoDto): Promise<ResPromoDto> {
+  async updatePromo(id: string, data: ReqUpdatePromoDto): Promise<ResUpdatePromoDto> {
     logger.info(`PromoAdapter was called updatePromo method with param - ${JSON.stringify(id)}, ${JSON.stringify(data)}`);
 
     return this.prisma.promo.update({

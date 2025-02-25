@@ -2,6 +2,12 @@ import { IUser } from "../../../../shared/entity";
 import { faker } from "@faker-js/faker";
 import { ERole } from "../../../../shared/enum";
 
+/**
+ * @export
+ * @const
+ * @name MockDataResUser
+ * @see { IUser }
+ */
 export const MockDataResUser: IUser = {
   id: faker.string.uuid(),
   login: faker.person.fullName(),

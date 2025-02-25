@@ -6,7 +6,8 @@ import { ResUserDto } from "./res-user.dto";
  *
  * @export
  * @class ResUpdateUserDto
- * @extends OmitType(ResUserDto)
- * @see ResUserDto
+ * @name ResUpdateUserDto
+ * @extends { OmitType(ResUserDto, ["id"] as const) }
+ * @see { ResUserDto }
  */
 export class ResUpdateUserDto extends OmitType(ResUserDto, ["id"] as const) {}

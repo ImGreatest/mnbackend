@@ -3,7 +3,7 @@ import { ProfileRepository } from "./repositories/profile.repository";
 import { ReqCreateProfileDto } from "./dto/req-dto/req-create-profile.dto";
 import { ResProfileDto } from "./dto/res-dto/res-profile.dto";
 import { ReqUpdateProfileDto } from "./dto/req-dto/req-update-profile.dto";
-import { ResUpdatedProfileDto } from "./dto/res-dto/res-updated-profile.dto";
+import { ResUpdateProfileDto } from "./dto/res-dto/res-updated-profile.dto";
 
 @Injectable()
 export class ProfileService {
@@ -20,7 +20,7 @@ export class ProfileService {
   updateProfile(
     userId: string,
     data: ReqUpdateProfileDto,
-  ): Promise<ResUpdatedProfileDto> {
+  ): Promise<ResUpdateProfileDto> {
     return this.profileRep.updateProfile(userId, data);
   }
 }

@@ -106,9 +106,7 @@ export abstract class UserRepository {
    * @param data
    * @throws { Error } If the user updating by invalid input data. User the updating fail.
    * @returns { Promise&lt;ResUpdateUserDto> }
-   * @see { ReqUpdateUserDto }
-   * @see { ResUpdateUserDto }
-   * @see { ResUserDto }
+   * @see { ReqUpdateUserDto, ResUpdateUserDto, ResUserDto }
    */
   abstract updateUser(
     userId: string,
