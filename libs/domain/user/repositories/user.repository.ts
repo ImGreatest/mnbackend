@@ -7,7 +7,7 @@ import { ResUserByEmailDto } from "../dto/res-dto/res-user-by-email.dto";
 import { ResUserByLoginDto } from "../dto/res-dto/res-user-by-login.dto";
 import { ResUsersDto } from "../dto/res-dto/res-users.dto";
 import { ResCreatedUserDto } from "../dto/res-dto/res-created-user.dto";
-import { ResUpdatedUserDto } from "../dto/res-dto/res-updated-user.dto";
+import { ResUpdateUserDto } from "../dto/res-dto/res-update-user.dto";
 
 @Injectable()
 /**
@@ -105,13 +105,13 @@ export abstract class UserRepository {
    * @param userId
    * @param data
    * @throws { Error } If the user updating by invalid input data. User the updating fail.
-   * @returns { Promise&lt;ResUpdatedUserDto> }
+   * @returns { Promise&lt;ResUpdateUserDto> }
    * @see { ReqUpdateUserDto }
-   * @see { ResUpdatedUserDto }
+   * @see { ResUpdateUserDto }
    * @see { ResUserDto }
    */
   abstract updateUser(
     userId: string,
     data: ReqUpdateUserDto,
-  ): Promise<ResUpdatedUserDto>;
+  ): Promise<ResUpdateUserDto>;
 }

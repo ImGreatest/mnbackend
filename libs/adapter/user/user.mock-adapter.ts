@@ -8,7 +8,7 @@ import { ResUserByEmailDto } from "../../domain/user/dto/res-dto/res-user-by-ema
 import { ResUserByPhoneDto } from "../../domain/user/dto/res-dto/res-user-by-phone.dto";
 import { ResUsersDto } from "../../domain/user/dto/res-dto/res-users.dto";
 import { ResCreatedUserDto } from "../../domain/user/dto/res-dto/res-created-user.dto";
-import { ResUpdatedUserDto } from "../../domain/user/dto/res-dto/res-updated-user.dto";
+import { ResUpdateUserDto } from "../../domain/user/dto/res-dto/res-update-user.dto";
 
 @Injectable()
 /**
@@ -124,15 +124,15 @@ export class UserMockAdapter extends UserRepository {
    * @method updateUser
    * @param { string } userId
    * @param { ReqUpdateUserDto } data
-   * @returns { Promise&lt;ResUpdatedUserDto> }
+   * @returns { Promise&lt;ResUpdateUserDto> }
    * @see { ReqUpdateUserDto }
-   * @see { ResUpdatedUserDto }
+   * @see { ResUpdateUserDto }
    * @see { UserRepository }
    */
   async updateUser(
     userId: string,
     data: ReqUpdateUserDto,
-  ): Promise<ResUpdatedUserDto> {
+  ): Promise<ResUpdateUserDto> {
     throw new Error(`${JSON.stringify(userId)}, ${JSON.stringify(data)}`);
   }
 }

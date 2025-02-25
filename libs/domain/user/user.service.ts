@@ -8,7 +8,7 @@ import { ResUserByEmailDto } from "./dto/res-dto/res-user-by-email.dto";
 import { ResUserByPhoneDto } from "./dto/res-dto/res-user-by-phone.dto";
 import { ResUsersDto } from "./dto/res-dto/res-users.dto";
 import { ResCreatedUserDto } from "./dto/res-dto/res-created-user.dto";
-import { ResUpdatedUserDto } from "./dto/res-dto/res-updated-user.dto";
+import { ResUpdateUserDto } from "./dto/res-dto/res-update-user.dto";
 
 @Injectable()
 /**
@@ -116,15 +116,15 @@ export class UserService {
    * @method updateUser
    * @param { string } userId
    * @param { ReqUpdateUserDto } data
-   * @returns { Promise&lt;ResUpdatedUserDto> }
+   * @returns { Promise&lt;ResUpdateUserDto> }
    * @see { ReqUpdateUserDto }
-   * @see { ResUpdatedUserDto }
+   * @see { ResUpdateUserDto }
    * @see { UserRepository }
    */
   updateUser(
     userId: string,
     data: ReqUpdateUserDto,
-  ): Promise<ResUpdatedUserDto> {
+  ): Promise<ResUpdateUserDto> {
     return this.userRepository.updateUser(userId, data);
   }
 }

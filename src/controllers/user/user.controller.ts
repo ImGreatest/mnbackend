@@ -18,7 +18,7 @@ import { UserService } from "../../../libs/domain/user/user.service";
 import { ReqCreateUserDto } from "../../../libs/domain/user/dto/req-dto/req-create-user.dto";
 import { ResUserDto } from "../../../libs/domain/user/dto/res-dto/res-user.dto";
 import { ReqUpdateUserDto } from "../../../libs/domain/user/dto/req-dto/req-update-user.dto";
-import { ResUpdatedUserDto } from "../../../libs/domain/user/dto/res-dto/res-updated-user.dto";
+import { ResUpdateUserDto } from "../../../libs/domain/user/dto/res-dto/res-update-user.dto";
 import { MockReqUser } from "../../../libs/domain/user/mocks/req-mocks/mock-req-user";
 import { faker } from "@faker-js/faker";
 import { MockResUser } from "../../../libs/domain/user/mocks/res-mocks/mock-res-user";
@@ -282,7 +282,7 @@ export class UserController {
   })
   @ApiResponse({
     status: HttpStatus.OK,
-    type: ResUpdatedUserDto,
+    type: ResUpdateUserDto,
     description: "Return updated user",
     isArray: false,
   })
@@ -305,15 +305,15 @@ export class UserController {
    * @method updateUser
    * @param { string } userId
    * @param { ReqUpdateUserDto } data
-   * @returns { Promise&lt;ResUpdatedUserDto> }
+   * @returns { Promise&lt;ResUpdateUserDto> }
    * @see { ReqUpdateUserDto }
-   * @see { ResUpdatedUserDto }
+   * @see { ResUpdateUserDto }
    * @see { UserService }
    */
   updateUser(
     @Param("id") userId: string,
     @Body() data: ReqUpdateUserDto,
-  ): Promise<ResUpdatedUserDto> {
+  ): Promise<ResUpdateUserDto> {
     return this.userService.updateUser(userId, data);
   }
 
