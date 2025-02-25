@@ -6,6 +6,7 @@ import { logger } from "../../../logger/logger";
 import { ResCategoryDto } from "../../domain/category/dto/res-dto/res-category.dto";
 import { ResCategoriesDto } from "../../domain/category/dto/res-dto/res-categories.dto";
 import { ReqUpdateCategoryDto } from "../../domain/category/dto/req-dto/req-update-category.dto";
+import { ResUpdateCategoryDto } from "../../domain/category/dto/res-dto/res-update-category.dto";
 
 @Injectable()
 export class CategoryAdapter extends CategoryRepository {
@@ -44,7 +45,7 @@ export class CategoryAdapter extends CategoryRepository {
   async updateCategory(
     id: string,
     data: ReqUpdateCategoryDto,
-  ): Promise<ResCategoryDto> {
+  ): Promise<ResUpdateCategoryDto> {
     logger.verbose(
       `CategoryAdapter called updateCategory with params - ${JSON.stringify(id)}, ${JSON.stringify(data)}`,
     );

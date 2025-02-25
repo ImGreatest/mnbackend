@@ -4,7 +4,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["driverAdapters", "postgresqlExtensions", "fullTextSearch", "fullTextIndex"]
+  previewFeatures = ["driverAdapters", "postgresqlExtensions", "fullTextSearchPostgres", "fullTextIndex"]
 }
 
 datasource db {
@@ -195,6 +195,7 @@ model Product {
 model Category {
   id              String            @id @default(uuid())
   name            String            @db.VarChar(255)
+  subcategories String[] @map("sub_categories")
   createdAt       DateTime          @default(now()) @map("created_at") @db.Timestamptz(3)
   updatedAt       DateTime?         @updatedAt @map("updated_at") @db.Timestamptz(3)
   deletedAt       DateTime?         @map("deleted_at") @db.Timestamptz(3)

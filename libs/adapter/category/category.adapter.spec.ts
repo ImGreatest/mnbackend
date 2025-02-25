@@ -31,6 +31,7 @@ describe("Category endpoint prepare to tests", () => {
     it("should create category", async () => {
       const created: ResCategoryDto = await adapter.createCategory({
         name: "Test name category",
+        subCategories: ["Test subcategory"],
       });
       const res: ResCategoryDto = await adapter.getCategory(created.id);
 
@@ -83,6 +84,7 @@ describe("Category endpoint prepare to tests", () => {
         categories.categories[0].id!,
         {
           name: "Updated category",
+          subCategories: ["Subcategory"],
         },
       );
 

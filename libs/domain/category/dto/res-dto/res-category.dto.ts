@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { faker } from "@faker-js/faker";
-import { IsDate, IsString } from "class-validator";
+import { IsArray, IsDate, IsString } from "class-validator";
 import { ICategory } from "../../../../shared/entity";
 
 export class ResCategoryDto implements ICategory {
@@ -18,6 +18,15 @@ export class ResCategoryDto implements ICategory {
   })
   @IsString()
   name: string;
+
+  @ApiProperty({
+    type: Array.of(String),
+    description: "Property subcategories of category",
+    isArray: true,
+  })
+  @IsArray()
+  @IsString({ each: true })
+  subcategories: string[];
 
   @ApiProperty({
     type: Date,
