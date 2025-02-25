@@ -5,6 +5,7 @@ import { ResCollectionsDto } from "./dto/res-dto/res-collections.dto";
 import { ReqUpdateCollectionDto } from "./dto/req-dto/req-update-collection.dto";
 import { CollectionRepository } from "./repositories/collection.repository";
 import { logger } from "../../../logger/logger";
+import { ResUpdateCollectionDto } from "./dto/res-dto/res-update-collection.dto";
 
 @Injectable()
 export class CollectionService {
@@ -27,7 +28,7 @@ export class CollectionService {
   updateCollection(
     collectionId: string,
     data: ReqUpdateCollectionDto,
-  ): Promise<ResCollectionDto> {
+  ): Promise<ResUpdateCollectionDto> {
     return this.collectionRep.updateCollection(collectionId, data);
   }
 

@@ -5,6 +5,7 @@ import { ResCollectionsDto } from "../../domain/collection/dto/res-dto/res-colle
 import { ReqUpdateCollectionDto } from "../../domain/collection/dto/req-dto/req-update-collection.dto";
 import { logger } from "../../../logger/logger";
 import { ICollection } from "../../shared/entity";
+import { ResUpdateCollectionDto } from "../../domain/collection/dto/res-dto/res-update-collection.dto";
 
 @Injectable()
 export class CollectionMockAdapter extends CollectionRepository {
@@ -52,7 +53,7 @@ export class CollectionMockAdapter extends CollectionRepository {
   async updateCollection(
     collectionId: string,
     data: ReqUpdateCollectionDto,
-  ): Promise<ResCollectionDto> {
+  ): Promise<ResUpdateCollectionDto> {
     logger.verbose(
       `CollectionMockAdapter was called updateCollection method with params - ${JSON.stringify(collectionId)}, ${JSON.stringify(data)}`,
     );

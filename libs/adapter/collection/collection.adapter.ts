@@ -6,6 +6,7 @@ import { ResCollectionDto } from "../../domain/collection/dto/res-dto/res-collec
 import { ReqUpdateCollectionDto } from "../../domain/collection/dto/req-dto/req-update-collection.dto";
 import { ResCollectionsDto } from "../../domain/collection/dto/res-dto/res-collections.dto";
 import { logger } from "../../../logger/logger";
+import { ResUpdateCollectionDto } from "../../domain/collection/dto/res-dto/res-update-collection.dto";
 
 @Injectable()
 export class CollectionAdapter extends CollectionRepository {
@@ -47,7 +48,7 @@ export class CollectionAdapter extends CollectionRepository {
   async updateCollection(
     collectionId: string,
     data: ReqUpdateCollectionDto,
-  ): Promise<ResCollectionDto> {
+  ): Promise<ResUpdateCollectionDto> {
     logger.verbose(
       `Adapter call - updateCollection method, params - ${JSON.stringify(collectionId)}, ${JSON.stringify(data)}`,
     );
