@@ -36,3 +36,9 @@ export const minioConfig = Object.freeze({
 	SecretKey: process.env.MINIO_SECRET_KEY,
 	BucketName: process.env.MINIO_BUCKET_NAME,
 });
+
+export const rabbitConfig = Object.freeze({
+	Host: process.env.RABBITMQ_HOST || 'amqp://localhost:',
+	Port: parseInt(process.env.RABBITMQ_PORT) || 5672,
+	QueueName: process.env.RABBITMQ_QUEUE_NAME,
+});
