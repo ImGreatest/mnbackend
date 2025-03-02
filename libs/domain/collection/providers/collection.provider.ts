@@ -4,9 +4,9 @@ import { CollectionRepository } from "../repositories/collection.repository";
 import { CollectionAdapter } from "../../../adapter/collection/collection.adapter";
 
 export const CollectionProvider: Provider[] = [
-	CollectionService,
-	{
-		provide: CollectionRepository,
-		useClass: CollectionAdapter,
-	},
+  CollectionService,
+  {
+    provide: CollectionRepository,
+    useClass: CollectionAdapter,
+  },
 ];

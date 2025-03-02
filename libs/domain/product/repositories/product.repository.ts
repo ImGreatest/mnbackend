@@ -9,17 +9,23 @@ import { ResProductsByNameDto } from "../dto/res-dto/res-products-by-name.dto";
 
 @Injectable()
 export abstract class ProductRepository {
-	abstract createProduct(data: ReqCreateProductDto): Promise<ResProductDto>;
+  abstract createProduct(data: ReqCreateProductDto): Promise<ResProductDto>;
 
-	abstract getProduct(productId: string): Promise<ResProductDto>;
+  abstract getProduct(productId: string): Promise<ResProductDto>;
 
-	abstract getProducts(name?: string, cost?: number): Promise<ResProductsDto>;
+  abstract getProducts(name?: string, cost?: number): Promise<ResProductsDto>;
 
-	abstract getProductsByName(name: string): Promise<ResProductsByNameDto[]>;
+  abstract getProductsByName(name: string): Promise<ResProductsByNameDto[]>;
 
-	abstract getProductsByRangeCost(minCost: number, maxCost: number): Promise<ResProductsByRangeCostDto[]>;
+  abstract getProductsByRangeCost(
+    minCost: number,
+    maxCost: number,
+  ): Promise<ResProductsByRangeCostDto[]>;
 
-	abstract updateProduct(productId: string, data: ReqUpdateProductDto): Promise<ResUpdateProductDto>;
+  abstract updateProduct(
+    productId: string,
+    data: ReqUpdateProductDto,
+  ): Promise<ResUpdateProductDto>;
 
-	abstract deleteProduct(productId: string): Promise<void>;
+  abstract deleteProduct(productId: string): Promise<void>;
 }

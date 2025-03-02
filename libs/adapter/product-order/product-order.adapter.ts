@@ -9,65 +9,73 @@ import { OrderService } from "../../domain/order/order.service";
 
 @Injectable()
 export class ProductOrderAdapter extends ProductOrderRepository {
-	constructor(
-		private readonly prisma: PrismaService,
-		private readonly productService: ProductService,
-		private readonly orderService: OrderService,
-	) {
-		super();
-	}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly productService: ProductService,
+    private readonly orderService: OrderService,
+  ) {
+    super();
+  }
 
-	async getProductsOrder(orderId: string): Promise<ResProductsOrderDto> {
-		logger.verbose(`ProductOrderAdapter was called method getProductsOrder with param - ${JSON.stringify(orderId)}`);
+  async getProductsOrder(orderId: string): Promise<ResProductsOrderDto> {
+    logger.verbose(
+      `ProductOrderAdapter was called method getProductsOrder with param - ${JSON.stringify(orderId)}`,
+    );
 
-		return {
-			products: await this.prisma.productOrder.findMany({
-				where: { orderId: orderId },
-			})
-				.then(async (res) => {
-					const products = res.map(async (ids) => {
-						try {
-							return await this.productService.getProduct(ids.productId)
-						} catch (e) {
-							logger.error(e);
-							throw e;
-						}
-					});
+    return {
+      products: await this.prisma.productOrder
+        .findMany({
+          where: { orderId: orderId },
+        })
+        .then(async (res) => {
+          const products = res.map(async (ids) => {
+            try {
+              return await this.productService.getProduct(ids.productId);
+            } catch (e) {
+              logger.error(e);
+              throw e;
+            }
+          });
 
-					return await Promise.all(products)
-				})
-				.catch(e => {
-					logger.error(e);
+          return await Promise.all(products);
+        })
+        .catch((e) => {
+          logger.error(e);
 
-					throw Error(e);
-				})
-		}
-	}
+          throw Error(e);
+        }),
+    };
+  }
 
-	async getOrdersContainProduct(productId: string): Promise<ResOrdersContainProductDto> {
-		logger.verbose(`ProductOrderAdapter was called getOrdersWithProduct method with param - ${productId}`);
+  async getOrdersContainProduct(
+    productId: string,
+  ): Promise<ResOrdersContainProductDto> {
+    logger.verbose(
+      `ProductOrderAdapter was called getOrdersWithProduct method with param - ${productId}`,
+    );
 
-		return {
-			orders: await this.prisma.productOrder.findMany({
-				where: { productId: productId },
-			})
-				.then(async (res) => {
-					const orders = res.map(async (ids) => {
-						try {
-							return await this.orderService.getOrder(ids.orderId)
-						} catch (e) {
-							logger.error(e);
-							throw e;
-						}
-					});
+    return {
+      orders: await this.prisma.productOrder
+        .findMany({
+          where: { productId: productId },
+        })
+        .then(async (res) => {
+          const orders = res.map(async (ids) => {
+            try {
+              return await this.orderService.getOrder(ids.orderId);
+            } catch (e) {
+              logger.error(e);
+              throw e;
+            }
+          });
 
-					return await Promise.all(orders);
-				})
-				.catch(e => {
-					logger.error(e);
+          return await Promise.all(orders);
+        })
+        .catch((e) => {
+          logger.error(e);
 
-					throw Error(e);
-				})
-		}
-	}
+          throw Error(e);
+        }),
+    };
+  }
 }

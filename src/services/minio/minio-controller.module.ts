@@ -3,7 +3,7 @@ import { MinioController } from "./minio.controller";
 import { MinioClientModule } from "../../../libs/services/minio/minio.module";
 
 @Module({
-	imports: [MinioClientModule],
-	controllers: [MinioController],
+  imports: [MinioClientModule],
+  controllers: [MinioController],
 })
 export class MinioControllerModule {}

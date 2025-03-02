@@ -9,25 +9,30 @@ import { ResUpdateNotificationTemplateDto } from "./dto/res-dto/res-update-notif
 
 @Injectable()
 export class NotificationTemplateService {
-	constructor(private readonly rep: NotificationTemplateRepository) {}
+  constructor(private readonly rep: NotificationTemplateRepository) {}
 
-	createTemplate(data: ReqCreateNotificationTemplateDto): Promise<ResNotificationTemplateDto> {
-		return this.rep.createTemplate(data);
-	}
+  createTemplate(
+    data: ReqCreateNotificationTemplateDto,
+  ): Promise<ResNotificationTemplateDto> {
+    return this.rep.createTemplate(data);
+  }
 
-	getTemplate(id: string): Promise<ResNotificationTemplateDto> {
-		return this.rep.getTemplate(id);
-	}
+  getTemplate(id: string): Promise<ResNotificationTemplateDto> {
+    return this.rep.getTemplate(id);
+  }
 
-	getTemplates(type?: ENotificationType): Promise<ResNotificationTemplatesDto> {
-		return this.rep.getTemplates(type);
-	}
+  getTemplates(type?: ENotificationType): Promise<ResNotificationTemplatesDto> {
+    return this.rep.getTemplates(type);
+  }
 
-	updateTemplate(id: string, data: ReqUpdateNotificationTemplateDto): Promise<ResUpdateNotificationTemplateDto> {
-		return this.rep.updateTemplate(id, data);
-	}
+  updateTemplate(
+    id: string,
+    data: ReqUpdateNotificationTemplateDto,
+  ): Promise<ResUpdateNotificationTemplateDto> {
+    return this.rep.updateTemplate(id, data);
+  }
 
-	deleteTemplate(id: string): Promise<void> {
-		return this.rep.deleteTemplate(id);
-	}
+  deleteTemplate(id: string): Promise<void> {
+    return this.rep.deleteTemplate(id);
+  }
 }

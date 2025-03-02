@@ -4,9 +4,9 @@ import { NotificationTemplateRepository } from "../repositories/notification-tem
 import { NotificationTemplateAdapter } from "../../../adapter/notification-template/notification-template.adapter";
 
 export const NotificationTemplateProvider: Provider[] = [
-	NotificationTemplateService,
-	{
-		provide: NotificationTemplateRepository,
-		useClass: NotificationTemplateAdapter,
-	},
+  NotificationTemplateService,
+  {
+    provide: NotificationTemplateRepository,
+    useClass: NotificationTemplateAdapter,
+  },
 ];

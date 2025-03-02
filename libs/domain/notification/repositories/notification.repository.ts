@@ -5,9 +5,14 @@ import { ReqCreateNotificationDto } from "../dto/req-dto/req-create-notification
 
 @Injectable()
 export abstract class NotificationRepository {
-	abstract createNotification(data: ReqCreateNotificationDto): Promise<ResNotificationDto>;
+  abstract createNotification(
+    data: ReqCreateNotificationDto,
+  ): Promise<ResNotificationDto>;
 
-	abstract getNotification(id: string): Promise<ResNotificationDto>;
+  abstract getNotification(id: string): Promise<ResNotificationDto>;
 
-	abstract getNotifications(userId?: string, templateId?: string): Promise<ResNotificationsDto>;
+  abstract getNotifications(
+    userId?: string,
+    templateId?: string,
+  ): Promise<ResNotificationsDto>;
 }

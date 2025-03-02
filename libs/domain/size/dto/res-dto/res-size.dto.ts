@@ -5,14 +5,17 @@ import { IsString } from "class-validator";
 import { ISize } from "../../../../shared/entity";
 
 export class ResSizeDto implements ISize {
-	@ApiProperty({
-		type: String,
-		description: 'Property name of size',
-		example: ESize[faker.number.int({
-			min: 0,
-			max: Object.keys(ESize).length,
-		})],
-	})
-	@IsString()
-	name: string;
+  @ApiProperty({
+    type: String,
+    description: "Property name of size",
+    example:
+      ESize[
+        faker.number.int({
+          min: 0,
+          max: Object.keys(ESize).length,
+        })
+      ],
+  })
+  @IsString()
+  name: string;
 }

@@ -8,33 +8,46 @@ import { ReqUpdateCategoryDto } from "../../domain/category/dto/req-dto/req-upda
 
 @Injectable()
 export class CategoryMockAdapter extends CategoryRepository {
-	constructor() {
-		super();
-		logger.info('CategoryMockAdapter was init');
-	}
+  constructor() {
+    super();
+    logger.info("CategoryMockAdapter was init");
+  }
 
-	async createCategory(data: ReqCreateCategoryDto): Promise<ResCategoryDto> {
-		logger.verbose(`CategoryMockAdapter was called createCategory with param - ${JSON.stringify(data)}`);
-		throw new Error(`${JSON.stringify(data)}`);
-	}
+  async createCategory(data: ReqCreateCategoryDto): Promise<ResCategoryDto> {
+    logger.verbose(
+      `CategoryMockAdapter was called createCategory with param - ${JSON.stringify(data)}`,
+    );
+    throw new Error(`${JSON.stringify(data)}`);
+  }
 
-	async getCategory(id: string, name?: string): Promise<ResCategoryDto> {
-		logger.verbose(`CategoryMockAdapter was called getCategory with param - ${JSON.stringify(id)}, ${JSON.stringify(name)}`);
-		throw new Error(`${JSON.stringify(id)}, ${JSON.stringify(name)}`);
-	}
+  async getCategory(id: string, name?: string): Promise<ResCategoryDto> {
+    logger.verbose(
+      `CategoryMockAdapter was called getCategory with param - ${JSON.stringify(id)}, ${JSON.stringify(name)}`,
+    );
+    throw new Error(`${JSON.stringify(id)}, ${JSON.stringify(name)}`);
+  }
 
-	async getCategories(): Promise<ResCategoriesDto> {
-		logger.verbose('CategoryMockAdapter was called getCategories method without params');
-		throw new Error('Was called getCategories method');
-	}
+  async getCategories(): Promise<ResCategoriesDto> {
+    logger.verbose(
+      "CategoryMockAdapter was called getCategories method without params",
+    );
+    throw new Error("Was called getCategories method");
+  }
 
-	async updateCategory(id: string, data: ReqUpdateCategoryDto): Promise<ResCategoryDto> {
-		logger.verbose(`CategoryMockAdapter was called updateCategory method with param - ${JSON.stringify(id)}, ${JSON.stringify(data)}`);
-		throw new Error(`${JSON.stringify(id)}, ${JSON.stringify(data)}`);
-	}
+  async updateCategory(
+    id: string,
+    data: ReqUpdateCategoryDto,
+  ): Promise<ResCategoryDto> {
+    logger.verbose(
+      `CategoryMockAdapter was called updateCategory method with param - ${JSON.stringify(id)}, ${JSON.stringify(data)}`,
+    );
+    throw new Error(`${JSON.stringify(id)}, ${JSON.stringify(data)}`);
+  }
 
-	async deleteCategory(id: string): Promise<void> {
-		logger.verbose(`CategoryMockAdapter was called deleteCategory method with param - ${JSON.stringify(id)}`);
-		throw new Error(`${JSON.stringify(id)}`);
-	}
+  async deleteCategory(id: string): Promise<void> {
+    logger.verbose(
+      `CategoryMockAdapter was called deleteCategory method with param - ${JSON.stringify(id)}`,
+    );
+    throw new Error(`${JSON.stringify(id)}`);
+  }
 }

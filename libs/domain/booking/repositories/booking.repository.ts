@@ -8,15 +8,24 @@ import { ResReservationsByDateDto } from "../dto/res-dto/res-reservations-by-dat
 
 @Injectable()
 export abstract class BookingRepository {
-	abstract createReservation(data: ReqCreateReservationDto): Promise<void>;
+  abstract createReservation(data: ReqCreateReservationDto): Promise<void>;
 
-	abstract getReservation(reservationId: string, userId?: string): Promise<ResReservationDto>;
+  abstract getReservation(
+    reservationId: string,
+    userId?: string,
+  ): Promise<ResReservationDto>;
 
-	abstract getReservations(): Promise<ResReservationsDto[]>;
+  abstract getReservations(): Promise<ResReservationsDto[]>;
 
-	abstract getReservationsByDate(date: Date, userId?: string): Promise<ResReservationsByDateDto[]>;
+  abstract getReservationsByDate(
+    date: Date,
+    userId?: string,
+  ): Promise<ResReservationsByDateDto[]>;
 
-	abstract updateReservation(reservationId: string, data: ReqUpdateReservationDto): Promise<ResUpdateReservationDto>;
+  abstract updateReservation(
+    reservationId: string,
+    data: ReqUpdateReservationDto,
+  ): Promise<ResUpdateReservationDto>;
 
-	abstract deleteReservation(reservationId: string): Promise<void>;
+  abstract deleteReservation(reservationId: string): Promise<void>;
 }

@@ -4,5 +4,5 @@ import { ResSizesDto } from "../dto/res-dto/res-sizes.dto";
 
 @Injectable()
 export abstract class SizeRepository {
-	abstract getSize(name?: string): Promise<ResSizeDto | ResSizesDto>;
+  abstract getSize(name?: string): Promise<ResSizeDto | ResSizesDto>;
 }

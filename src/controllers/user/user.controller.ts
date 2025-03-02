@@ -4,11 +4,12 @@ import {
   Get,
   HttpStatus,
   Param,
-  Post, UseGuards,
+  Post,
+  UseGuards,
 } from "@nestjs/common";
 import {
   ApiBearerAuth,
-  ApiBody,
+  ApiBody, ApiOperation,
   ApiParam,
   ApiResponse,
   ApiTags,
@@ -17,7 +18,7 @@ import { UserService } from "../../../libs/domain/user/user.service";
 import { ReqCreateUserDto } from "../../../libs/domain/user/dto/req-dto/req-create-user.dto";
 import { ResUserDto } from "../../../libs/domain/user/dto/res-dto/res-user.dto";
 import { ReqUpdateUserDto } from "../../../libs/domain/user/dto/req-dto/req-update-user.dto";
-import { ResUpdatedUserDto } from "../../../libs/domain/user/dto/res-dto/res-updated-user.dto";
+import { ResUpdateUserDto } from "../../../libs/domain/user/dto/res-dto/res-update-user.dto";
 import { MockReqUser } from "../../../libs/domain/user/mocks/req-mocks/mock-req-user";
 import { faker } from "@faker-js/faker";
 import { MockResUser } from "../../../libs/domain/user/mocks/res-mocks/mock-res-user";
@@ -30,12 +31,14 @@ import { MockResUserByPhone } from "../../../libs/domain/user/mocks/res-mocks/mo
 import { MockReqUpdateUser } from "../../../libs/domain/user/mocks/req-mocks/mock-req-update-user";
 import { ResUsersDto } from "../../../libs/domain/user/dto/res-dto/res-users.dto";
 import { RolesGuard } from "../../services/auth/guards/roles.guard";
-import { Roles } from "../../../libs/decorators/roles.decorator";
+import { Roles } from "../../../libs/common/decorators/roles.decorator";
 import { ResCreatedUserDto } from "../../../libs/domain/user/dto/res-dto/res-created-user.dto";
 import { ProfileService } from "../../../libs/domain/profile/profile.service";
 import { ResProfileDto } from "../../../libs/domain/profile/dto/res-dto/res-profile.dto";
 import { ReqUpdateProfileDto } from "../../../libs/domain/profile/dto/req-dto/req-update-profile.dto";
-import { ResUpdatedProfileDto } from "../../../libs/domain/profile/dto/res-dto/res-updated-profile.dto";
+import { ResUpdateProfileDto } from "../../../libs/domain/profile/dto/res-dto/res-updated-profile.dto";
+import { MockResUpdateUser } from "../../../libs/domain/user/mocks/res-mocks/mock-res-update-user";
+import { MockResProfile } from "../../../libs/domain/profile/mocks/res-mocks/mock-res-profile";
 
 @ApiTags("user")
 @ApiBearerAuth()
@@ -58,7 +61,7 @@ export class UserController {
     private readonly profileService: ProfileService,
   ) {}
 
-  @Roles('admin')
+  @Roles("admin")
   @Post("create-user")
   @ApiBody({
     type: ReqCreateUserDto,
@@ -66,6 +69,7 @@ export class UserController {
     description: "Data for create new user",
     examples: MockReqUser,
   })
+  @ApiOperation({ summary: "Do request for creating user" })
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: "Successfully to create user",
@@ -74,6 +78,14 @@ export class UserController {
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
     description: "Invalid input data",
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: "An error occurred while updating the user",
+  })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: "Method is forbidden",
   })
   /**
    * Controller method for create the user instance.
@@ -105,6 +117,7 @@ export class UserController {
     isArray: false,
     example: MockResUser,
   })
+  @ApiOperation({ summary: "Do request for getting user by identifier" })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
     description: "Invalid input data",
@@ -112,6 +125,14 @@ export class UserController {
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
     description: "User is not found",
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: "An error occurred while updating the user",
+  })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: "Method is forbidden",
   })
   /**
    * Controller method for getting user by his identifier.
@@ -134,6 +155,7 @@ export class UserController {
     required: true,
     description: "The User login",
   })
+  @ApiOperation({ summary: "Do request for getting user by login" })
   @ApiResponse({
     status: HttpStatus.OK,
     description: "Returns user by input login.",
@@ -148,6 +170,14 @@ export class UserController {
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
     description: "User is not found",
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: "An error occurred while updating the user",
+  })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: "Method is forbidden",
   })
   /**
    * Controller method for getting user by his login.
@@ -170,6 +200,7 @@ export class UserController {
     required: true,
     description: "The user email.",
   })
+  @ApiOperation({ summary: "Do request for getting user by email" })
   @ApiResponse({
     status: HttpStatus.OK,
     description: "Returns user by input email.",
@@ -184,6 +215,14 @@ export class UserController {
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
     description: "User is not found.",
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: "An error occurred while updating the user",
+  })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: "Method is forbidden",
   })
   /**
    * Controller method for getting the user by his email.
@@ -206,6 +245,7 @@ export class UserController {
     required: true,
     description: "The user phone.",
   })
+  @ApiOperation({ summary: "Do request for getting user by phone" })
   @ApiResponse({
     status: HttpStatus.OK,
     description: "Returns user by his phone.",
@@ -220,6 +260,14 @@ export class UserController {
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
     description: "User is not found.",
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: "An error occurred while updating the user",
+  })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: "Method is forbidden",
   })
   /**
    * Controller method for getting the user by phone.
@@ -243,6 +291,7 @@ export class UserController {
     isArray: true,
     example: MockResUser,
   })
+  @ApiOperation({ summary: "Do request for getting all users" })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
     description: "Invalid data",
@@ -250,6 +299,14 @@ export class UserController {
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
     description: "Users is not found",
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: "An error occurred while updating the user",
+  })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: "Method is forbidden",
   })
   /**
    * Controller method for getting the all users.
@@ -279,11 +336,13 @@ export class UserController {
     isArray: false,
     examples: { MockReqUpdateUser },
   })
+  @ApiOperation({ summary: "Do request for updating user" })
   @ApiResponse({
     status: HttpStatus.OK,
-    type: ResUpdatedUserDto,
+    type: ResUpdateUserDto,
     description: "Return updated user",
     isArray: false,
+    example: MockResUpdateUser,
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -297,6 +356,10 @@ export class UserController {
     status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: "An error occurred while updating the user",
   })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: "Method is forbidden",
+  })
   /**
    * Controller method for updating user.
    *
@@ -304,15 +367,15 @@ export class UserController {
    * @method updateUser
    * @param { string } userId
    * @param { ReqUpdateUserDto } data
-   * @returns { Promise&lt;ResUpdatedUserDto> }
+   * @returns { Promise&lt;ResUpdateUserDto> }
    * @see { ReqUpdateUserDto }
-   * @see { ResUpdatedUserDto }
+   * @see { ResUpdateUserDto }
    * @see { UserService }
    */
   updateUser(
     @Param("id") userId: string,
     @Body() data: ReqUpdateUserDto,
-  ): Promise<ResUpdatedUserDto> {
+  ): Promise<ResUpdateUserDto> {
     return this.userService.updateUser(userId, data);
   }
 
@@ -324,13 +387,13 @@ export class UserController {
     description: "Identifier user",
     example: faker.string.uuid(),
   })
+  @ApiOperation({ summary: "Do request for getting profile user" })
   @ApiResponse({
     status: HttpStatus.OK,
     type: ResProfileDto,
     description: "Return user profile",
     isArray: false,
-    // TODO adds example response profile
-    // example:
+    example: MockResProfile,
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -343,6 +406,10 @@ export class UserController {
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: "An error occurred while getting the user profile",
+  })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: "Method is forbidden",
   })
   /**
    * Controller method for getting user profile.
@@ -373,6 +440,7 @@ export class UserController {
     isArray: false,
     // examples: {  },
   })
+  @ApiOperation({ summary: "Do request for updating user" })
   @ApiResponse({
     status: HttpStatus.OK,
     type: ResProfileDto,
@@ -393,6 +461,10 @@ export class UserController {
     status: HttpStatus.INTERNAL_SERVER_ERROR,
     description: "An error occurred while updating the user",
   })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: "Method is forbidden",
+  })
   /**
    * Controller method for update user profile.
    *
@@ -402,12 +474,12 @@ export class UserController {
    * @param { ReqUpdateProfileDto } data
    * @returns { Promise&ResUpdatedProfileDto> }
    * @see { ReqUpdateProfileDto }
-   * @see { ResUpdatedProfileDto }
+   * @see { ResUpdateProfileDto }
    */
   updateProfile(
     @Param("id") userId: string,
     @Body() data: ReqUpdateProfileDto,
-  ): Promise<ResUpdatedProfileDto> {
+  ): Promise<ResUpdateProfileDto> {
     return this.profileService.updateProfile(userId, data);
   }
 }

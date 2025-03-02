@@ -12,81 +12,101 @@ import { PrismaService } from "../../services/prisma/prisma.service";
 
 @Injectable()
 export class ProductAdapter extends ProductRepository {
-	constructor(private readonly prisma: PrismaService) {
-		super();
-		logger.info('ProductAdapter was init');
-	}
+  constructor(private readonly prisma: PrismaService) {
+    super();
+    logger.info("ProductAdapter was init");
+  }
 
-	async createProduct(data: ReqCreateProductDto): Promise<ResProductDto> {
-		logger.verbose(`ProductAdapter called createProduct with param - ${JSON.stringify(data)}`);
+  async createProduct(data: ReqCreateProductDto): Promise<ResProductDto> {
+    logger.verbose(
+      `ProductAdapter called createProduct with param - ${JSON.stringify(data)}`,
+    );
 
-		return this.prisma.product.create({ data: { ...data } });
-	}
+    return this.prisma.product.create({ data: { ...data } });
+  }
 
-	async getProduct(productId: string): Promise<ResProductDto> {
-		logger.verbose(`ProductAdapter called getProducts with param - ${JSON.stringify(productId)}`);
+  async getProduct(productId: string): Promise<ResProductDto> {
+    logger.verbose(
+      `ProductAdapter called getProducts with param - ${JSON.stringify(productId)}`,
+    );
 
-		return this.prisma.product.findUnique({ where: { id: productId } });
-	}
+    return this.prisma.product.findUnique({ where: { id: productId } });
+  }
 
-	async getProducts(name?: string, cost?: number): Promise<ResProductsDto> {
-		logger.verbose(`ProductAdapter called getProducts with params - ${JSON.stringify(name)}, ${JSON.stringify(cost)}`);
+  async getProducts(name?: string, cost?: number): Promise<ResProductsDto> {
+    logger.verbose(
+      `ProductAdapter called getProducts with params - ${JSON.stringify(name)}, ${JSON.stringify(cost)}`,
+    );
 
-		const products = await this.prisma.product.findMany({
-			where: {
-				name: name,
-				cost: cost,
-			},
-		});
+    const products = await this.prisma.product.findMany({
+      where: {
+        name: name,
+        cost: cost,
+      },
+    });
 
-		return {
-			products: products.map(product => (product)),
-		}
-	}
+    return {
+      products: products.map((product) => product),
+    };
+  }
 
-	async getProductsByName(name: string): Promise<ResProductsByNameDto[]> {
-		logger.verbose(`ProductAdapter called getProductsByName with param - ${JSON.stringify(name)}`);
+  async getProductsByName(name: string): Promise<ResProductsByNameDto[]> {
+    logger.verbose(
+      `ProductAdapter called getProductsByName with param - ${JSON.stringify(name)}`,
+    );
 
-		return this.prisma.product.findMany({
-			where: {
-				name: name,
-			},
-		});
-	}
+    return this.prisma.product.findMany({
+      where: {
+        name: name,
+      },
+    });
+  }
 
-	async getProductsByRangeCost(minCost: number, maxCost: number): Promise<ResProductsByRangeCostDto[]> {
-		logger.verbose(`ProductAdapter called getProductsByRangeCost with params - ${JSON.stringify(minCost)}, ${JSON.stringify(maxCost)}`);
+  async getProductsByRangeCost(
+    minCost: number,
+    maxCost: number,
+  ): Promise<ResProductsByRangeCostDto[]> {
+    logger.verbose(
+      `ProductAdapter called getProductsByRangeCost with params - ${JSON.stringify(minCost)}, ${JSON.stringify(maxCost)}`,
+    );
 
-		return this.prisma.product.findMany({
-			where: {
-				cost: {
-					gte: minCost,
-					lte: maxCost,
-				},
-			},
-		});
-	}
+    return this.prisma.product.findMany({
+      where: {
+        cost: {
+          gte: minCost,
+          lte: maxCost,
+        },
+      },
+    });
+  }
 
-	async updateProduct(productId: string, data: ReqUpdateProductDto): Promise<ResUpdateProductDto> {
-		logger.verbose(`ProductAdapter called updateProduct with params - ${JSON.stringify(productId)}, ${JSON.stringify(data)}`);
+  async updateProduct(
+    productId: string,
+    data: ReqUpdateProductDto,
+  ): Promise<ResUpdateProductDto> {
+    logger.verbose(
+      `ProductAdapter called updateProduct with params - ${JSON.stringify(productId)}, ${JSON.stringify(data)}`,
+    );
 
-		return this.prisma.product.update({
-			where: {
-				id: productId,
-			},
-			data: {
-				...data,
-			},
-		});
-	}
+    return this.prisma.product.update({
+      where: {
+        id: productId,
+      },
+      data: {
+        ...data,
+      },
+    });
+  }
 
-	async deleteProduct(productId: string): Promise<void> {
-		logger.verbose(`ProductAdapter called deleteProduct with param - ${JSON.stringify(productId)}`);
+  async deleteProduct(productId: string): Promise<void> {
+    logger.verbose(
+      `ProductAdapter called deleteProduct with param - ${JSON.stringify(productId)}`,
+    );
 
-		await this.prisma.product.delete({
-			where: {
-				id: productId,
-			},
-		});
-	}
+    await this.prisma.product.delete({
+      where: {
+        id: productId,
+      },
+    });
+  }
 }

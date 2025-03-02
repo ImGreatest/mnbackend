@@ -8,35 +8,46 @@ import { logger } from "../../../logger/logger";
 
 @Injectable()
 export class NotificationAdapter extends NotificationRepository {
-	constructor(private readonly prisma: PrismaService) {
-		super();
-		logger.info('NotificationAdapter was init');
-	}
+  constructor(private readonly prisma: PrismaService) {
+    super();
+    logger.info("NotificationAdapter was init");
+  }
 
-	async createNotification(data: ReqCreateNotificationDto): Promise<ResNotificationDto> {
-		logger.verbose(`NotificationAdapter called createNotification method with param - ${JSON.stringify(data)}`);
+  async createNotification(
+    data: ReqCreateNotificationDto,
+  ): Promise<ResNotificationDto> {
+    logger.verbose(
+      `NotificationAdapter called createNotification method with param - ${JSON.stringify(data)}`,
+    );
 
-		return this.prisma.notification.create({ data });
-	}
+    return this.prisma.notification.create({ data });
+  }
 
-	async getNotification(id: string): Promise<ResNotificationDto> {
-		logger.verbose(`NotificationAdapter called getNotification method with param - ${JSON.stringify(id)}`);
+  async getNotification(id: string): Promise<ResNotificationDto> {
+    logger.verbose(
+      `NotificationAdapter called getNotification method with param - ${JSON.stringify(id)}`,
+    );
 
-		return this.prisma.notification.findUnique({
-			where: { id: id },
-		});
-	}
+    return this.prisma.notification.findUnique({
+      where: { id: id },
+    });
+  }
 
-	async getNotifications(userId?: string, templateId?: string): Promise<ResNotificationsDto> {
-		logger.verbose(`NotificationAdapter called getNotifications method with params - ${JSON.stringify(userId)}, ${JSON.stringify(templateId)}`);
+  async getNotifications(
+    userId?: string,
+    templateId?: string,
+  ): Promise<ResNotificationsDto> {
+    logger.verbose(
+      `NotificationAdapter called getNotifications method with params - ${JSON.stringify(userId)}, ${JSON.stringify(templateId)}`,
+    );
 
-		return {
-			notifications: await this.prisma.notification.findMany({
-				where: {
-					userId: userId,
-					templateId: templateId,
-				},
-			}),
-		}
-	}
+    return {
+      notifications: await this.prisma.notification.findMany({
+        where: {
+          userId: userId,
+          templateId: templateId,
+        },
+      }),
+    };
+  }
 }

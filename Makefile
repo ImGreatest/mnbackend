@@ -1,3 +1,5 @@
+format:
+	pnpm run format
 up:
 	docker-compose up
 down:
@@ -8,3 +10,5 @@ run:
 	pnpm run build && pnpm run start:dev
 migrate:
 	npx prisma migrate dev
+s:
+	pnpm run start:dev

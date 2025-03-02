@@ -4,9 +4,9 @@ import { BucketRepository } from "../repositories/bucket.repository";
 import { BucketAdapter } from "../../../adapter/bucket/bucket.adapter";
 
 export const BucketProvider: Provider[] = [
-	BucketService,
-	{
-		provide: BucketRepository,
-		useClass: BucketAdapter,
-	},
+  BucketService,
+  {
+    provide: BucketRepository,
+    useClass: BucketAdapter,
+  },
 ];

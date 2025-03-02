@@ -7,29 +7,38 @@ import { ResUpdateReservationDto } from "./dto/res-dto/res-update-reservation.dt
 
 @Injectable()
 export class BookingService {
-	constructor(private readonly bookRepository: BookingRepository) {}
+  constructor(private readonly bookRepository: BookingRepository) {}
 
-	createReservation(data: ReqCreateReservationDto): Promise<void> {
-		return this.bookRepository.createReservation(data);
-	}
+  createReservation(data: ReqCreateReservationDto): Promise<void> {
+    return this.bookRepository.createReservation(data);
+  }
 
-	getReservation(reservationId: string, userId?: string): Promise<ResReservationDto> {
-		return this.bookRepository.getReservation(reservationId, userId);
-	}
+  getReservation(
+    reservationId: string,
+    userId?: string,
+  ): Promise<ResReservationDto> {
+    return this.bookRepository.getReservation(reservationId, userId);
+  }
 
-	getReservations(): Promise<ResReservationDto[]> {
-		return this.bookRepository.getReservations();
-	}
+  getReservations(): Promise<ResReservationDto[]> {
+    return this.bookRepository.getReservations();
+  }
 
-	getReservationsByDate(date: Date, userId?: string): Promise<ResReservationDto[]> {
-		return this.bookRepository.getReservationsByDate(date, userId);
-	}
+  getReservationsByDate(
+    date: Date,
+    userId?: string,
+  ): Promise<ResReservationDto[]> {
+    return this.bookRepository.getReservationsByDate(date, userId);
+  }
 
-	updateReservation(reservationId: string, data: ReqUpdateReservationDto): Promise<ResUpdateReservationDto> {
-		return this.bookRepository.updateReservation(reservationId, data);
-	}
+  updateReservation(
+    reservationId: string,
+    data: ReqUpdateReservationDto,
+  ): Promise<ResUpdateReservationDto> {
+    return this.bookRepository.updateReservation(reservationId, data);
+  }
 
-	deleteReservation(reservationId: string): Promise<void> {
-		return this.bookRepository.deleteReservation(reservationId);
-	}
+  deleteReservation(reservationId: string): Promise<void> {
+    return this.bookRepository.deleteReservation(reservationId);
+  }
 }

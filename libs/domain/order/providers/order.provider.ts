@@ -4,9 +4,9 @@ import { OrderRepository } from "../repositories/order.repository";
 import { OrderAdapter } from "../../../adapter/order/order.adapter";
 
 export const OrderProvider: Provider[] = [
-	OrderService,
-	{
-		provide: OrderRepository,
-		useClass: OrderAdapter,
-	},
+  OrderService,
+  {
+    provide: OrderRepository,
+    useClass: OrderAdapter,
+  },
 ];

@@ -4,7 +4,7 @@ import { NotificationModule } from "../../../libs/domain/notification/notificati
 import { NotificationTemplateModule } from "../../../libs/domain/notification/notification-template.module";
 
 @Module({
-	imports: [NotificationModule, NotificationTemplateModule],
-	controllers: [NotificationController]
+  imports: [NotificationModule, NotificationTemplateModule],
+  controllers: [NotificationController],
 })
 export class NotificationControllerModule {}

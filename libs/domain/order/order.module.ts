@@ -3,7 +3,7 @@ import { OrderService } from "./order.service";
 import { OrderProvider } from "./providers/order.provider";
 
 @Module({
-	providers: [...OrderProvider],
-	exports: [OrderService],
+  providers: [...OrderProvider],
+  exports: [OrderService],
 })
 export class OrderModule {}

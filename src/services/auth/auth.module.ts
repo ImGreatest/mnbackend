@@ -10,19 +10,19 @@ import { AuthController } from "./auth.controller";
 import { ProfileModule } from "../../../libs/domain/profile/profile.module";
 
 @Module({
-	imports: [
-		UserModule,
-		ProfileModule,
-		JwtModule.register({
-			global: true,
-			secret: JwtConfig.secret,
-			signOptions: {
-				expiresIn: JwtConfig.expiresIn,
-			},
-		}),
-	],
-	providers: [JwtStrategy, TokenService, AuthService, CryptoService],
-	controllers: [AuthController],
-	exports: [AuthService],
+  imports: [
+    UserModule,
+    ProfileModule,
+    JwtModule.register({
+      global: true,
+      secret: JwtConfig.secret,
+      signOptions: {
+        expiresIn: JwtConfig.expiresIn,
+      },
+    }),
+  ],
+  providers: [JwtStrategy, TokenService, AuthService, CryptoService],
+  controllers: [AuthController],
+  exports: [AuthService],
 })
 export class AuthModule {}

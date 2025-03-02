@@ -3,7 +3,7 @@ import { CollectionService } from "./collection.service";
 import { CollectionProvider } from "./providers/collection.provider";
 
 @Module({
-	providers: [...CollectionProvider],
-	exports: [CollectionService],
+  providers: [...CollectionProvider],
+  exports: [CollectionService],
 })
 export class CollectionModule {}

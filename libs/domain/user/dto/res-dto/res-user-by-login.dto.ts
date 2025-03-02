@@ -6,10 +6,11 @@ import { ResProfileDto } from "../../../profile/dto/res-dto/res-profile.dto";
  *
  * @export
  * @class { ResUserByLoginDto }
+ * @name ResUserByLoginDto
  * @extends { ResUserDto }
- * @see { ResUserDto }
- * @see { ResProfileDto }
+ * @property { ResProfileDto } profile
+ * @see { ResUserDto, ResProfileDto }
  */
 export class ResUserByLoginDto extends ResUserDto {
-	profile: ResProfileDto;
+  profile: ResProfileDto;
 }

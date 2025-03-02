@@ -5,11 +5,12 @@ import { ResProfileDto } from "../../../profile/dto/res-dto/res-profile.dto";
  * Class describing the order of properties for obtaining users by email
  *
  * @export
- * @class ResUserByEmailDto
+ * @class { ResUserByEmailDto }
+ * @name ResUserByEmailDto
+ * @property { ResProfileDto } profile
  * @extends { ResUserDto }
- * @see { ResUserDto }
- * @see { ResProfileDto }
+ * @see { ResUserDto, ResProfileDto }
  */
 export class ResUserByEmailDto extends ResUserDto {
-	profile: ResProfileDto;
+  profile: ResProfileDto;
 }

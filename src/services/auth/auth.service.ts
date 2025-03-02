@@ -14,100 +14,110 @@ import { ProfileService } from "../../../libs/domain/profile/profile.service";
 
 @Injectable()
 export class AuthService {
-	constructor(
-		private readonly prisma: PrismaService,
-		private readonly tokenService: TokenService,
-		private readonly cryptoService: CryptoService,
-		private readonly userService: UserService,
-		private readonly profileService: ProfileService,
-	) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly tokenService: TokenService,
+    private readonly cryptoService: CryptoService,
+    private readonly userService: UserService,
+    private readonly profileService: ProfileService,
+  ) {}
 
-	async signIn(data: SignInDto): Promise<AuthDataDto> {
-		const user: ResUserDto = await this.prisma.user.findUnique({
-			where: {
-				email: data?.email,
-				login: data?.login,
-				phone: data?.phone,
-			},
-		});
+  async signIn(data: SignInDto): Promise<AuthDataDto> {
+    const user: ResUserDto = await this.prisma.user.findUnique({
+      where: {
+        email: data?.email,
+        login: data?.login,
+        phone: data?.phone,
+      },
+    });
 
-		if (!user || !this.cryptoService.compareHash(data.password, user.password)) {
-			throw new UnauthorizedException();
-		}
+    if (
+      !user ||
+      !this.cryptoService.compareHash(data.password, user.password)
+    ) {
+      throw new UnauthorizedException();
+    }
 
-		const access = this.tokenService.generateJwt({
-			sub: user.id,
-			role: user.role,
-		});
+    const access = this.tokenService.generateJwt({
+      sub: user.id,
+      role: user.role,
+    });
 
-		logger.verbose('Auth was success', access);
+    logger.verbose("Auth was success", access);
 
-		const refresh = await this.tokenService.generateRefreshToken(
-			user.id,
-			data.deviceId,
-		);
+    const refresh = await this.tokenService.generateRefreshToken(
+      user.id,
+      data.deviceId,
+    );
 
-		logger.verbose('Token update', refresh);
+    logger.verbose("Token update", refresh);
 
-		return {
-			access,
-			refresh,
-		};
-	}
+    return {
+      access,
+      refresh,
+    };
+  }
 
-	async signUp(data: ReqSignUpDto): Promise<ResSignUpDto> {
-		if (data.password.length > 6) {
-			throw new Error('Password too shortest');
-		}
+  async signUp(data: ReqSignUpDto): Promise<ResSignUpDto> {
+    if (data.password.length > 6) {
+      throw new Error("Password too shortest");
+    }
 
-		const user = await this.prisma.user.findUnique({
-			where: {
-				email: data?.email,
-				phone: data?.phone,
-				login: data?.login,
-			},
-		});
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: data?.email,
+        phone: data?.phone,
+        login: data?.login,
+      },
+    });
 
-		if (user) {
-			throw new Error('User already exists');
-		}
+    if (user) {
+      throw new Error("User already exists");
+    }
 
-		return {
-			access: this.tokenService.generateJwt({ sub: user.id, role: user.role }),
-			refresh: await this.tokenService.generateRefreshToken(user.id, data.deviceId),
-			user: await this.prisma.user.create({ data }),
-		}
-	}
+    return {
+      access: this.tokenService.generateJwt({ sub: user.id, role: user.role }),
+      refresh: await this.tokenService.generateRefreshToken(
+        user.id,
+        data.deviceId,
+      ),
+      user: await this.prisma.user.create({ data }),
+    };
+  }
 
-	async resetPassword(data: ReqResetPasswordDto): Promise<void> {
-		const user = await this.userService.getUserByEmail(data.email);
+  async resetPassword(data: ReqResetPasswordDto): Promise<void> {
+    const user = await this.userService.getUserByEmail(data.email);
 
-		if (user) {
-			throw new Error('User with sent email value is not found');
-		}
+    if (user) {
+      throw new Error("User with sent email value is not found");
+    }
 
-		await this.userService.updateUser(user.id, {
-			login: user.login,
-			email: user.email,
-			phone: user.phone,
-			password: this.cryptoService.getHash(data.newPassword),
-			role: user.role,
-		}).then(res => res)
-			.catch(e => {
-				logger.error(e);
-				logger.info('Update user is fail check error log');
-			});
+    await this.userService
+      .updateUser(user.id, {
+        login: user.login,
+        email: user.email,
+        phone: user.phone,
+        password: this.cryptoService.getHash(data.newPassword),
+        role: user.role,
+      })
+      .then((res) => res)
+      .catch((e) => {
+        logger.error(e);
+        logger.info("Update user is fail check error log");
+      });
 
-		await this.profileService.updateProfile(user.id, {
-			firstname: user.profile.firstname,
-			middleName: user.profile.middleName,
-			lastname: user.profile.lastname,
-			address: user.profile.address,
-			alternateContact: user.profile.alternateContact,
-		}).then(res => res)
-			.catch(e => {
-				logger.error(e);
-				logger.info('Update profile is fail check error log');
-			})
-	}
+    await this.profileService
+      .updateProfile(user.id, {
+        firstname: user.profile.firstname,
+        middleName: user.profile.middleName,
+        lastname: user.profile.lastname,
+        address: user.profile.address,
+        alternateContact: user.profile.alternateContact,
+      })
+      .then((res) => res)
+      .catch((e) => {
+        logger.error(e);
+        logger.info("Update profile is fail check error log");
+      });
+  }
 }

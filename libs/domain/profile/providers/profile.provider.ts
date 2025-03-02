@@ -4,9 +4,9 @@ import { ProfileRepository } from "../repositories/profile.repository";
 import { ProfileAdapter } from "../../../adapter/profile/profile.adapter";
 
 export const ProfileProvider: Provider[] = [
-	ProfileService,
-	{
-		provide: ProfileRepository,
-		useClass: ProfileAdapter,
-	}
+  ProfileService,
+  {
+    provide: ProfileRepository,
+    useClass: ProfileAdapter,
+  },
 ];

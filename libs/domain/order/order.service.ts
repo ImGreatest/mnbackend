@@ -7,25 +7,28 @@ import { ReqUpdateOrderDto } from "./dto/req-dto/req-update-order.dto";
 
 @Injectable()
 export class OrderService {
-	constructor(private readonly orderRep: OrderRepository) {}
+  constructor(private readonly orderRep: OrderRepository) {}
 
-	async createOrder(data: ReqCreateOrderDto): Promise<ResOrderDto> {
-		return this.orderRep.createOrder(data);
-	}
+  async createOrder(data: ReqCreateOrderDto): Promise<ResOrderDto> {
+    return this.orderRep.createOrder(data);
+  }
 
-	async getOrder(orderId: string, userId?: string): Promise<ResOrderDto> {
-		return this.orderRep.getOrder(orderId, userId);
-	}
+  async getOrder(orderId: string, userId?: string): Promise<ResOrderDto> {
+    return this.orderRep.getOrder(orderId, userId);
+  }
 
-	async getOrders(userId?: string, status?: string): Promise<ResOrdersDto> {
-		return this.orderRep.getOrders(userId, status);
-	}
+  async getOrders(userId?: string, status?: string): Promise<ResOrdersDto> {
+    return this.orderRep.getOrders(userId, status);
+  }
 
-	async updateOrder(orderId: string, data: ReqUpdateOrderDto): Promise<ResOrderDto> {
-		return this.orderRep.updateOrder(orderId, data);
-	}
+  async updateOrder(
+    orderId: string,
+    data: ReqUpdateOrderDto,
+  ): Promise<ResOrderDto> {
+    return this.orderRep.updateOrder(orderId, data);
+  }
 
-	async deleteOrder(orderId: string): Promise<void> {
-		return this.orderRep.deleteOrder(orderId);
-	}
+  async deleteOrder(orderId: string): Promise<void> {
+    return this.orderRep.deleteOrder(orderId);
+  }
 }

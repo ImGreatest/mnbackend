@@ -6,17 +6,17 @@ import { RedisStorageService } from "./redis.service";
 // TODO fix redis endpoint
 @Global()
 @Module({
-	imports: [
-		ConfigModule.forRoot(),
-		RedisModule.forRootAsync({
-			imports: [ConfigModule],
-			useFactory: (configService: ConfigService) => ({
-				url: `redis://${configService.get('REDIS_HOST')}:${configService.get('REDIS_PORT')}`,
-			}),
-			inject: [ConfigService],
-		}),
-	],
-	providers: [RedisStorageService],
-	exports: [RedisStorageService],
+  imports: [
+    ConfigModule.forRoot(),
+    RedisModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        url: `redis://${configService.get("REDIS_HOST")}:${configService.get("REDIS_PORT")}`,
+      }),
+      inject: [ConfigService],
+    }),
+  ],
+  providers: [RedisStorageService],
+  exports: [RedisStorageService],
 })
 export class RedisModuleWrapper {}

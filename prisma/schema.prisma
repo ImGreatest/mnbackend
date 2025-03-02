@@ -3,8 +3,7 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["driverAdapters", "postgresqlExtensions", "fullTextSearch", "fullTextIndex"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -66,25 +65,22 @@ model Profile {
 }
 
 model Bonus {
-  id             String           @id @default(uuid())
-  userId         String           @map("user_id") @db.VarChar() @unique
+  userId         String           @id @map("user_id") @db.VarChar() @unique
   user           User             @relation(fields: [userId], references: [id])
-  percentage     Int              @default(1) @db.Integer
-  bonusValue     Int              @default(0) @map("bonus_value") @db.Integer
-  startValue     Int              @default(0) @map("start_value") @db.Integer
+  percentage     Int?              @default(1) @db.Integer
+  bonusValue     Int?              @default(0) @map("bonus_value") @db.Integer
+  startValue     Int?              @default(0) @map("start_value") @db.Integer
   createdAt      DateTime         @default(now()) @map("created_at") @db.Timestamp(3)
   updatedAt      DateTime?        @updatedAt @map("updated_at") @db.Timestamp(3)
-  deletedAt      DateTime?        @map("deleted_at") @db.Timestamp(3)
 
   BonusOperations BonusOperations[]
 }
 
 model BonusOperations {
   id        String    @id @default(uuid())
-  content   String    @db.VarChar()
   bonusAccountId   String    @db.VarChar()
-  bonus     Bonus     @relation(fields: [bonusAccountId], references: [id])
-  orderId String @db.VarChar()
+  bonus     Bonus     @relation(fields: [bonusAccountId], references: [userId])
+  orderId String @unique @db.VarChar()
   order Order @relation(fields: [orderId], references: [id])
   amount    Int       @db.Integer
   createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp(3)
@@ -99,6 +95,7 @@ model Promo {
   type            EPromoType @default(order)
   percentage Int @default(0)
   createdAt       DateTime   @default(now()) @map("created_at") @db.Timestamp(3)
+  updatedAt DateTime? @updatedAt @db.Timestamp(3)
   deletedAt       DateTime?  @map("deleted_at") @db.Timestamp(3)
 }
 
@@ -197,6 +194,7 @@ model Product {
 model Category {
   id              String            @id @default(uuid())
   name            String            @db.VarChar(255)
+  subcategories String[] @map("sub_categories")
   createdAt       DateTime          @default(now()) @map("created_at") @db.Timestamptz(3)
   updatedAt       DateTime?         @updatedAt @map("updated_at") @db.Timestamptz(3)
   deletedAt       DateTime?         @map("deleted_at") @db.Timestamptz(3)

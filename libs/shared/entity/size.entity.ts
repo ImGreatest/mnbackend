@@ -1,3 +1,3 @@
 export interface ISize {
-	name: string;
+  name: string;
 }
