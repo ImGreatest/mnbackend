@@ -13,9 +13,14 @@ import { ResUsersDto } from "../../domain/user/dto/res-dto/res-users.dto";
 import { ERole } from "@prisma/client";
 import { ResCreatedUserDto } from "../../domain/user/dto/res-dto/res-created-user.dto";
 import { ProfileService } from "../../domain/profile/profile.service";
-import { UserException } from "../../shared/exceptions/user.exception";
-import { EErrorCode } from "../../shared/enum";
-import { ProfileException } from "../../shared/exceptions/profile.exception";
+import {
+  NotFoundProfileException,
+  NotFoundUserByEmailException,
+  NotFoundUserByIdentifierException,
+  NotFoundUserByLoginException,
+  NotFoundUserByPhoneException,
+  NotFoundUserException, UpdateUserException
+} from "../../shared/exceptions/user.exception";
 
 @Injectable()
 /**
@@ -68,8 +73,7 @@ export class UserAdapter extends UserRepository {
       },
     })
       .then(() => {
-        throw new UserException(
-          EErrorCode.Validate,
+        throw new NotFoundUserException(
           `User with email - ${JSON.stringify(data.email)} already exist`,
         );
       });
@@ -81,10 +85,7 @@ export class UserAdapter extends UserRepository {
       },
     })
       .then(() => {
-        throw new UserException(
-          EErrorCode.Validate,
-          `User with phone - ${JSON.stringify(data.phone)} already exist`,
-        );
+        throw new NotFoundUserByPhoneException({ phone: data.phone });
       });
 
     try {
@@ -135,7 +136,7 @@ export class UserAdapter extends UserRepository {
       .then(data => data)
       .catch((e) => {
         logger.error("User is not found!", e);
-        throw new UserException(EErrorCode.Unknown, "User is not found!");
+        throw new NotFoundUserByIdentifierException({ identifier: userId });
       });
   }
 
@@ -159,7 +160,12 @@ export class UserAdapter extends UserRepository {
     try {
       const user = await this.prisma.user.findUnique({
         where: { login: login },
-      });
+      })
+        .then(data => data)
+        .catch((err) => {
+          logger.error('User is not found!', err);
+          throw new NotFoundUserByLoginException({ login: login });
+        });
 
       return {
         ...user,
@@ -167,7 +173,7 @@ export class UserAdapter extends UserRepository {
           .then(data => data)
           .catch((e) => {
             logger.error("Error is not found", e);
-            throw new ProfileException(EErrorCode.Unknown, 'Profile is not found!');
+            throw new NotFoundProfileException({ userId: user.id });
           })
       };
     } catch (e) {
@@ -197,7 +203,12 @@ export class UserAdapter extends UserRepository {
     try {
       const user = await this.prisma.user.findUnique({
         where: { email: email },
-      });
+      })
+        .then(data => data)
+        .catch(err => {
+          logger.error('User is not found!', err);
+          throw new NotFoundUserByEmailException({ email: email });
+        })
 
       return {
         ...user,
@@ -205,7 +216,7 @@ export class UserAdapter extends UserRepository {
           .then(data => data)
           .catch((e) => {
             logger.error("Profile is not found!", e);
-            throw new ProfileException(EErrorCode.Unknown, "Profile is not found!");
+            throw new NotFoundProfileException({ userId: user.id });
           })
       };
     } catch (e) {
@@ -239,7 +250,7 @@ export class UserAdapter extends UserRepository {
         .then(data => data)
         .catch((e) => {
           logger.error("User is not found!", e);
-          throw new UserException(EErrorCode.Unknown, "User is not found!");
+          throw new NotFoundUserByPhoneException({ phone: phone });
         });
 
       return {
@@ -248,7 +259,7 @@ export class UserAdapter extends UserRepository {
           .then(data => data)
           .catch((e) => {
             logger.error("Profile is not found!", e);
-            throw new ProfileException(EErrorCode.Unknown, "Profile is not found!");
+            throw new NotFoundProfileException({ userId: user.id });
           }),
       };
     } catch (e) {
@@ -276,7 +287,7 @@ export class UserAdapter extends UserRepository {
         .then(data => data)
         .catch((e) => {
           logger.error("Users is not found!", e);
-          throw new UserException(EErrorCode.Unknown, "Users is not found!");
+          throw new Error('Users is not found!');
         }),
     };
   }
@@ -308,6 +319,11 @@ export class UserAdapter extends UserRepository {
         ...data,
         role: ERole[data.role],
       },
-    });
+    })
+      .then(data => data)
+      .catch((err) => {
+        logger.error("Happened error while updating user", err);
+        throw new UpdateUserException({ userId: userId, data: JSON.stringify(data) });
+      });
   }
 }
