@@ -7,7 +7,7 @@ import {
   ApiTags,
 } from "@nestjs/swagger";
 import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
-import { Roles } from "../../../libs/decorators/roles.decorator";
+import { Roles } from "../../../libs/common/decorators/roles.decorator";
 import { NotificationService } from "../../../libs/domain/notification/notification.service";
 import { ReqCreateNotificationDto } from "../../../libs/domain/notification/dto/req-dto/req-create-notification.dto";
 import { ResNotificationDto } from "../../../libs/domain/notification/dto/res-dto/res-notification.dto";
