@@ -31,7 +31,7 @@ import { MockResUserByPhone } from "../../../libs/domain/user/mocks/res-mocks/mo
 import { MockReqUpdateUser } from "../../../libs/domain/user/mocks/req-mocks/mock-req-update-user";
 import { ResUsersDto } from "../../../libs/domain/user/dto/res-dto/res-users.dto";
 import { RolesGuard } from "../../services/auth/guards/roles.guard";
-import { Roles } from "../../../libs/decorators/roles.decorator";
+import { Roles } from "../../../libs/common/decorators/roles.decorator";
 import { ResCreatedUserDto } from "../../../libs/domain/user/dto/res-dto/res-created-user.dto";
 import { ProfileService } from "../../../libs/domain/profile/profile.service";
 import { ResProfileDto } from "../../../libs/domain/profile/dto/res-dto/res-profile.dto";
