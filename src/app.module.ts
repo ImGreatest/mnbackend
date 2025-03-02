@@ -4,10 +4,10 @@ import { PrismaModule } from "../libs/services/prisma/prisma.module";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { ConfigModule } from "@nestjs/config";
-import { RabbitMQModule } from "../libs/services/rabbitmq/rabbitMQ.module";
+import { RmqModule } from "../libs/services/rabbitmq/rmq.module";
 
 @Module({
-  imports: [ConfigModule.forRoot(), PrismaModule, RabbitMQModule, ControllersModule],
+  imports: [ConfigModule.forRoot(), PrismaModule, RmqModule, ControllersModule],
   controllers: [AppController],
   providers: [AppService],
 })
