@@ -3,10 +3,10 @@ import {
   ApiBody,
   ApiOperation,
   ApiParam,
-  ApiQuery,
+  ApiQuery, ApiResponse,
   ApiTags,
 } from "@nestjs/swagger";
-import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
+import { Body, Controller, Get, HttpStatus, Param, Post, Query } from "@nestjs/common";
 import { Roles } from "../../../libs/common/decorators/roles.decorator";
 import { NotificationService } from "../../../libs/domain/notification/notification.service";
 import { ReqCreateNotificationDto } from "../../../libs/domain/notification/dto/req-dto/req-create-notification.dto";
@@ -24,6 +24,33 @@ export class NotificationController {
   @Post("create-notification")
   @ApiBody({
     type: ReqCreateNotificationDto,
+    required: true,
+    description: "Data for creating notice",
+  })
+  @ApiOperation({ summary: "Do request for creating notice" })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: "Successfully to create notice",
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: "Not correct request (non-valid)"
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: "Non-existent API key",
+  })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: "The request contains a non-existent API key or daily limit requests has been reached",
+  })
+  @ApiResponse({
+    status: HttpStatus.PAYLOAD_TOO_LARGE,
+    description: "Query length too long or too many conditions",
+  })
+  @ApiResponse({
+    status: HttpStatus.TOO_MANY_REQUESTS,
+    description: "Too many requests per second or new connections per minute",
   })
   createNotification(
     @Body() data: ReqCreateNotificationDto,
@@ -35,9 +62,34 @@ export class NotificationController {
   @ApiParam({
     type: String,
     name: "id",
+    description: "Identifier notice",
     example: faker.string.uuid(),
   })
-  @ApiOperation({})
+  @ApiOperation({ summary: "Do request for getting notice" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Request was successful",
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: "Non-existent API key",
+  })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: "The request contains a non-existent API key or daily limit requests has been reached",
+  })
+  @ApiResponse({
+    status: HttpStatus.METHOD_NOT_ALLOWED,
+    description: "The request was made with a method other than POST",
+  })
+  @ApiResponse({
+    status: HttpStatus.PAYLOAD_TOO_LARGE,
+    description: "Query length too long or too many conditions",
+  })
+  @ApiResponse({
+    status: HttpStatus.TOO_MANY_REQUESTS,
+    description: "Too many requests per second or new connections per minute",
+  })
   getNotification(@Param("id") id: string): Promise<ResNotificationDto> {
     return this.notificationService.getNotification(id);
   }
@@ -46,10 +98,42 @@ export class NotificationController {
   @ApiQuery({
     type: String,
     name: "user",
+    description: "Identifier user",
   })
   @ApiQuery({
     type: String,
     name: "template",
+    description: "Identifier template",
+  })
+  @ApiOperation({ summary: "Do request for getting all notices" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Request was successful",
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: "Not correct request (Non-valid json or xml)",
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: "Non-existent API key",
+  })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description:
+      "The request contains a non-existent API key or daily limit requests has been reached",
+  })
+  @ApiResponse({
+    status: HttpStatus.METHOD_NOT_ALLOWED,
+    description: "The request was made with a method other than POST",
+  })
+  @ApiResponse({
+    status: HttpStatus.PAYLOAD_TOO_LARGE,
+    description: "Query length too long or too many conditions",
+  })
+  @ApiResponse({
+    status: HttpStatus.TOO_MANY_REQUESTS,
+    description: "Too many requests per second or new connections per minute",
   })
   getNotifications(
     @Query("user") userId?: string,
