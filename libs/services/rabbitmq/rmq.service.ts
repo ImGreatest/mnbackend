@@ -2,6 +2,7 @@ import { Injectable, OnModuleDestroy, OnModuleInit } from "@nestjs/common";
 import * as amqp from 'amqplib';
 import { logger } from "../../../logger/logger";
 import { Observable, Subject } from "rxjs";
+import { rabbitConfig } from "../../../config/config";
 
 @Injectable()
 export class RmqService implements OnModuleInit, OnModuleDestroy {
@@ -13,7 +14,7 @@ export class RmqService implements OnModuleInit, OnModuleDestroy {
 
 	async onModuleInit() {
 		try {
-			this.connection = await amqp.connect('amqp://localhost:5672');
+			this.connection = await amqp.connect(rabbitConfig.Host + rabbitConfig.Port.toString());
 			this.connection.on('error', (err) =>
 				logger.error(`RabbitMQ connection error: `, err),
 			)
