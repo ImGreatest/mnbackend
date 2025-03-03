@@ -13,12 +13,18 @@ import { RolesGuard } from "../services/auth/guards/roles.guard";
 import { NotificationControllerModule } from "./notification/notification-controller.module";
 import { NotificationTemplateControllerModule } from "./notification-template/notification-template-controller.module";
 import { DadataControllerModule } from "../services/dadata/dadata-controller.module";
+import { BucketControllerModule } from "./bucket/bucket-controller.module";
+import { CategoryControllerModule } from "./category/category-controller.module";
+import { FavoriteControllerModule } from "./favorite/favorite-controller.module";
 
 @Module({
   imports: [
     AuthModule,
     UserControllerModule,
     BookingControllerModule,
+    BucketControllerModule,
+    CategoryControllerModule,
+    FavoriteControllerModule,
     ProductControllerModule,
     SizeControllerModule,
     OrderControllerModule,
