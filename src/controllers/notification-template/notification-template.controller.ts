@@ -6,7 +6,6 @@ import {
   Param,
   Post,
   Query,
-  UseGuards,
 } from "@nestjs/common";
 import { NotificationTemplateService } from "../../../libs/domain/notification/notification-template.service";
 import {

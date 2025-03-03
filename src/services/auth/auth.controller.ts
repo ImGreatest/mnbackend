@@ -9,7 +9,7 @@ import {
 import { ApiBearerAuth, ApiBody, ApiTags } from "@nestjs/swagger";
 import { AuthService } from "./auth.service";
 import { TokenService } from "./token.service";
-import { Public } from "libs/decorators/public.decorator";
+import { Public } from "libs/common/decorators/public.decorator";
 import { SignInDto } from "./dto/sign-in.dto";
 import { AuthDataDto } from "./dto/auth-data.dto";
 import { ResSignDto } from "./dto/res-sign.dto";
