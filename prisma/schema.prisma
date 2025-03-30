@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output = "./generated"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+enum ERole {
+  admin
+  client
+}
+
+model User {
+  id               String    @id @default(uuid()) @map("identifier")
+  username         String    @unique @map("username") @db.VarChar()
+  login            String?   @unique @map("userlogin") @db.VarChar()
+  email            String    @unique @db.VarChar(64)
+  phone            String?   @unique @db.VarChar()
+  password         String    @db.VarChar(64)
+  role             ERole     @default(client)
+  isBan Boolean @db.Boolean @default(false)
+  createdAt        DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt        DateTime? @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  Profile Profile[]
+  RefreshToken RefreshToken[]
+}
+
+model Profile {
+  userId         String           @id @map("user_id") @db.VarChar() @unique
+  user           User             @relation(fields: [userId], references: [id])
+  firstname        String?   @db.VarChar(255)
+  middleName       String?   @map("middle_name") @db.VarChar(255)
+  lastname         String?   @db.VarChar(255)
+  address          String?   @db.VarChar(255)
+  alternateContact String?   @map("alternate_contact") @db.VarChar(255)
+  createdAt        DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt        DateTime? @updatedAt @map("updated_at") @db.Timestamptz(3)
+}
+
+model RefreshToken {
+  token     String   @db.VarChar()
+  deviceId  String   @db.VarChar()
+  userId    String   @db.VarChar()
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  @@id([token, deviceId])
+}
